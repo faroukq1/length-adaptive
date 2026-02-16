@@ -7,8 +7,8 @@ __pycache__/
 *.so
 
 # Data and results
-/data/
-/results/
+# /data/
+# /results/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints
