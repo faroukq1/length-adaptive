@@ -12,7 +12,12 @@ import pickle
 import torch
 import json
 import os
+import sys
 from datetime import datetime
+from pathlib import Path
+
+# Add project root to Python path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.models.sasrec import SASRec
 from src.models.hybrid import HybridSASRecGNN
