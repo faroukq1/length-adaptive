@@ -159,9 +159,9 @@ def test_training_pipeline():
         save_dir='test_checkpoints/hybrid'
     )
     
-    checkpoint = hybrid_trainer2.load_checkpoint('test_checkpoints/hybrid/best_model.pt')
-    print(f"  ✓ Loaded checkpoint from epoch {checkpoint['epoch']}")
-    print(f"  ✓ Best val metric: {checkpoint['best_val_metric']:.4f}")
+    epoch = hybrid_trainer2.load_checkpoint('best_model.pt')
+    print(f"  ✓ Loaded checkpoint from epoch {epoch}")
+    print(f"  ✓ Best val metric: {hybrid_trainer2.history['best_val_metric']:.4f}")
     
     print("\n" + "="*60)
     print("✅ ALL TESTS PASSED!")
