@@ -362,6 +362,10 @@ if __name__ == '__main__':
         fusion_type='discrete'
     )
 
+    # Auto-detect device
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}")
+
     # Create trainer
     print("\n[4/4] Creating trainer...")
     trainer = Trainer(
@@ -371,7 +375,7 @@ if __name__ == '__main__':
         test_loader=test_loader,
         edge_index=edge_index,
         edge_weight=edge_weight,
-        device='cpu',
+        device=device,
         lr=0.001,
         patience=3,
         save_dir='test_checkpoints'

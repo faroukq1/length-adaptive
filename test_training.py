@@ -67,7 +67,10 @@ def test_training_pipeline():
         dropout=0.2
     )
     
-    device = torch.device('cpu')
+    # Auto-detect GPU/CPU
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"  Using device: {device}")
+    
     sasrec_trainer = Trainer(
         model=sasrec,
         train_loader=train_loader,
