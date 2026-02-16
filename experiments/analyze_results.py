@@ -63,15 +63,15 @@ def create_comparison_table(experiments):
         
         row = {
             'Model': model,
-            'HR@5': test_metrics['hr@5'],
-            'HR@10': test_metrics['hr@10'],
-            'HR@20': test_metrics['hr@20'],
-            'NDCG@5': test_metrics['ndcg@5'],
-            'NDCG@10': test_metrics['ndcg@10'],
-            'NDCG@20': test_metrics['ndcg@20'],
-            'MRR@5': test_metrics['mrr@5'],
-            'MRR@10': test_metrics['mrr@10'],
-            'MRR@20': test_metrics['mrr@20'],
+            'HR@5': test_metrics['HR@5'],
+            'HR@10': test_metrics['HR@10'],
+            'HR@20': test_metrics['HR@20'],
+            'NDCG@5': test_metrics['NDCG@5'],
+            'NDCG@10': test_metrics['NDCG@10'],
+            'NDCG@20': test_metrics['NDCG@20'],
+            'MRR@5': test_metrics['MRR@5'],
+            'MRR@10': test_metrics['MRR@10'],
+            'MRR@20': test_metrics['MRR@20'],
             'Best Epoch': results['best_epoch'],
             'Best Val NDCG@10': results['best_val_metric']
         }
@@ -98,9 +98,9 @@ def create_grouped_comparison(experiments):
         for group_name, metrics in grouped_metrics.items():
             groups[group_name].append({
                 'Model': model,
-                'HR@10': metrics['hr@10'],
-                'NDCG@10': metrics['ndcg@10'],
-                'MRR@10': metrics['mrr@10']
+                'HR@10': metrics['HR@10'],
+                'NDCG@10': metrics['NDCG@10'],
+                'MRR@10': metrics['MRR@10']
             })
     
     # Create dataframes for each group

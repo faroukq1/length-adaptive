@@ -89,7 +89,7 @@ def test_training_pipeline():
     
     print(f"  ✓ Epoch 1 loss: {history['train_loss'][0]:.4f}")
     print(f"  ✓ Epoch 2 loss: {history['train_loss'][1]:.4f}")
-    print(f"  ✓ Val NDCG@10: {history['val_metrics'][0]['ndcg@10']:.4f}")
+    print(f"  ✓ Val NDCG@10: {history['val_metrics'][0]['NDCG@10']:.4f}")
     
     # 4. Test Hybrid model
     print("\n[4/6] Testing Hybrid model...")
@@ -123,15 +123,15 @@ def test_training_pipeline():
     
     print(f"  ✓ Epoch 1 loss: {history['train_loss'][0]:.4f}")
     print(f"  ✓ Epoch 2 loss: {history['train_loss'][1]:.4f}")
-    print(f"  ✓ Val NDCG@10: {history['val_metrics'][0]['ndcg@10']:.4f}")
+    print(f"  ✓ Val NDCG@10: {history['val_metrics'][0]['NDCG@10']:.4f}")
     
     # 5. Test evaluation
     print("\n[5/6] Testing evaluation on test set...")
     test_metrics, grouped_metrics = hybrid_trainer.test(use_best_model=True)
     
-    print(f"  ✓ Test HR@10: {test_metrics['hr@10']:.4f}")
-    print(f"  ✓ Test NDCG@10: {test_metrics['ndcg@10']:.4f}")
-    print(f"  ✓ Test MRR@10: {test_metrics['mrr@10']:.4f}")
+    print(f"  ✓ Test HR@10: {test_metrics['HR@10']:.4f}")
+    print(f"  ✓ Test NDCG@10: {test_metrics['NDCG@10']:.4f}")
+    print(f"  ✓ Test MRR@10: {test_metrics['MRR@10']:.4f}")
     
     # 6. Test checkpoint loading
     print("\n[6/6] Testing checkpoint loading...")
