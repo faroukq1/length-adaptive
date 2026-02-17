@@ -191,7 +191,7 @@ if __name__ == '__main__':
     
     # Data paths
     parser.add_argument('--data_path', type=str, 
-                       default='data/ml-1m/processed/ml1m_sequential.pkl',
+                       default='data/ml-1m/processed/sequences.pkl',
                        help='Path to processed data')
     parser.add_argument('--graph_path', type=str,
                        default='data/graphs/cooccurrence_graph.pkl',
