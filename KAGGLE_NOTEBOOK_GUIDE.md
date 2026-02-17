@@ -84,6 +84,32 @@ Updated: February 17, 2026
 1. Settings → Internet → On
 2. This allows git clone
 
+### 5. Run Notebook - Smart Approach
+
+**⚠️ Skip Step 6 (SASRec)** - You already have baseline results!
+
+- **Run Steps 1-5** - Setup and train hybrid
+- **Skip Step 6** - SASRec (you have it already)
+- **Run Steps 8-13** - Analyze and compare
+
+**Expected Time:**
+
+- Setup: 2 minutes
+- Hybrid training: ~10 minutes (GPU)
+- Analysis: 1 minute
+- **Total: ~13 minutes** ⚡ (saved 8 min by skipping SASRec!)
+
+### 6. Download Results
+
+- After completion, scroll to bottom
+- Download `results.zip` from Output tab
+- Extract locally and merge with existing `results/` folder
+
+### 4. Set Internet Access
+
+1. Settings → Internet → On
+2. This allows git clone
+
 ### 5. Run Notebook
 
 - **Option A:** Run All (Cell → Run All)
@@ -108,15 +134,23 @@ Updated: February 17, 2026
 ### Must Run (Priority 1)
 
 ```python
-# 1. SASRec Baseline
-!python experiments/run_experiment.py --model sasrec --epochs 50 --patience 10
+# 1. SASRec Baseline (SKIP if you already have results!)
+# Only run if: first time, or changed data/hyperparameters
+# !python experiments/run_experiment.py --model sasrec --epochs 50 --patience 10
 
-# 2. Hybrid Discrete (our best)
+# 2. Hybrid Discrete (our best) - ALWAYS RUN THIS
 !python experiments/run_experiment.py --model hybrid_discrete --epochs 50 --patience 10
 ```
 
-**Time:** ~20 minutes with GPU  
-**Goal:** Verify we beat baseline
+**Time:** ~10 minutes with GPU (just hybrid, skip SASRec)  
+**Time:** ~20 minutes with GPU (if training both)  
+**Goal:** Train new hybrid variants, compare with existing baseline
+
+**💡 Pro Tip:** You already have SASRec results from Feb 17: `sasrec_20260217_083601/`
+
+- SASRec hasn't changed → No need to retrain!
+- Just train new hybrid models and compare against existing baseline
+- Saves ~8-10 minutes per run
 
 ### Should Run (Priority 2)
 
