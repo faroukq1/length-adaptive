@@ -16,7 +16,7 @@ class Evaluator:
 
     @torch.no_grad()
     def evaluate(self, eval_loader, edge_index, edge_weight=None, k_list=[5, 10, 20], 
-                 compute_by_group=False, verbose=True):
+                 compute_by_group=False, verbose=True, track_alpha=False):
         """
         Evaluate model on validation or test set
 
@@ -27,14 +27,17 @@ class Evaluator:
             k_list: List of K values for metrics
             compute_by_group: Whether to compute metrics by user group
             verbose: Whether to show progress bar
+            track_alpha: Whether to track alpha values (for hybrid models)
 
         Returns:
             metrics: Dictionary of evaluation metrics
+            alpha_stats: (Optional) Dictionary of alpha statistics if track_alpha=True
         """
         self.model.eval()
 
         all_ranks = []
         all_lengths = []
+        all_alphas = [] if track_alpha else None
 
         iterator = tqdm(eval_loader, desc="Evaluating") if verbose else eval_loader
 
@@ -43,6 +46,11 @@ class Evaluator:
             seq = batch['sequence'].to(self.device)
             lengths = batch['length'].to(self.device)
             targets = batch['target'].to(self.device)
+
+            # Track alpha values if requested
+            if track_alpha and hasattr(self.model, 'fusion'):
+                alphas = self.model.fusion.compute_alpha(lengths)
+                all_alphas.append(alphas.cpu())
 
             # Forward pass - check if model uses graph
             if edge_index is not None and hasattr(self.model, 'gnn'):
@@ -68,6 +76,12 @@ class Evaluator:
             metrics = compute_metrics_by_group(all_ranks, all_lengths, k_list)
         else:
             metrics = compute_all_metrics(all_ranks, k_list)
+
+        # Compute alpha statistics if tracked
+        if track_alpha and all_alphas:
+            all_alphas = torch.cat(all_alphas)
+            alpha_stats = self._compute_alpha_stats(all_alphas, all_lengths)
+            return metrics, alpha_stats
 
         return metrics
 
@@ -95,6 +109,71 @@ class Evaluator:
         ranks = (scores >= target_scores.unsqueeze(1)).sum(dim=1)
 
         return ranks
+
+    def _compute_alpha_stats(self, all_alphas, all_lengths, short_thresh=10, long_thresh=50):
+        """
+        Compute statistics about alpha values across length groups
+        
+        Args:
+            all_alphas: [num_samples, 1] - alpha values
+            all_lengths: [num_samples] - sequence lengths
+            short_thresh: threshold for short users
+            long_thresh: threshold for long users
+        
+        Returns:
+            alpha_stats: Dictionary of alpha statistics by group
+        """
+        all_alphas = all_alphas.squeeze()
+        
+        # Split by groups
+        short_mask = all_lengths <= short_thresh
+        long_mask = all_lengths > long_thresh
+        mid_mask = ~(short_mask | long_mask)
+        
+        stats = {}
+        
+        # Short users
+        if short_mask.sum() > 0:
+            short_alphas = all_alphas[short_mask]
+            stats['short'] = {
+                'mean': short_alphas.mean().item(),
+                'std': short_alphas.std().item(),
+                'min': short_alphas.min().item(),
+                'max': short_alphas.max().item(),
+                'count': short_mask.sum().item()
+            }
+        
+        # Medium users
+        if mid_mask.sum() > 0:
+            mid_alphas = all_alphas[mid_mask]
+            stats['medium'] = {
+                'mean': mid_alphas.mean().item(),
+                'std': mid_alphas.std().item(),
+                'min': mid_alphas.min().item(),
+                'max': mid_alphas.max().item(),
+                'count': mid_mask.sum().item()
+            }
+        
+        # Long users
+        if long_mask.sum() > 0:
+            long_alphas = all_alphas[long_mask]
+            stats['long'] = {
+                'mean': long_alphas.mean().item(),
+                'std': long_alphas.std().item(),
+                'min': long_alphas.min().item(),
+                'max': long_alphas.max().item(),
+                'count': long_mask.sum().item()
+            }
+        
+        # Overall
+        stats['overall'] = {
+            'mean': all_alphas.mean().item(),
+            'std': all_alphas.std().item(),
+            'min': all_alphas.min().item(),
+            'max': all_alphas.max().item()
+        }
+        
+        return stats
 
     def print_metrics(self, metrics, title="Evaluation Results"):
         """Pretty print evaluation metrics"""

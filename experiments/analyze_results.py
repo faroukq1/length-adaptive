@@ -164,14 +164,14 @@ def print_results(experiments):
     sasrec_exp = next((e for e in experiments if e['model'] == 'sasrec'), None)
     
     if sasrec_exp:
-        sasrec_ndcg = sasrec_exp['results']['test_metrics']['ndcg@10']
+        sasrec_ndcg = sasrec_exp['results']['test_metrics']['NDCG@10']
         
         print(f"\nSASRec baseline NDCG@10: {sasrec_ndcg:.4f}")
         print("\nImprovements over SASRec:")
         
         for exp in experiments:
             if exp['model'] != 'sasrec':
-                ndcg = exp['results']['test_metrics']['ndcg@10']
+                ndcg = exp['results']['test_metrics']['NDCG@10']
                 improvement = ((ndcg - sasrec_ndcg) / sasrec_ndcg) * 100
                 
                 symbol = "✓" if improvement > 0 else "✗"
