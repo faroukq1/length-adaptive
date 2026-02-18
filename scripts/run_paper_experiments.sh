@@ -15,12 +15,8 @@ echo "⚠️  Time estimate:"
 echo "   GPU: ~3-4 hours total"
 echo "   CPU: ~20-30 hours total"
 echo ""
-read -p "Continue? (y/n) " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 1
-fi
+echo "Starting experiments..."
+echo ""
 
 # Create results directory
 mkdir -p results
