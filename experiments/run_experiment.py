@@ -20,6 +20,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.models.sasrec import SASRec
+from src.models.bert4rec import BERT4Rec
+from src.models.gru4rec import GRU4Rec
+from src.models.lightgcn_seq import LightGCNSeq
 from src.models.hybrid import HybridSASRecGNN
 from src.data.dataloader import get_dataloaders
 from src.train.trainer import Trainer
@@ -37,6 +40,35 @@ def create_model(model_type, num_items, args):
             d_ff=args.d_ff,
             max_len=args.max_len,
             dropout=args.dropout
+        )
+    
+    elif model_type == 'bert4rec':
+        model = BERT4Rec(
+            num_items=num_items,
+            d_model=args.d_model,
+            n_heads=args.n_heads,
+            n_blocks=args.n_blocks,
+            d_ff=args.d_ff,
+            max_len=args.max_len,
+            dropout=args.dropout
+        )
+    
+    elif model_type == 'gru4rec':
+        model = GRU4Rec(
+            num_items=num_items,
+            d_model=args.d_model,
+            n_layers=args.n_blocks,  # Use n_blocks as n_layers for GRU
+            dropout=args.dropout,
+            max_len=args.max_len
+        )
+    
+    elif model_type == 'lightgcn':
+        model = LightGCNSeq(
+            num_items=num_items,
+            d_model=args.d_model,
+            num_layers=args.gnn_layers,
+            dropout=args.dropout,
+            max_len=args.max_len
         )
     
     elif model_type in ['hybrid_fixed', 'hybrid_discrete', 'hybrid_learnable', 'hybrid_continuous']:
@@ -185,7 +217,8 @@ if __name__ == '__main__':
     
     # Model selection
     parser.add_argument('--model', type=str, default='hybrid_discrete',
-                       choices=['sasrec', 'hybrid_fixed', 'hybrid_discrete', 
+                       choices=['sasrec', 'bert4rec', 'gru4rec', 'lightgcn',
+                               'hybrid_fixed', 'hybrid_discrete', 
                                'hybrid_learnable', 'hybrid_continuous'],
                        help='Model type to train')
     

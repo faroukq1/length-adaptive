@@ -1,6 +1,7 @@
 import torch
 from tqdm import tqdm
 from src.eval.metrics import compute_all_metrics, compute_metrics_by_group
+from src.models.lightgcn_seq import LightGCNSeq
 
 class Evaluator:
     """Evaluator for sequential recommendation models"""
@@ -13,10 +14,11 @@ class Evaluator:
         """
         self.model = model
         self.device = device
+        self.is_lightgcn = isinstance(model, LightGCNSeq)
 
     @torch.no_grad()
     def evaluate(self, eval_loader, edge_index, edge_weight=None, k_list=[5, 10, 20], 
-                 compute_by_group=False, verbose=True, track_alpha=False):
+                 compute_by_group=False, verbose=True, track_alpha=False, graph_emb=None):
         """
         Evaluate model on validation or test set
 
@@ -28,6 +30,7 @@ class Evaluator:
             compute_by_group: Whether to compute metrics by user group
             verbose: Whether to show progress bar
             track_alpha: Whether to track alpha values (for hybrid models)
+            graph_emb: Precomputed graph embeddings (for LightGCN)
 
         Returns:
             metrics: Dictionary of evaluation metrics
@@ -52,14 +55,19 @@ class Evaluator:
                 alphas = self.model.fusion.compute_alpha(lengths)
                 all_alphas.append(alphas.cpu())
 
-            # Forward pass - check if model uses graph
-            if edge_index is not None and hasattr(self.model, 'gnn'):
+            # Forward pass - check model type
+            if self.is_lightgcn:
+                seq_repr = self.model(seq, lengths, graph_emb=graph_emb)
+            elif edge_index is not None and hasattr(self.model, 'gnn'):
                 seq_repr = self.model(seq, lengths, edge_index, edge_weight)
             else:
                 seq_repr = self.model(seq, lengths)
 
             # Get scores for all items
-            scores = self.model.predict(seq_repr)  # [batch_size, num_items]
+            if self.is_lightgcn:
+                scores = self.model.predict(seq_repr, graph_emb=graph_emb)  # [batch_size, num_items]
+            else:
+                scores = self.model.predict(seq_repr)  # [batch_size, num_items]
 
             # Compute ranks
             ranks = self.compute_ranks(scores, targets)

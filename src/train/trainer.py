@@ -5,6 +5,7 @@ import os
 import time
 from src.train.loss import BPRLoss
 from src.eval.evaluator import Evaluator
+from src.models.lightgcn_seq import LightGCNSeq
 
 class Trainer:
     """Trainer for sequential recommendation models"""
@@ -51,8 +52,19 @@ class Trainer:
         self.patience = patience
         self.save_dir = save_dir
         
-        # Check if model uses graph (Hybrid models have 'gnn' attribute)
-        self.use_graph = hasattr(model, 'gnn')
+        # Check if model uses graph
+        self.use_graph = hasattr(model, 'gnn') or isinstance(model, LightGCNSeq)
+        self.is_lightgcn = isinstance(model, LightGCNSeq)
+        
+        # Precompute graph embeddings for LightGCN (done once, reused for all batches)
+        self.graph_emb = None
+        if self.is_lightgcn and self.edge_index is not None:
+            print("Precomputing LightGCN graph embeddings...")
+            with torch.no_grad():
+                self.graph_emb = self.model.compute_graph_embeddings(
+                    self.edge_index, 
+                    self.edge_weight
+                )
 
         # Optimizer
         if optimizer is None:
@@ -100,14 +112,23 @@ class Trainer:
             negatives = batch['negatives'].to(self.device)
 
             # Forward pass
-            if self.use_graph:
+            if self.is_lightgcn:
+                # LightGCN uses precomputed graph embeddings
+                seq_repr = self.model(seq, lengths, graph_emb=self.graph_emb)
+            elif self.use_graph:
+                # Hybrid models pass graph structure directly
                 seq_repr = self.model(seq, lengths, self.edge_index, self.edge_weight)
             else:
+                # Sequential models (SASRec, BERT4Rec, GRU4Rec) don't use graph
                 seq_repr = self.model(seq, lengths)
 
             # Get scores for positive and negative items
-            pos_scores = self.model.predict(seq_repr, targets.unsqueeze(1)).squeeze(1)
-            neg_scores = self.model.predict(seq_repr, negatives)
+            if self.is_lightgcn:
+                pos_scores = self.model.predict(seq_repr, targets.unsqueeze(1), graph_emb=self.graph_emb).squeeze(1)
+                neg_scores = self.model.predict(seq_repr, negatives, graph_emb=self.graph_emb)
+            else:
+                pos_scores = self.model.predict(seq_repr, targets.unsqueeze(1)).squeeze(1)
+                neg_scores = self.model.predict(seq_repr, negatives)
 
             # Compute loss
             loss = self.criterion(pos_scores, neg_scores)
@@ -120,7 +141,17 @@ class Trainer:
             # Update stats
             total_loss += loss.item()
             num_batches += 1
-
+is_lightgcn:
+            metrics = self.evaluator.evaluate(
+                data_loader,
+                self.edge_index,
+                self.edge_weight,
+                k_list=[5, 10, 20],
+                compute_by_group=False,
+                verbose=True,
+                graph_emb=self.graph_emb
+            )
+        elif self.
             # Update progress bar
             pbar.set_postfix({'loss': f'{loss.item():.4f}'})
 
@@ -278,7 +309,17 @@ class Trainer:
         print("="*60)
 
         # Test overall
-        if self.use_graph:
+        if self.is_lightgcn:
+            test_metrics = self.evaluator.evaluate(
+                self.test_loader,
+                self.edge_index,
+                self.edge_weight,
+                k_list=[5, 10, 20],
+                compute_by_group=False,
+                verbose=True,
+                graph_emb=self.graph_emb
+            )
+        elif self.use_graph:
             test_metrics = self.evaluator.evaluate(
                 self.test_loader,
                 self.edge_index,
@@ -301,7 +342,17 @@ class Trainer:
 
         # Test by group
         print("\nComputing metrics by user group...")
-        if self.use_graph:
+        if self.is_lightgcn:
+            grouped_metrics = self.evaluator.evaluate(
+                self.test_loader,
+                self.edge_index,
+                self.edge_weight,
+                k_list=[10, 20],
+                compute_by_group=True,
+                verbose=False,
+                graph_emb=self.graph_emb
+            )
+        elif self.use_graph:
             grouped_metrics = self.evaluator.evaluate(
                 self.test_loader,
                 self.edge_index,
