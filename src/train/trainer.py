@@ -141,7 +141,16 @@ class Trainer:
             # Update stats
             total_loss += loss.item()
             num_batches += 1
-is_lightgcn:
+
+            # Update progress bar
+            pbar.set_postfix({'loss': f'{loss.item():.4f}'})
+
+        avg_loss = total_loss / num_batches
+        return avg_loss
+
+    def evaluate_epoch(self, data_loader, desc="Validating"):
+        """Evaluate on validation or test set"""
+        if self.is_lightgcn:
             metrics = self.evaluator.evaluate(
                 data_loader,
                 self.edge_index,
@@ -151,16 +160,7 @@ is_lightgcn:
                 verbose=True,
                 graph_emb=self.graph_emb
             )
-        elif self.
-            # Update progress bar
-            pbar.set_postfix({'loss': f'{loss.item():.4f}'})
-
-        avg_loss = total_loss / num_batches
-        return avg_loss
-
-    def evaluate_epoch(self, data_loader, desc="Validating"):
-        """Evaluate on validation or test set"""
-        if self.use_graph:
+        elif self.use_graph:
             metrics = self.evaluator.evaluate(
                 data_loader,
                 self.edge_index,
