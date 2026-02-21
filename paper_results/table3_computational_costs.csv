@@ -1,0 +1,6 @@
+Model,Total_Params,Params_M,Param_Overhead_%,Best_Epoch,NDCG@10,Efficiency
+bert4rec,340544,0.340544,0.000000,50,0.065240,0.191576
+bert_hybrid_fixed,581952,0.581952,70.888931,47,0.069412,0.119274
+bert_hybrid_discrete,581952,0.581952,70.888931,53,0.067672,0.116284
+bert_hybrid_learnable,581955,0.581955,70.889812,78,0.063258,0.108699
+bert_hybrid_continuous,582049,0.582049,70.917414,50,0.063231,0.108636
