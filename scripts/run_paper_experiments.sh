@@ -53,7 +53,7 @@ GNN_LAYERS=2
 # 1. SASRec baseline
 echo ""
 echo "[1/8] Training SASRec (Transformer baseline)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model sasrec \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -70,7 +70,7 @@ echo ""
 
 # 2. BERT4Rec baseline
 echo "[2/8] Training BERT4Rec (Bidirectional Transformer)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model bert4rec \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -87,7 +87,7 @@ echo ""
 
 # 3. GRU4Rec baseline
 echo "[3/8] Training GRU4Rec (RNN baseline)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model gru4rec \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -103,7 +103,7 @@ echo ""
 
 # 4. LightGCN baseline
 echo "[4/8] Training LightGCN (GNN baseline)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model lightgcn \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -123,7 +123,7 @@ echo ""
 
 # 5. Hybrid with Fixed fusion
 echo "[5/8] Training Hybrid (Fixed α=0.5)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model hybrid_fixed \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -142,7 +142,7 @@ echo ""
 
 # 6. Hybrid with Discrete fusion
 echo "[6/8] Training Hybrid (Discrete Bins)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model hybrid_discrete \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -162,7 +162,7 @@ echo ""
 
 # 7. Hybrid with Learnable fusion
 echo "[7/8] Training Hybrid (Learnable)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model hybrid_learnable \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -180,7 +180,7 @@ echo ""
 
 # 8. Hybrid with Continuous fusion
 echo "[8/8] Training Hybrid (Continuous)..."
-python3 -m experiments.run_experiment \
+python -m experiments.run_experiment \
     --model hybrid_continuous \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -214,5 +214,5 @@ echo "  ✓ Hybrid Learnable (MLP)"
 echo "  ✓ Hybrid Continuous (sigmoid)"
 echo ""
 echo "To analyze results, run:"
-echo "  python3 -m experiments.analyze_results"
+echo "  python -m experiments.analyze_results"
 echo ""
