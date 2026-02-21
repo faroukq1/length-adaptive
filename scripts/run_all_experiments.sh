@@ -3,9 +3,19 @@
 # Run all experiments for model comparison
 # This will train each model for 50 epochs and save results
 
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Get the project root (parent of scripts directory)
+PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+
+# Change to project root
+cd "$PROJECT_ROOT"
+
 echo "========================================"
 echo "RUNNING ALL EXPERIMENTS"
 echo "========================================"
+echo ""
+echo "Working directory: $PROJECT_ROOT"
 echo ""
 
 # Create results directory
@@ -22,7 +32,7 @@ N_BLOCKS=2
 
 # 1. SASRec baseline
 echo "[1/5] Training SASRec..."
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model sasrec \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
@@ -38,7 +48,7 @@ echo ""
 
 # 2. Hybrid with Fixed fusion
 echo "[2/5] Training Hybrid (Fixed α=0.5)..."
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model hybrid_fixed \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
@@ -55,7 +65,7 @@ echo ""
 
 # 3. Hybrid with Discrete fusion
 echo "[3/5] Training Hybrid (Discrete Bins)..."
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model hybrid_discrete \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
@@ -73,7 +83,7 @@ echo ""
 
 # 4. Hybrid with Learnable fusion
 echo "[4/5] Training Hybrid (Learnable)..."
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model hybrid_learnable \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
@@ -89,7 +99,7 @@ echo ""
 
 # 5. Hybrid with Continuous fusion
 echo "[5/5] Training Hybrid (Continuous)..."
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model hybrid_continuous \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
@@ -111,5 +121,5 @@ echo ""
 echo "Results saved in: results/"
 echo ""
 echo "To analyze results, run:"
-echo "  python experiments/analyze_results.py"
+echo "  python3 -m experiments.analyze_results"
 echo ""

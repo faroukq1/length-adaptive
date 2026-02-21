@@ -4,9 +4,19 @@
 # This script compares BERT4Rec baseline with all 4 BERT+GNN hybrid variations
 # Expected time: ~6-8 hours (GPU) or ~30-40 hours (CPU)
 
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Get the project root (parent of scripts directory)
+PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+
+# Change to project root
+cd "$PROJECT_ROOT"
+
 echo "========================================"
 echo "BERT4Rec + GNN HYBRID EXPERIMENTS"
 echo "========================================"
+echo ""
+echo "Working directory: $PROJECT_ROOT"
 echo ""
 echo "This compares BERT4Rec (bidirectional) with BERT+GNN hybrids"
 echo "to properly evaluate if GNN improves bidirectional transformers"
@@ -50,7 +60,7 @@ D_FF=256
 echo ""
 echo "[1/5] Training BERT4Rec (baseline)..."
 echo "--------------------------------------"
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model bert4rec \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -73,7 +83,7 @@ echo ""
 # 2. Fixed Fusion
 echo "[2/5] Training BERT4Rec + GNN (Fixed α=0.5)..."
 echo "--------------------------------------"
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model bert_hybrid_fixed \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -94,7 +104,7 @@ echo ""
 # 3. Discrete Fusion
 echo "[3/5] Training BERT4Rec + GNN (Discrete bins)..."
 echo "--------------------------------------"
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model bert_hybrid_discrete \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -116,7 +126,7 @@ echo ""
 # 4. Learnable Fusion
 echo "[4/5] Training BERT4Rec + GNN (Learnable bins)..."
 echo "--------------------------------------"
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model bert_hybrid_learnable \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -138,7 +148,7 @@ echo ""
 # 5. Continuous Fusion
 echo "[5/5] Training BERT4Rec + GNN (Continuous function)..."
 echo "--------------------------------------"
-python experiments/run_experiment.py \
+python3 -m experiments.run_experiment \
     --model bert_hybrid_continuous \
     --epochs $EPOCHS \
     --patience $PATIENCE \
@@ -167,7 +177,7 @@ echo ""
 echo "Results saved in: results/"
 echo ""
 echo "To analyze results, run:"
-echo "  python experiments/analyze_results.py"
+echo "  python3 -m experiments.analyze_results"
 echo ""
 echo "To create visualizations, run:"
 echo "  bash experiments/run_all_analysis.sh"
