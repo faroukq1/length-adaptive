@@ -1,0 +1,5 @@
+Model,NDCG@10,NDCG_Improvement_%,HR@10,HR_Improvement_%,Sig_Level
+bert_hybrid_fixed,0.069412,6.394391,0.141034,2.653796,p < 0.01
+bert_hybrid_discrete,0.067672,3.727176,0.138880,1.085644,p < 0.05
+bert_hybrid_learnable,0.063258,-3.037906,0.134405,-2.171300,p < 0.05
+bert_hybrid_continuous,0.063231,-3.078905,0.133245,-3.015685,p < 0.05

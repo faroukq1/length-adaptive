@@ -1,0 +1,15 @@
+\begin{table}
+\caption{Overall Performance Comparison}
+\label{tab:main_results}
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+Model & HR@5 & HR@10 & HR@20 & NDCG@5 & NDCG@10 & NDCG@20 & MRR@5 & MRR@10 & MRR@20 & Best_Epoch \\
+\midrule
+bert_hybrid_fixed & 0.0805 & 0.1410 & 0.2304 & 0.0501 & 0.0694 & 0.0920 & 0.0402 & 0.0480 & 0.0542 & 47 \\
+bert_hybrid_discrete & 0.0834 & 0.1389 & 0.2275 & 0.0500 & 0.0677 & 0.0899 & 0.0391 & 0.0463 & 0.0523 & 53 \\
+bert4rec & 0.0757 & 0.1374 & 0.2274 & 0.0453 & 0.0652 & 0.0879 & 0.0354 & 0.0437 & 0.0498 & 50 \\
+bert_hybrid_learnable & 0.0777 & 0.1344 & 0.2297 & 0.0451 & 0.0633 & 0.0872 & 0.0345 & 0.0419 & 0.0484 & 78 \\
+bert_hybrid_continuous & 0.0746 & 0.1332 & 0.2320 & 0.0444 & 0.0632 & 0.0880 & 0.0345 & 0.0422 & 0.0489 & 50 \\
+\bottomrule
+\end{tabular}
+\end{table}

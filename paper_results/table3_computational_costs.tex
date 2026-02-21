@@ -1,0 +1,15 @@
+\begin{table}
+\caption{Computational Cost Analysis}
+\label{tab:computational_costs}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & Total_Params & Params_M & Param_Overhead_% & Best_Epoch & NDCG@10 & Efficiency \\
+\midrule
+bert4rec & 340544 & 0.3405 & 0.0000 & 50 & 0.0652 & 0.1916 \\
+bert_hybrid_fixed & 581952 & 0.5820 & 70.8889 & 47 & 0.0694 & 0.1193 \\
+bert_hybrid_discrete & 581952 & 0.5820 & 70.8889 & 53 & 0.0677 & 0.1163 \\
+bert_hybrid_learnable & 581955 & 0.5820 & 70.8898 & 78 & 0.0633 & 0.1087 \\
+bert_hybrid_continuous & 582049 & 0.5820 & 70.9174 & 50 & 0.0632 & 0.1086 \\
+\bottomrule
+\end{tabular}
+\end{table}
