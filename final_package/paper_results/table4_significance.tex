@@ -1,0 +1,26 @@
+\begin{table}
+\caption{Statistical Significance: Hybrids vs All Baselines}
+\label{tab:significance}
+\begin{tabular}{llrrl}
+\toprule
+Hybrid & Baseline & NDCG_Improvement_% & HR_Improvement_% & Sig_Level \\
+\midrule
+bert_hybrid_fixed & bert4rec & 5.7507 & 5.3076 & p < 0.01 \\
+bert_hybrid_fixed & sasrec & 54.6149 & 47.7157 & p < 0.01 \\
+bert_hybrid_fixed & gru4rec & 125.3217 & 116.0891 & p < 0.01 \\
+bert_hybrid_fixed & lightgcn & 553.8261 & 485.9060 & p < 0.01 \\
+bert_hybrid_discrete & bert4rec & 0.3380 & 2.8950 & p ≥ 0.05 \\
+bert_hybrid_discrete & sasrec & 46.7012 & 44.3316 & p < 0.01 \\
+bert_hybrid_discrete & gru4rec & 113.7890 & 111.1386 & p < 0.01 \\
+bert_hybrid_discrete & lightgcn & 520.3612 & 472.4832 & p < 0.01 \\
+bert_hybrid_continuous & bert4rec & -1.2854 & 0.1206 & p < 0.05 \\
+bert_hybrid_continuous & sasrec & 44.3277 & 40.4399 & p < 0.01 \\
+bert_hybrid_continuous & gru4rec & 110.3301 & 105.4455 & p < 0.01 \\
+bert_hybrid_continuous & lightgcn & 510.3244 & 457.0470 & p < 0.01 \\
+bert_hybrid_learnable & bert4rec & -3.4514 & -1.6888 & p < 0.05 \\
+bert_hybrid_learnable & sasrec & 41.1609 & 37.9019 & p < 0.01 \\
+bert_hybrid_learnable & gru4rec & 105.7150 & 101.7327 & p < 0.01 \\
+bert_hybrid_learnable & lightgcn & 496.9325 & 446.9798 & p < 0.01 \\
+\bottomrule
+\end{tabular}
+\end{table}
