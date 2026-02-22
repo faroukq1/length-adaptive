@@ -1,0 +1,26 @@
+\begin{table}
+\caption{Statistical Significance: Hybrids vs All Baselines}
+\label{tab:significance}
+\begin{tabular}{llrrl}
+\toprule
+Hybrid & Baseline & NDCG_Improvement_% & HR_Improvement_% & Sig_Level \\
+\midrule
+hybrid_continuous & bert4rec & -28.2855 & -26.2967 & p < 0.01 \\
+hybrid_continuous & sasrec & 4.8516 & 3.3841 & p < 0.05 \\
+hybrid_continuous & gru4rec & 52.8011 & 51.2376 & p < 0.01 \\
+hybrid_continuous & lightgcn & 343.3900 & 310.0671 & p < 0.01 \\
+hybrid_discrete & bert4rec & -30.4301 & -29.5537 & p < 0.01 \\
+hybrid_discrete & sasrec & 1.7161 & -1.1844 & p < 0.05 \\
+hybrid_discrete & gru4rec & 48.2317 & 44.5545 & p < 0.01 \\
+hybrid_discrete & lightgcn & 330.1308 & 291.9463 & p < 0.01 \\
+hybrid_fixed & bert4rec & -32.4430 & -32.8106 & p < 0.01 \\
+hybrid_fixed & sasrec & -1.2269 & -5.7530 & p < 0.05 \\
+hybrid_fixed & gru4rec & 43.9428 & 37.8713 & p < 0.01 \\
+hybrid_fixed & lightgcn & 317.6855 & 273.8255 & p < 0.01 \\
+hybrid_learnable & bert4rec & -33.7295 & -30.2774 & p < 0.01 \\
+hybrid_learnable & sasrec & -3.1078 & -2.1997 & p < 0.05 \\
+hybrid_learnable & gru4rec & 41.2018 & 43.0693 & p < 0.01 \\
+hybrid_learnable & lightgcn & 309.7318 & 287.9195 & p < 0.01 \\
+\bottomrule
+\end{tabular}
+\end{table}

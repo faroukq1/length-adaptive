@@ -23,7 +23,7 @@ echo "Expected to converge at epoch 30-50"
 echo ""
 echo "Models:"
 echo "  Baselines: SASRec, BERT4Rec, GRU4Rec, LightGCN"
-echo "  Hybrid: Fixed, Discrete, Learnable, Continuous"
+echo "  Hybrid: BERT4Rec+GNN (Fixed, Discrete, Learnable, Continuous)"
 echo ""
 echo "⚠️  Time estimate:"
 echo "   GPU: ~8-10 hours total"
@@ -121,10 +121,10 @@ echo ""
 # HYBRID MODELS
 # ============================================
 
-# 5. Hybrid with Fixed fusion
-echo "[5/8] Training Hybrid (Fixed α=0.5)..."
+# 5. BERT4Rec+GNN Hybrid with Fixed fusion
+echo "[5/8] Training BERT4Rec+GNN Hybrid (Fixed α=0.5)..."
 python -m experiments.run_experiment \
-    --model hybrid_fixed \
+    --model bert_hybrid_fixed \
     --epochs $EPOCHS \
     --patience $PATIENCE \
     --batch_size $BATCH_SIZE \
@@ -137,13 +137,13 @@ python -m experiments.run_experiment \
     --fixed_alpha 0.5
 
 echo ""
-echo "✓ Hybrid (Fixed) complete"
+echo "✓ BERT4Rec+GNN Hybrid (Fixed) complete"
 echo ""
 
-# 6. Hybrid with Discrete fusion
-echo "[6/8] Training Hybrid (Discrete Bins)..."
+# 6. BERT4Rec+GNN Hybrid with Discrete fusion
+echo "[6/8] Training BERT4Rec+GNN Hybrid (Discrete Bins)..."
 python -m experiments.run_experiment \
-    --model hybrid_discrete \
+    --model bert_hybrid_discrete \
     --epochs $EPOCHS \
     --patience $PATIENCE \
     --batch_size $BATCH_SIZE \
@@ -157,13 +157,13 @@ python -m experiments.run_experiment \
     --L_long 50
 
 echo ""
-echo "✓ Hybrid (Discrete) complete"
+echo "✓ BERT4Rec+GNN Hybrid (Discrete) complete"
 echo ""
 
-# 7. Hybrid with Learnable fusion
-echo "[7/8] Training Hybrid (Learnable)..."
+# 7. BERT4Rec+GNN Hybrid with Learnable fusion
+echo "[7/8] Training BERT4Rec+GNN Hybrid (Learnable)..."
 python -m experiments.run_experiment \
-    --model hybrid_learnable \
+    --model bert_hybrid_learnable \
     --epochs $EPOCHS \
     --patience $PATIENCE \
     --batch_size $BATCH_SIZE \
@@ -175,13 +175,13 @@ python -m experiments.run_experiment \
     --max_len $MAX_LEN
 
 echo ""
-echo "✓ Hybrid (Learnable) complete"
+echo "✓ BERT4Rec+GNN Hybrid (Learnable) complete"
 echo ""
 
-# 8. Hybrid with Continuous fusion
-echo "[8/8] Training Hybrid (Continuous)..."
+# 8. BERT4Rec+GNN Hybrid with Continuous fusion
+echo "[8/8] Training BERT4Rec+GNN Hybrid (Continuous)..."
 python -m experiments.run_experiment \
-    --model hybrid_continuous \
+    --model bert_hybrid_continuous \
     --epochs $EPOCHS \
     --patience $PATIENCE \
     --batch_size $BATCH_SIZE \
@@ -193,7 +193,7 @@ python -m experiments.run_experiment \
     --max_len $MAX_LEN
 
 echo ""
-echo "✓ Hybrid (Continuous) complete"
+echo "✓ BERT4Rec+GNN Hybrid (Continuous) complete"
 echo ""
 
 # Print summary
@@ -208,10 +208,10 @@ echo "  ✓ SASRec (Transformer baseline)"
 echo "  ✓ BERT4Rec (Bidirectional Transformer)"
 echo "  ✓ GRU4Rec (RNN baseline)"
 echo "  ✓ LightGCN (GNN baseline)"
-echo "  ✓ Hybrid Fixed (α=0.5)"
-echo "  ✓ Hybrid Discrete (bins)"
-echo "  ✓ Hybrid Learnable (MLP)"
-echo "  ✓ Hybrid Continuous (sigmoid)"
+echo "  ✓ BERT4Rec+GNN Hybrid Fixed (α=0.5)"
+echo "  ✓ BERT4Rec+GNN Hybrid Discrete (bins)"
+echo "  ✓ BERT4Rec+GNN Hybrid Learnable (MLP)"
+echo "  ✓ BERT4Rec+GNN Hybrid Continuous (sigmoid)"
 echo ""
 echo "To analyze results, run:"
 echo "  python -m experiments.analyze_results"

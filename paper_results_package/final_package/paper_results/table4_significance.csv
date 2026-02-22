@@ -1,0 +1,17 @@
+Hybrid,Baseline,NDCG_Improvement_%,HR_Improvement_%,Sig_Level
+hybrid_continuous,bert4rec,-28.285546,-26.296746,p < 0.01
+hybrid_continuous,sasrec,4.851592,3.384099,p < 0.05
+hybrid_continuous,gru4rec,52.801143,51.237625,p < 0.01
+hybrid_continuous,lightgcn,343.390016,310.067126,p < 0.01
+hybrid_discrete,bert4rec,-30.430112,-29.553685,p < 0.01
+hybrid_discrete,sasrec,1.716084,-1.184433,p < 0.05
+hybrid_discrete,gru4rec,48.231740,44.554451,p < 0.01
+hybrid_discrete,lightgcn,330.130772,291.946305,p < 0.01
+hybrid_fixed,bert4rec,-32.443032,-32.810618,p < 0.01
+hybrid_fixed,sasrec,-1.226947,-5.752957,p < 0.05
+hybrid_fixed,gru4rec,43.942836,37.871289,p < 0.01
+hybrid_fixed,lightgcn,317.685465,273.825515,p < 0.01
+hybrid_learnable,bert4rec,-33.729468,-30.277446,p < 0.01
+hybrid_learnable,sasrec,-3.107807,-2.199658,p < 0.05
+hybrid_learnable,gru4rec,41.201841,43.069308,p < 0.01
+hybrid_learnable,lightgcn,309.731796,287.919473,p < 0.01

@@ -1,0 +1,9 @@
+Model,Model_Type,Total_Params,Params_M,Param_Overhead_vs_BERT_%,Best_Epoch,NDCG@10,Efficiency
+bert4rec,Baseline,340544,0.340544,0.000000,50.000000,0.065240,0.191576
+sasrec,Baseline,340416,0.340416,-0.037587,113.000000,0.044622,0.131080
+gru4rec,Baseline,287168,0.287168,-15.673746,31.000000,0.030619,0.106625
+lightgcn,Baseline,237248,0.237248,-30.332644,1.000000,0.010552,0.044477
+bert_hybrid_fixed,Hybrid,581952,0.581952,70.888931,,,
+bert_hybrid_discrete,Hybrid,581952,0.581952,70.888931,,,
+bert_hybrid_learnable,Hybrid,581955,0.581955,70.889812,,,
+bert_hybrid_continuous,Hybrid,582049,0.582049,70.917414,,,
