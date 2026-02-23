@@ -210,9 +210,9 @@ def run_experiment(model_type, args):
     print("="*70)
     print(f"📁 Results saved to: {exp_dir}")
     print(f"📊 Best epoch: {history['best_epoch']}")
-    print(f"📈 Test HR@10: {test_metrics['hr@10']:.6f}")
-    print(f"📈 Test NDCG@10: {test_metrics['ndcg@10']:.6f}")
-    print(f"📈 Test MRR: {test_metrics['mrr']:.6f}")
+    print(f"📈 Test HR@10: {test_metrics['HR@10']:.6f}")
+    print(f"📈 Test NDCG@10: {test_metrics['NDCG@10']:.6f}")
+    print(f"📈 Test MRR@10: {test_metrics['MRR@10']:.6f}")
     
     return results
 
@@ -332,11 +332,11 @@ def main():
     print("ALL EXPERIMENTS COMPLETE")
     print("="*70)
     print("\nResults Summary:")
-    print(f"{'Model':<25} {'HR@10':<10} {'NDCG@10':<10} {'MRR':<10}")
+    print(f"{'Model':<25} {'HR@10':<10} {'NDCG@10':<10} {'MRR@10':<10}")
     print("-" * 70)
     for model_type, results in all_results.items():
         metrics = results['test_metrics']
-        print(f"{model_type:<25} {metrics['hr@10']:<10.6f} {metrics['ndcg@10']:<10.6f} {metrics['mrr']:<10.6f}")
+        print(f"{model_type:<25} {metrics['HR@10']:<10.6f} {metrics['NDCG@10']:<10.6f} {metrics['MRR@10']:<10.6f}")
     print("="*70)
 
 
