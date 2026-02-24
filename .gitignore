@@ -9,11 +9,6 @@ __pycache__/
 *.h5
 *.weights
 
-# Results folder - ignore heavy files but keep metadata
-results/
-!results/*/config.json
-!results/*/history.json
-!results/*/results.json
 
 # Archives and compressed files
 *.zip
