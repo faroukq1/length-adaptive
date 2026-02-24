@@ -23,6 +23,7 @@ from src.models.sasrec import SASRec
 from src.models.bert4rec import BERT4Rec
 from src.models.gru4rec import GRU4Rec
 from src.models.lightgcn_seq import LightGCNSeq
+from src.models.caser import Caser
 from src.models.hybrid import HybridSASRecGNN
 from src.models.bert4rec_hybrid import HybridBERT4RecGNN
 from src.data.dataloader import get_dataloaders
@@ -58,7 +59,18 @@ def create_model(model_type, num_items, args):
         model = GRU4Rec(
             num_items=num_items,
             d_model=args.d_model,
-            n_layers=args.n_blocks,  # Use n_blocks as n_layers for GRU
+            n_layers=args.n_layers,
+            dropout=args.dropout,
+            max_len=args.max_len
+        )
+    
+    elif model_type == 'caser':
+        model = Caser(
+            num_items=num_items,
+            d_model=args.d_model,
+            L=args.L_caser,
+            num_h_filters=args.nh,
+            num_v_filters=args.nv,
             dropout=args.dropout,
             max_len=args.max_len
         )
@@ -236,7 +248,7 @@ if __name__ == '__main__':
     
     # Model selection
     parser.add_argument('--model', type=str, default='hybrid_discrete',
-                       choices=['sasrec', 'bert4rec', 'gru4rec', 'lightgcn',
+                       choices=['sasrec', 'bert4rec', 'gru4rec', 'lightgcn', 'caser',
                                'hybrid_fixed', 'hybrid_discrete', 
                                'hybrid_learnable', 'hybrid_continuous',
                                'bert_hybrid_fixed', 'bert_hybrid_discrete',
@@ -257,13 +269,22 @@ if __name__ == '__main__':
     parser.add_argument('--n_heads', type=int, default=2,
                        help='Number of attention heads')
     parser.add_argument('--n_blocks', type=int, default=2,
-                       help='Number of transformer blocks')
+                       help='Number of transformer blocks (also used as n_layers for GRU4Rec when --n_layers not set)')
+    parser.add_argument('--n_layers', type=int, default=1,
+                       help='Number of GRU layers (GRU4Rec paper default: 1)')
     parser.add_argument('--d_ff', type=int, default=256,
                        help='Feed-forward dimension')
-    parser.add_argument('--gnn_layers', type=int, default=2,
-                       help='Number of GNN layers')
+    parser.add_argument('--gnn_layers', type=int, default=3,
+                       help='Number of GNN layers (LightGCN paper default: 3)')
     parser.add_argument('--dropout', type=float, default=0.2,
                        help='Dropout rate')
+    # Caser-specific parameters
+    parser.add_argument('--L_caser', type=int, default=5,
+                       help='Caser window size L (paper default: 5)')
+    parser.add_argument('--nh', type=int, default=16,
+                       help='Caser horizontal filter count nh (paper default: 16)')
+    parser.add_argument('--nv', type=int, default=4,
+                       help='Caser vertical filter count nv (paper default: 4)')
     parser.add_argument('--max_len', type=int, default=50,
                        help='Maximum sequence length')
     
