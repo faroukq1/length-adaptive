@@ -143,6 +143,7 @@ def run_experiment(model_type, args):
     # Check for existing experiment directory to resume
     exp_dir = None
     start_epoch = 0
+    checkpoint_file = None
     
     if args.resume:
         # Look for existing experiment directories for this model
@@ -152,11 +153,21 @@ def run_experiment(model_type, args):
         if existing_dirs:
             # Use the most recent directory
             exp_dir = existing_dirs[-1]
-            checkpoint_path = os.path.join(exp_dir, 'best_model.pt')
             
-            if os.path.exists(checkpoint_path):
+            # Check for checkpoints (prefer best_model, then latest epoch checkpoint)
+            best_checkpoint = os.path.join(exp_dir, 'best_model.pt')
+            epoch_checkpoints = sorted(glob.glob(os.path.join(exp_dir, 'checkpoint_epoch_*.pt')))
+            
+            if os.path.exists(best_checkpoint):
+                checkpoint_file = 'best_model.pt'
+                print(f"  ✅ Found best checkpoint: {exp_dir}")
+                print(f"  📥 Resuming from best model...")
+            elif epoch_checkpoints:
+                # Use the latest epoch checkpoint
+                checkpoint_file = os.path.basename(epoch_checkpoints[-1])
+                epoch_num = checkpoint_file.split('_')[-1].replace('.pt', '')
                 print(f"  ✅ Found checkpoint: {exp_dir}")
-                print(f"  📥 Resuming from checkpoint...")
+                print(f"  📥 Resuming from epoch {epoch_num}...")
             else:
                 print(f"  ⚠️  Directory exists but no checkpoint found")
                 exp_dir = None
@@ -190,13 +201,15 @@ def run_experiment(model_type, args):
     )
     
     # Load checkpoint if resuming
-    if args.resume and os.path.exists(os.path.join(exp_dir, 'best_model.pt')):
+    if args.resume and checkpoint_file:
         try:
-            start_epoch = trainer.load_checkpoint('best_model.pt')
+            start_epoch = trainer.load_checkpoint(checkpoint_file)
             print(f"  ✅ Loaded checkpoint from epoch {start_epoch}")
             print(f"  📊 Best NDCG@10 so far: {trainer.history.get('best_val_metric', 0.0):.6f}")
         except Exception as e:
             print(f"  ⚠️  Failed to load checkpoint: {e}")
+            print(f"  🔄 Starting from scratch")
+            start_epoch = 0
             print(f"  🔄 Starting from scratch")
             start_epoch = 0
     
