@@ -184,6 +184,10 @@ class TCNBERT4Rec(nn.Module):
             dropout=dropout
         )
         
+        # Share embeddings between TCN and BERT branches
+        self.bert.item_emb = self.item_embedding
+        self.bert.pos_emb = self.position_embedding
+        
         # Fusion layer
         if fusion_type == 'fixed':
             self.alpha = 0.5  # Fixed weight
@@ -235,11 +239,14 @@ class TCNBERT4Rec(nn.Module):
         bert_x = item_emb + pos_emb
         bert_x = self.bert.dropout(bert_x)
         
-        # Pass through BERT transformer blocks
-        for block in self.bert.transformer_blocks:
-            bert_x = block(bert_x, mask=None)  # No masking for BERT
+        # Create padding mask for BERT (bidirectional attention)
+        padding_mask = (input_ids != 0).unsqueeze(1).expand(-1, seq_len, -1)
         
-        bert_out = self.bert.layer_norm(bert_x)  # [batch, seq_len, d_model]
+        # Pass through BERT transformer blocks
+        for block in self.bert.blocks:
+            bert_x = block(bert_x, mask=padding_mask)
+        
+        bert_out = self.bert.ln(bert_x)  # [batch, seq_len, d_model]
         
         # Fusion
         if self.fusion_type == 'fixed':

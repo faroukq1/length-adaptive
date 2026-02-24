@@ -318,7 +318,7 @@ class TGT_BERT4Rec(nn.Module):
         self.output_layer = nn.Linear(d_model, num_items + 1)
         
         # Share embeddings between branches
-        self.bert.item_embedding = self.item_embedding
+        self.bert.item_emb = self.item_embedding
         self.tgt.item_embedding = self.item_embedding
         
         self._init_weights()
@@ -351,9 +351,26 @@ class TGT_BERT4Rec(nn.Module):
             timestamps = timestamps.expand(batch_size, -1).float() / seq_len
         
         # BERT4Rec branch (bidirectional attention)
-        bert_out = self.bert(input_ids)  # [batch, seq_len, d_model]
-        # Extract hidden states (before output layer)
-        bert_hidden = bert_out  # BERT4Rec forward returns pre-logit features
+        # Manually pass through BERT blocks to get full sequence representation
+        device = input_ids.device
+        positions = torch.arange(seq_len, device=device).unsqueeze(0).expand(batch_size, -1)
+        
+        # Embed items and positions
+        item_embs = self.bert.item_emb(input_ids)  # [batch, seq_len, d_model]
+        pos_embs = self.bert.pos_emb(positions)  # [batch, seq_len, d_model]
+        
+        # Combine and dropout
+        bert_x = item_embs + pos_embs
+        bert_x = self.bert.dropout(bert_x)
+        
+        # Create padding mask for BERT (bidirectional)
+        padding_mask = (input_ids != 0).unsqueeze(1).expand(-1, seq_len, -1)
+        
+        # Pass through BERT transformer blocks
+        for block in self.bert.blocks:
+            bert_x = block(bert_x, mask=padding_mask)
+        
+        bert_hidden = self.bert.ln(bert_x)  # [batch, seq_len, d_model]
         
         # TGT branch (temporal graph attention)
         tgt_hidden = self.tgt(input_ids, timestamps, mask)  # [batch, seq_len, d_model]
