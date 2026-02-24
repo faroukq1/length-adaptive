@@ -5,8 +5,6 @@ __pycache__/
 *.so
 
 # Model checkpoints (large PyTorch files)
-*.pt
-*.pth
 *.ckpt
 *.h5
 *.weights
