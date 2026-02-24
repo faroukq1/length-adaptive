@@ -140,16 +140,38 @@ def run_experiment(model_type, args):
     total_params = sum(p.numel() for p in model.parameters())
     print(f"  Parameters: {total_params:,}")
     
-    # Create experiment directory
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    exp_dir = os.path.join(args.results_dir, f"{model_type}_{timestamp}")
-    os.makedirs(exp_dir, exist_ok=True)
+    # Check for existing experiment directory to resume
+    exp_dir = None
+    start_epoch = 0
+    
+    if args.resume:
+        # Look for existing experiment directories for this model
+        import glob
+        existing_dirs = sorted(glob.glob(os.path.join(args.results_dir, f"{model_type}_*")))
+        
+        if existing_dirs:
+            # Use the most recent directory
+            exp_dir = existing_dirs[-1]
+            checkpoint_path = os.path.join(exp_dir, 'best_model.pt')
+            
+            if os.path.exists(checkpoint_path):
+                print(f"  ✅ Found checkpoint: {exp_dir}")
+                print(f"  📥 Resuming from checkpoint...")
+            else:
+                print(f"  ⚠️  Directory exists but no checkpoint found")
+                exp_dir = None
+    
+    # Create new experiment directory if not resuming
+    if exp_dir is None:
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        exp_dir = os.path.join(args.results_dir, f"{model_type}_{timestamp}")
+        os.makedirs(exp_dir, exist_ok=True)
+        print(f"  🆕 Starting new experiment: {exp_dir}")
     
     # Save configuration
     config_path = os.path.join(exp_dir, 'config.json')
     with open(config_path, 'w') as f:
         json.dump(vars(args), f, indent=2)
-    print(f"  Experiment dir: {exp_dir}")
     
     # Create trainer
     print("\n[5/5] Creating trainer...")
@@ -167,10 +189,24 @@ def run_experiment(model_type, args):
         save_dir=exp_dir
     )
     
+    # Load checkpoint if resuming
+    if args.resume and os.path.exists(os.path.join(exp_dir, 'best_model.pt')):
+        try:
+            start_epoch = trainer.load_checkpoint('best_model.pt')
+            print(f"  ✅ Loaded checkpoint from epoch {start_epoch}")
+            print(f"  📊 Best NDCG@10 so far: {trainer.history.get('best_val_metric', 0.0):.6f}")
+        except Exception as e:
+            print(f"  ⚠️  Failed to load checkpoint: {e}")
+            print(f"  🔄 Starting from scratch")
+            start_epoch = 0
+    
     # Train
     print("\n" + "="*70)
-    print("TRAINING")
+    print("TRAINING" + (" (RESUMED)" if start_epoch > 0 else ""))
     print("="*70)
+    if start_epoch > 0:
+        print(f"Starting from epoch {start_epoch + 1}")
+    
     history = trainer.train(
         num_epochs=args.epochs,
         eval_every=args.eval_every
@@ -291,8 +327,9 @@ def main():
     parser.add_argument('--patience', type=int, default=20,
                        help='Early stopping patience')
     parser.add_argument('--eval_every', type=int, default=5,
-                       help='Evaluate every N epochs')
-    
+                       help='Evaluate every N epochs')    
+    parser.add_argument('--resume', action='store_true',
+                       help='Resume training from existing checkpoint')    
     # System
     parser.add_argument('--seed', type=int, default=42,
                        help='Random seed')
