@@ -211,21 +211,23 @@ class TCNBERT4Rec(nn.Module):
         nn.init.normal_(self.output_layer.weight, std=0.02)
         nn.init.zeros_(self.output_layer.bias)
     
-    def forward(self, input_ids, return_fusion_weights=False):
+    def forward(self, seq, lengths):
         """
+        Forward pass (compatible with trainer interface)
+        
         Args:
-            input_ids: [batch_size, seq_len]
-            return_fusion_weights: Whether to return fusion weights
+            seq: [batch_size, seq_len] - item IDs (0 = padding)
+            lengths: [batch_size] - actual sequence lengths (non-padded)
         
         Returns:
-            logits: [batch_size, seq_len, num_items + 1]
-            fusion_weights (optional): Fusion weights used
+            seq_repr: [batch_size, d_model] - representation of last item in sequence
         """
-        batch_size, seq_len = input_ids.size()
+        batch_size, seq_len = seq.size()
+        device = seq.device
         
         # Shared embeddings
-        item_emb = self.item_embedding(input_ids)  # [batch, seq_len, d_model]
-        positions = torch.arange(seq_len, device=input_ids.device).unsqueeze(0).expand(batch_size, -1)
+        item_emb = self.item_embedding(seq)  # [batch, seq_len, d_model]
+        positions = torch.arange(seq_len, device=device).unsqueeze(0).expand(batch_size, -1)
         pos_emb = self.position_embedding(positions)
         
         x = item_emb + pos_emb
@@ -240,7 +242,7 @@ class TCNBERT4Rec(nn.Module):
         bert_x = self.bert.dropout(bert_x)
         
         # Create padding mask for BERT (bidirectional attention)
-        padding_mask = (input_ids != 0).unsqueeze(1).expand(-1, seq_len, -1)
+        padding_mask = (seq != 0).unsqueeze(1).expand(-1, seq_len, -1)
         
         # Pass through BERT transformer blocks
         for block in self.bert.blocks:
@@ -251,15 +253,12 @@ class TCNBERT4Rec(nn.Module):
         # Fusion
         if self.fusion_type == 'fixed':
             fused = self.alpha * tcn_out + (1 - self.alpha) * bert_out
-            fusion_weight = self.alpha
         elif self.fusion_type == 'learnable':
             alpha = torch.sigmoid(self.fusion_weight)
             fused = alpha * tcn_out + (1 - alpha) * bert_out
-            fusion_weight = alpha.item()
         elif self.fusion_type == 'concat':
             concatenated = torch.cat([tcn_out, bert_out], dim=-1)
             fused = self.fusion_layer(concatenated)
-            fusion_weight = None
         else:
             raise ValueError(f"Unknown fusion type: {self.fusion_type}")
         
@@ -267,26 +266,38 @@ class TCNBERT4Rec(nn.Module):
         fused = self.layer_norm(fused)
         fused = self.dropout(fused)
         
-        # Output logits
-        logits = self.output_layer(fused)  # [batch, seq_len, num_items + 1]
+        # Extract representation at last non-padding position
+        batch_indices = torch.arange(batch_size, device=device)
+        last_indices = lengths - 1
+        seq_repr = fused[batch_indices, last_indices]  # [batch_size, d_model]
         
-        if return_fusion_weights:
-            return logits, fusion_weight
-        return logits
+        return seq_repr
     
-    def predict(self, input_ids):
+    def predict(self, seq_repr, candidate_items=None):
         """
-        Predict next item scores
+        Compute scores for candidate items (compatible with trainer interface)
         
         Args:
-            input_ids: [batch_size, seq_len]
+            seq_repr: [batch_size, d_model]
+            candidate_items: [batch_size, num_candidates] or None (score all items)
         
         Returns:
-            scores: [batch_size, num_items + 1]
+            scores: [batch_size, num_candidates] or [batch_size, num_items]
         """
-        logits = self.forward(input_ids)  # [batch, seq_len, num_items + 1]
-        # Return scores for last position
-        return logits[:, -1, :]  # [batch, num_items + 1]
+        if candidate_items is None:
+            # Score all items
+            item_embs = self.item_embedding.weight[1:]  # Exclude padding, [num_items, d_model]
+            scores = torch.matmul(seq_repr, item_embs.t())  # [batch_size, num_items]
+        else:
+            # Score specific candidates
+            batch_size, num_candidates = candidate_items.shape
+            item_embs = self.item_embedding(candidate_items)  # [batch_size, num_candidates, d_model]
+            scores = torch.bmm(
+                item_embs,
+                seq_repr.unsqueeze(2)
+            ).squeeze(2)  # [batch_size, num_candidates]
+        
+        return scores
 
 
 # Example usage and testing

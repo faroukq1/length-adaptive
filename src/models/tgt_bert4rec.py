@@ -329,9 +329,93 @@ class TGT_BERT4Rec(nn.Module):
         nn.init.normal_(self.output_layer.weight, std=0.02)
         nn.init.zeros_(self.output_layer.bias)
         
-    def forward(self, input_ids, timestamps=None, mask=None, return_fusion_info=False):
+    def forward(self, seq, lengths):
         """
-        Forward pass through hybrid model
+        Forward pass through hybrid model (compatible with trainer interface)
+        
+        Args:
+            seq: [batch_size, seq_len] - item IDs (0 = padding)
+            lengths: [batch_size] - actual sequence lengths (non-padded)
+        
+        Returns:
+            seq_repr: [batch_size, d_model] - representation of last item in sequence
+        """
+        batch_size, seq_len = seq.size()
+        device = seq.device
+        
+        # Generate timestamps from positions (normalized by sequence length)
+        # Each position gets timestamp proportional to its position in the sequence
+        positions = torch.arange(seq_len, device=device).unsqueeze(0).expand(batch_size, -1).float()
+        # Normalize to [0, 1] based on actual sequence length
+        timestamps = positions / seq_len
+        
+        # Create mask from sequence (1 for valid, 0 for padding)
+        mask = (seq != 0).float()
+        
+        # BERT4Rec branch (bidirectional attention)
+        # Manually pass through BERT blocks to get full sequence representation
+        # Embed items and positions
+        item_embs = self.bert.item_emb(seq)  # [batch, seq_len, d_model]
+        pos_embs = self.bert.pos_emb(positions.long())  # [batch, seq_len, d_model]
+        
+        # Combine and dropout
+        bert_x = item_embs + pos_embs
+        bert_x = self.bert.dropout(bert_x)
+        
+        # Create padding mask for BERT (bidirectional)
+        padding_mask = (seq != 0).unsqueeze(1).expand(-1, seq_len, -1)
+        
+        # Pass through BERT transformer blocks
+        for block in self.bert.blocks:
+            bert_x = block(bert_x, mask=padding_mask)
+        
+        bert_hidden = self.bert.ln(bert_x)  # [batch, seq_len, d_model]
+        
+        # TGT branch (temporal graph attention)
+        tgt_hidden = self.tgt(seq, timestamps, mask)  # [batch, seq_len, d_model]
+        
+        # Gated fusion
+        alpha = torch.sigmoid(self.fusion_gate) if self.learnable_fusion else self.fusion_gate
+        
+        # Simple gated combination
+        fused = alpha * bert_hidden + (1 - alpha) * tgt_hidden  # [batch, seq_len, d_model]
+        
+        # Extract representation at last non-padding position
+        batch_indices = torch.arange(batch_size, device=device)
+        last_indices = lengths - 1
+        seq_repr = fused[batch_indices, last_indices]  # [batch_size, d_model]
+        
+        return seq_repr
+    
+    def predict(self, seq_repr, candidate_items=None):
+        """
+        Compute scores for candidate items (compatible with trainer interface)
+        
+        Args:
+            seq_repr: [batch_size, d_model]
+            candidate_items: [batch_size, num_candidates] or None (score all items)
+        
+        Returns:
+            scores: [batch_size, num_candidates] or [batch_size, num_items]
+        """
+        if candidate_items is None:
+            # Score all items
+            item_embs = self.item_embedding.weight[1:]  # Exclude padding, [num_items, d_model]
+            scores = torch.matmul(seq_repr, item_embs.t())  # [batch_size, num_items]
+        else:
+            # Score specific candidates
+            batch_size, num_candidates = candidate_items.shape
+            item_embs = self.item_embedding(candidate_items)  # [batch_size, num_candidates, d_model]
+            scores = torch.bmm(
+                item_embs,
+                seq_repr.unsqueeze(2)
+            ).squeeze(2)  # [batch_size, num_candidates]
+        
+        return scores
+    
+    def forward_full_sequence(self, input_ids, timestamps=None, mask=None, return_fusion_info=False):
+        """
+        Alternative forward for full sequence output (for fine-tuning or other use cases)
         
         Args:
             input_ids: [batch_size, seq_len] - item IDs
@@ -344,15 +428,15 @@ class TGT_BERT4Rec(nn.Module):
             (optional) fusion_info: Dict with fusion details
         """
         batch_size, seq_len = input_ids.size()
+        device = input_ids.device
         
         # If timestamps not provided, use sequential positions normalized
         if timestamps is None:
-            timestamps = torch.arange(seq_len, device=input_ids.device).unsqueeze(0)
+            timestamps = torch.arange(seq_len, device=device).unsqueeze(0)
             timestamps = timestamps.expand(batch_size, -1).float() / seq_len
         
         # BERT4Rec branch (bidirectional attention)
         # Manually pass through BERT blocks to get full sequence representation
-        device = input_ids.device
         positions = torch.arange(seq_len, device=device).unsqueeze(0).expand(batch_size, -1)
         
         # Embed items and positions
@@ -399,22 +483,6 @@ class TGT_BERT4Rec(nn.Module):
             return logits, fusion_info
         
         return logits
-    
-    def predict(self, input_ids, timestamps=None, mask=None):
-        """
-        Predict next item scores
-        
-        Args:
-            input_ids: [batch_size, seq_len]
-            timestamps: [batch_size, seq_len]
-            mask: [batch_size, seq_len]
-        
-        Returns:
-            scores: [batch_size, num_items + 1] - next item prediction scores
-        """
-        logits = self.forward(input_ids, timestamps, mask)
-        # Return scores for last position
-        return logits[:, -1, :]  # [batch, num_items + 1]
 
 
 # Example usage and testing
