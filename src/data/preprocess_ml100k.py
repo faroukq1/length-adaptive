@@ -45,10 +45,26 @@ preprocessor = ML1MPreprocessor(RAW_DATA_PATH, min_rating=4, min_seq_len=5)
 filtered = preprocessor.filter_by_rating(ratings)
 sequences = preprocessor.build_sequences(filtered)
 
-# Save user sequences
-with open(SEQUENCES_PATH, 'wb') as f:
-    pickle.dump(sequences, f)
-print(f"Saved user sequences to {SEQUENCES_PATH}")
+
+# Prepare config for model compatibility
+num_users = ratings['user_id'].nunique()
+num_items = ratings['item_id'].nunique()
+config = {
+    'num_users': num_users,
+    'num_items': num_items,
+    'min_rating': 4,
+    'min_seq_len': 5
+}
+
+# Save preprocessed data in required format
+preprocessed_data = {
+    'config': config,
+    'sequences': sequences
+}
+PREPROCESSED_PATH = os.path.join(GRAPHS_DIR, 'preprocessed_ml100k.pkl')
+with open(PREPROCESSED_PATH, 'wb') as f:
+    pickle.dump(preprocessed_data, f)
+print(f"Saved preprocessed data to {PREPROCESSED_PATH}")
 
 # Build item co-occurrence graph
 graph_builder = CooccurrenceGraphBuilder(window_size=3, min_count=5)
