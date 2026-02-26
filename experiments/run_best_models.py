@@ -201,6 +201,7 @@ def run_experiment(model_type, args):
     )
     
     # Load checkpoint if resuming
+    start_epoch = 0  # Initialize start_epoch
     if args.resume and checkpoint_file:
         try:
             start_epoch = trainer.load_checkpoint(checkpoint_file)
@@ -208,8 +209,6 @@ def run_experiment(model_type, args):
             print(f"  📊 Best NDCG@10 so far: {trainer.history.get('best_val_metric', 0.0):.6f}")
         except Exception as e:
             print(f"  ⚠️  Failed to load checkpoint: {e}")
-            print(f"  🔄 Starting from scratch")
-            start_epoch = 0
             print(f"  🔄 Starting from scratch")
             start_epoch = 0
     
@@ -222,7 +221,8 @@ def run_experiment(model_type, args):
     
     history = trainer.train(
         num_epochs=args.epochs,
-        eval_every=args.eval_every
+        eval_every=args.eval_every,
+        start_epoch=start_epoch
     )
     
     # Save training history

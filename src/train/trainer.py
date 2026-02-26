@@ -207,7 +207,7 @@ class Trainer:
 
         return checkpoint['epoch']
 
-    def train(self, num_epochs, eval_every=1, verbose=True):
+    def train(self, num_epochs, eval_every=1, verbose=True, start_epoch=0):
         """
         Full training loop with early stopping
 
@@ -215,6 +215,7 @@ class Trainer:
             num_epochs: Maximum number of epochs
             eval_every: Evaluate every N epochs
             verbose: Whether to print progress
+            start_epoch: Starting epoch when resuming (0-indexed)
 
         Returns:
             history: Training history dictionary
@@ -228,11 +229,16 @@ class Trainer:
         print(f"Validation batches: {len(self.val_loader)}")
         print("="*60 + "\n")
 
-        best_val_metric = 0.0
-        patience_counter = 0
+        # When resuming, use the loaded best_val_metric from history
+        if start_epoch > 0:
+            best_val_metric = self.history.get('best_val_metric', 0.0)
+            patience_counter = 0
+        else:
+            best_val_metric = 0.0
+            patience_counter = 0
         start_time = time.time()
 
-        for epoch in range(1, num_epochs + 1):
+        for epoch in range(start_epoch + 1, num_epochs + 1):
             epoch_start = time.time()
 
             # Train
