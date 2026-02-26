@@ -151,8 +151,16 @@ def run_experiment(model_type, args):
         
         # Search in multiple patterns:
         # 1. results/model_type_* (timestamp-based)
-        # 2. results/*/model_type (dataset subdirectory pattern like ml-1m)
+        # 2. results/model_type (non-timestamped)
+        # 3. results/*/model_type (dataset subdirectory pattern like ml-1m)
         existing_dirs = sorted(glob.glob(os.path.join(args.results_dir, f"{model_type}_*")))
+        
+        # Also check for non-timestamped directory
+        non_ts_dir = os.path.join(args.results_dir, model_type)
+        if os.path.isdir(non_ts_dir):
+            existing_dirs.append(non_ts_dir)
+        
+        # Also check subdirectory pattern
         existing_dirs += sorted(glob.glob(os.path.join(args.results_dir, f"*/{model_type}")))
         
         if existing_dirs:
