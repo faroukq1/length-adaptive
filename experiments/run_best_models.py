@@ -148,11 +148,16 @@ def run_experiment(model_type, args):
     if args.resume:
         # Look for existing experiment directories for this model
         import glob
+        
+        # Search in multiple patterns:
+        # 1. results/model_type_* (timestamp-based)
+        # 2. results/*/model_type (dataset subdirectory pattern like ml-1m)
         existing_dirs = sorted(glob.glob(os.path.join(args.results_dir, f"{model_type}_*")))
+        existing_dirs += sorted(glob.glob(os.path.join(args.results_dir, f"*/{model_type}")))
         
         if existing_dirs:
-            # Use the most recent directory
-            exp_dir = existing_dirs[-1]
+            # Use the most recent directory (by modification time)
+            exp_dir = max(existing_dirs, key=lambda x: os.path.getmtime(x))
             
             # Check for checkpoints (prefer best_model, then latest epoch checkpoint)
             best_checkpoint = os.path.join(exp_dir, 'best_model.pt')
