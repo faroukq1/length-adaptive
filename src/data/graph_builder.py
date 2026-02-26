@@ -173,7 +173,7 @@ class CooccurrenceGraphBuilder:
 # Usage script
 if __name__ == '__main__':
     # Load preprocessed sequences
-    with open('data/ml-1m/processed/sequences.pkl', 'rb') as f:
+    with open('../../data/ml-1m/processed/sequences.pkl', 'rb') as f:
         data = pickle.load(f)
 
     # Build graph
@@ -181,5 +181,5 @@ if __name__ == '__main__':
     graph_data = builder.build_and_save(
         sequences=data['train_sequences'],
         num_items=data['config']['num_items'],
-        output_path='data/graphs/cooccurrence_graph.pkl'
+        output_path='../../data/graphs/cooccurrence_graph.pkl'
     )
