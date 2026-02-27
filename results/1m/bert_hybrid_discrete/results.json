@@ -52,9 +52,7 @@
     "data_path": "data/ml-1m/processed/sequences.pkl",
     "graph_path": "data/graphs/cooccurrence_graph.pkl",
     "results_dir": "results",
-    "models": [
-      "bert_hybrid_discrete"
-    ],
+    "models": ["bert_hybrid_discrete"],
     "d_model": 64,
     "n_heads": 2,
     "n_blocks": 2,
@@ -65,11 +63,7 @@
     "fixed_alpha": 0.5,
     "L_short": 10,
     "L_long": 30,
-    "tcn_channels": [
-      64,
-      64,
-      64
-    ],
+    "tcn_channels": [64, 64, 64],
     "tcn_kernel_size": 3,
     "tcn_fusion": "learnable",
     "tgt_fusion_alpha": 0.3,
