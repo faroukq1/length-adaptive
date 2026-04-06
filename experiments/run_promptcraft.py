@@ -2,7 +2,7 @@
 PromptCraft experiments on MovieLens-100K using the project's native training stack.
 
 This runner keeps preprocessing, dataloading, training, and evaluation consistent
-with existing baselines/hybrid experiments and only changes SASRec item
+with existing baselines/hybrid experiments and only changes item embedding
 initialization via prompt-based LLM embeddings.
 """
 
@@ -29,11 +29,13 @@ from src.data.promptcraft import (
     load_or_generate_raw_embeddings,
     pca_compress_embeddings,
 )
+from src.models.bert4rec import BERT4Rec
 from src.models.sasrec import SASRec
+from src.train.loss import BCELoss, BPRLoss, SampledSoftmaxLoss
 from src.train.trainer import Trainer
 
 
-BASELINE_STYLE = "baseline_sasrec"
+BASELINE_STYLE = "baseline_random_init"
 
 
 def resolve_device(args) -> torch.device:
@@ -87,20 +89,85 @@ def ensure_ml100k_processed(args) -> None:
     preprocessor.preprocess(args.data_path)
 
 
-def create_sasrec(num_items: int, args) -> SASRec:
-    return SASRec(
-        num_items=num_items,
-        d_model=args.d_model,
-        n_heads=args.n_heads,
-        n_blocks=args.n_blocks,
-        d_ff=args.d_ff,
-        max_len=args.max_len,
-        dropout=args.dropout,
-    )
+def create_sequence_model(num_items: int, args):
+    if args.model == "sasrec":
+        return SASRec(
+            num_items=num_items,
+            d_model=args.d_model,
+            n_heads=args.n_heads,
+            n_blocks=args.n_blocks,
+            d_ff=args.d_ff,
+            max_len=args.max_len,
+            dropout=args.dropout,
+        )
+
+    if args.model == "bert4rec":
+        return BERT4Rec(
+            num_items=num_items,
+            d_model=args.d_model,
+            n_heads=args.n_heads,
+            n_blocks=args.n_blocks,
+            d_ff=args.d_ff,
+            max_len=args.max_len,
+            dropout=args.dropout,
+        )
+
+    raise ValueError(f"Unsupported model type: {args.model}")
+
+
+def create_loss(loss_name: str):
+    if loss_name == "bpr":
+        return BPRLoss()
+    if loss_name == "bce":
+        return BCELoss()
+    if loss_name == "sampled_softmax":
+        return SampledSoftmaxLoss()
+    raise ValueError(f"Unsupported loss type: {loss_name}")
+
+
+def apply_promptcraft_initialization(
+    model,
+    compressed_embeddings: np.ndarray,
+    mix_alpha: float,
+    init_scale: float,
+) -> Dict[str, float]:
+    """Blend PromptCraft PCA vectors with random init for stable, strong starts."""
+    alpha = float(np.clip(mix_alpha, 0.0, 1.0))
+
+    with torch.no_grad():
+        random_weights = model.item_emb.weight.detach().cpu().numpy().astype(np.float32)
+
+    prompt_weights = compressed_embeddings.astype(np.float32).copy()
+    prompt_items = prompt_weights[1:]
+
+    # Normalize rows before matching the random-init scale.
+    norms = np.linalg.norm(prompt_items, axis=1, keepdims=True)
+    prompt_items = prompt_items / np.clip(norms, 1e-8, None)
+
+    random_std = float(random_weights[1:].std())
+    scale = max(1e-8, random_std * float(init_scale))
+    prompt_items = prompt_items * scale
+
+    blended_items = alpha * prompt_items + (1.0 - alpha) * random_weights[1:]
+
+    updated = random_weights.copy()
+    updated[1:] = blended_items
+    updated[0] = 0.0
+
+    with torch.no_grad():
+        model.item_emb.weight.copy_(torch.from_numpy(updated).to(model.item_emb.weight.device))
+
+    return {
+        "mix_alpha": alpha,
+        "init_scale": float(init_scale),
+        "random_std": random_std,
+        "prompt_std": float(prompt_items.std()),
+        "blended_std": float(updated[1:].std()),
+    }
 
 
 def initialize_promptcraft_weights(
-    model: SASRec,
+    model,
     processed_data: dict,
     style: str,
     args,
@@ -125,9 +192,12 @@ def initialize_promptcraft_weights(
         random_state=args.seed,
     )
 
-    with torch.no_grad():
-        model.item_emb.weight.copy_(torch.from_numpy(compressed))
-        model.item_emb.weight[0].zero_()
+    blend_stats = apply_promptcraft_initialization(
+        model=model,
+        compressed_embeddings=compressed,
+        mix_alpha=args.init_mix_alpha,
+        init_scale=args.init_scale,
+    )
 
     return {
         "embedding_mode": "promptcraft",
@@ -136,6 +206,7 @@ def initialize_promptcraft_weights(
         "raw_shape": list(raw_embeddings.shape),
         "compressed_shape": list(compressed.shape),
         "pca_explained_variance": explained_var,
+        "blend": blend_stats,
     }
 
 
@@ -149,7 +220,8 @@ def run_single_style(
     args,
 ) -> Dict[str, object]:
     num_items = processed_data["config"]["num_items"]
-    model = create_sasrec(num_items=num_items, args=args)
+    model = create_sequence_model(num_items=num_items, args=args)
+    criterion = create_loss(args.loss)
 
     if style == BASELINE_STYLE:
         init_info = {
@@ -179,7 +251,8 @@ def run_single_style(
     config_to_save = vars(args).copy()
     config_to_save.update(
         {
-            "model": "sasrec",
+            "model": args.model,
+            "loss": args.loss,
             "promptcraft_style": style,
             "num_users": processed_data["config"]["num_users"],
             "num_items": num_items,
@@ -199,12 +272,14 @@ def run_single_style(
         edge_index=None,
         edge_weight=None,
         device=device,
+        criterion=criterion,
         lr=args.lr,
         weight_decay=args.weight_decay,
         patience=args.patience,
         save_dir=exp_dir,
         show_batch_progress=not args.quiet,
         show_eval_progress=not args.quiet,
+        grad_clip_norm=args.grad_clip_norm,
     )
 
     history = trainer.train(
@@ -315,7 +390,7 @@ def summarize_and_save(all_outputs: List[Dict[str, object]], args) -> None:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Run PromptCraft SASRec experiments on MovieLens-100K"
+        description="Run PromptCraft experiments on MovieLens-100K"
     )
 
     # Data and preprocessing
@@ -346,16 +421,30 @@ def parse_args():
 
     # PromptCraft setup
     parser.add_argument(
+        "--model",
+        type=str,
+        default="bert4rec",
+        choices=["sasrec", "bert4rec"],
+        help="Backbone model to train with PromptCraft initialization",
+    )
+    parser.add_argument(
+        "--loss",
+        type=str,
+        default="bpr",
+        choices=["bpr", "bce", "sampled_softmax"],
+        help="Training loss for positive/negative ranking",
+    )
+    parser.add_argument(
         "--styles",
         nargs="+",
-        default=PROMPT_STYLES,
+        default=["P4_hybrid"],
         choices=PROMPT_STYLES,
         help="PromptCraft styles to run",
     )
     parser.add_argument(
         "--skip_baseline",
         action="store_true",
-        help="Skip random-initialized SASRec baseline",
+        help="Skip random-initialized baseline for the selected backbone",
     )
     parser.add_argument(
         "--embedding_model",
@@ -391,22 +480,37 @@ def parse_args():
         action="store_true",
         help="Force recomputation even if cached style embeddings exist",
     )
+    parser.add_argument(
+        "--init_mix_alpha",
+        type=float,
+        default=0.8,
+        help="Blend ratio for PromptCraft init vs random init (1.0 = prompt only)",
+    )
+    parser.add_argument(
+        "--init_scale",
+        type=float,
+        default=1.0,
+        help="Scale factor applied to normalized PromptCraft vectors before blending",
+    )
 
     # Model hyperparameters
-    parser.add_argument("--d_model", type=int, default=64)
-    parser.add_argument("--n_heads", type=int, default=2)
-    parser.add_argument("--n_blocks", type=int, default=2)
-    parser.add_argument("--d_ff", type=int, default=256)
-    parser.add_argument("--dropout", type=float, default=0.2)
-    parser.add_argument("--max_len", type=int, default=50)
+    parser.add_argument("--d_model", type=int, default=128)
+    parser.add_argument("--n_heads", type=int, default=4)
+    parser.add_argument("--n_blocks", type=int, default=3)
+    parser.add_argument("--d_ff", type=int, default=512)
+    parser.add_argument("--dropout", type=float, default=0.15)
+    parser.add_argument("--max_len", type=int, default=200)
 
     # Training
-    parser.add_argument("--epochs", type=int, default=200)
+    parser.add_argument("--epochs", type=int, default=300)
     parser.add_argument("--batch_size", type=int, default=256)
-    parser.add_argument("--lr", type=float, default=0.001)
-    parser.add_argument("--weight_decay", type=float, default=0.0)
-    parser.add_argument("--patience", type=int, default=20)
+    parser.add_argument("--lr", type=float, default=5e-4)
+    parser.add_argument("--weight_decay", type=float, default=1e-5)
+    parser.add_argument("--patience", type=int, default=35)
     parser.add_argument("--eval_every", type=int, default=5)
+    parser.add_argument("--num_neg_samples", type=int, default=5)
+    parser.add_argument("--hard_neg_ratio", type=float, default=0.4)
+    parser.add_argument("--grad_clip_norm", type=float, default=1.0)
 
     # System
     parser.add_argument("--seed", type=int, default=42)
@@ -430,8 +534,13 @@ def main():
     print("PROMPTCRAFT ML-100K EXPERIMENTS")
     print("=" * 78)
     print(f"Device: {device}")
+    print(f"Model: {args.model} | Loss: {args.loss}")
     print(f"Styles: {', '.join(args.styles)}")
-    print(f"Epochs: {args.epochs} | Patience: {args.patience} | d_model: {args.d_model}")
+    print(
+        f"Epochs: {args.epochs} | Patience: {args.patience} | "
+        f"d_model: {args.d_model} | negatives: {args.num_neg_samples} | "
+        f"hard_neg_ratio: {args.hard_neg_ratio}"
+    )
     print("=" * 78)
 
     ensure_ml100k_processed(args)
@@ -449,6 +558,8 @@ def main():
         batch_size=args.batch_size,
         max_len=args.max_len,
         num_workers=args.num_workers,
+        num_neg_samples=args.num_neg_samples,
+        hard_neg_ratio=args.hard_neg_ratio,
     )
 
     print(

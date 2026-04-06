@@ -27,6 +27,7 @@ class Trainer:
         save_dir='checkpoints',
         show_batch_progress=True,
         show_eval_progress=True,
+        grad_clip_norm=None,
     ):
         """
         Args:
@@ -45,6 +46,7 @@ class Trainer:
             save_dir: Directory to save checkpoints
             show_batch_progress: Whether to show tqdm progress per training batch
             show_eval_progress: Whether to show tqdm progress during evaluation
+            grad_clip_norm: Optional max norm for gradient clipping
         """
         self.model = model.to(device)
         self.train_loader = train_loader
@@ -57,6 +59,7 @@ class Trainer:
         self.save_dir = save_dir
         self.show_batch_progress = show_batch_progress
         self.show_eval_progress = show_eval_progress
+        self.grad_clip_norm = grad_clip_norm
         
         # Check if model uses graph
         self.use_graph = hasattr(model, 'gnn') or isinstance(model, LightGCNSeq)
@@ -142,6 +145,10 @@ class Trainer:
             # Backward pass
             self.optimizer.zero_grad()
             loss.backward()
+
+            if self.grad_clip_norm is not None and self.grad_clip_norm > 0:
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.grad_clip_norm)
+
             self.optimizer.step()
 
             # Update stats
