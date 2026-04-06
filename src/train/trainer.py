@@ -24,7 +24,9 @@ class Trainer:
         lr=0.001,
         weight_decay=0.0,
         patience=10,
-        save_dir='checkpoints'
+        save_dir='checkpoints',
+        show_batch_progress=True,
+        show_eval_progress=True,
     ):
         """
         Args:
@@ -41,6 +43,8 @@ class Trainer:
             weight_decay: Weight decay
             patience: Early stopping patience
             save_dir: Directory to save checkpoints
+            show_batch_progress: Whether to show tqdm progress per training batch
+            show_eval_progress: Whether to show tqdm progress during evaluation
         """
         self.model = model.to(device)
         self.train_loader = train_loader
@@ -51,6 +55,8 @@ class Trainer:
         self.device = device
         self.patience = patience
         self.save_dir = save_dir
+        self.show_batch_progress = show_batch_progress
+        self.show_eval_progress = show_eval_progress
         
         # Check if model uses graph
         self.use_graph = hasattr(model, 'gnn') or isinstance(model, LightGCNSeq)
@@ -102,9 +108,9 @@ class Trainer:
         total_loss = 0
         num_batches = 0
 
-        pbar = tqdm(self.train_loader, desc=f"Epoch {epoch}")
+        iterator = tqdm(self.train_loader, desc=f"Epoch {epoch}") if self.show_batch_progress else self.train_loader
 
-        for batch in pbar:
+        for batch in iterator:
             # Move to device
             seq = batch['sequence'].to(self.device)
             lengths = batch['length'].to(self.device)
@@ -143,7 +149,8 @@ class Trainer:
             num_batches += 1
 
             # Update progress bar
-            pbar.set_postfix({'loss': f'{loss.item():.4f}'})
+            if self.show_batch_progress:
+                iterator.set_postfix({'loss': f'{loss.item():.4f}'})
 
         avg_loss = total_loss / num_batches
         return avg_loss
@@ -157,7 +164,7 @@ class Trainer:
                 self.edge_weight,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=True,
+                verbose=self.show_eval_progress,
                 graph_emb=self.graph_emb
             )
         elif self.use_graph:
@@ -167,7 +174,7 @@ class Trainer:
                 self.edge_weight,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=True
+                verbose=self.show_eval_progress
             )
         else:
             metrics = self.evaluator.evaluate(
@@ -176,7 +183,7 @@ class Trainer:
                 None,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=True
+                verbose=self.show_eval_progress
             )
         return metrics
 
@@ -322,7 +329,7 @@ class Trainer:
                 self.edge_weight,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=True,
+                verbose=self.show_eval_progress,
                 graph_emb=self.graph_emb
             )
         elif self.use_graph:
@@ -332,7 +339,7 @@ class Trainer:
                 self.edge_weight,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=True
+                verbose=self.show_eval_progress
             )
         else:
             test_metrics = self.evaluator.evaluate(
@@ -341,7 +348,7 @@ class Trainer:
                 None,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=True
+                verbose=self.show_eval_progress
             )
 
         self.evaluator.print_metrics(test_metrics, "Test Results")

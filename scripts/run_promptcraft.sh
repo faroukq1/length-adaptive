@@ -31,12 +31,14 @@ N_BLOCKS=${N_BLOCKS:-2}
 D_FF=${D_FF:-256}
 DROPOUT=${DROPOUT:-0.2}
 EMB_BATCH_SIZE=${EMB_BATCH_SIZE:-256}
+EVAL_EVERY=${EVAL_EVERY:-5}
 
 echo "Training config:"
 echo "  epochs=$EPOCHS, patience=$PATIENCE, batch_size=$BATCH_SIZE"
 echo "  lr=$LR, d_model=$D_MODEL, n_heads=$N_HEADS, n_blocks=$N_BLOCKS"
 echo "  max_len=$MAX_LEN, dropout=$DROPOUT"
 echo "  embedding_batch_size=$EMB_BATCH_SIZE"
+echo "  eval_every=$EVAL_EVERY (prints once every 5 epochs)"
 echo ""
 echo "Styles: baseline + P1_title_only + P2_title_genre + P3_user_centric + P4_hybrid"
 echo ""
@@ -53,7 +55,9 @@ python3 -m experiments.run_promptcraft \
     --n_blocks "$N_BLOCKS" \
     --d_ff "$D_FF" \
     --dropout "$DROPOUT" \
-    --embedding_batch_size "$EMB_BATCH_SIZE"
+    --embedding_batch_size "$EMB_BATCH_SIZE" \
+    --eval_every "$EVAL_EVERY" \
+    --quiet
 
 echo ""
 echo "========================================"

@@ -12,7 +12,6 @@ import os
 import pickle
 import random
 import sys
-import traceback
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
@@ -37,11 +36,32 @@ from src.train.trainer import Trainer
 BASELINE_STYLE = "baseline_sasrec"
 
 
-def set_seed(seed: int) -> None:
+def resolve_device(args) -> torch.device:
+    """Resolve train device and fallback to CPU when CUDA build is incompatible."""
+    if args.cpu or not torch.cuda.is_available():
+        return torch.device("cpu")
+
+    try:
+        major, minor = torch.cuda.get_device_capability(0)
+        # Recent PyTorch CUDA builds often drop support for sm_60 GPUs (e.g., Tesla P100).
+        if major < 7:
+            gpu_name = torch.cuda.get_device_name(0)
+            print(
+                f"CUDA GPU detected ({gpu_name}, sm_{major}{minor}) but unsupported by the current "
+                "PyTorch build. Falling back to CPU."
+            )
+            return torch.device("cpu")
+    except Exception:
+        return torch.device("cpu")
+
+    return torch.device("cuda")
+
+
+def set_seed(seed: int, use_cuda: bool = False) -> None:
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-    if torch.cuda.is_available():
+    if use_cuda:
         torch.cuda.manual_seed_all(seed)
 
 
@@ -79,7 +99,13 @@ def create_sasrec(num_items: int, args) -> SASRec:
     )
 
 
-def initialize_promptcraft_weights(model: SASRec, processed_data: dict, style: str, args) -> Dict[str, object]:
+def initialize_promptcraft_weights(
+    model: SASRec,
+    processed_data: dict,
+    style: str,
+    args,
+    device: torch.device,
+) -> Dict[str, object]:
     raw_embeddings, raw_path = load_or_generate_raw_embeddings(
         processed_data=processed_data,
         raw_data_dir=args.raw_data_dir,
@@ -88,7 +114,8 @@ def initialize_promptcraft_weights(model: SASRec, processed_data: dict, style: s
         model_name=args.embedding_model,
         batch_size=args.embedding_batch_size,
         max_length=args.embedding_max_length,
-        use_fp16=not args.embedding_fp32,
+        use_fp16=(not args.embedding_fp32) and device.type == "cuda",
+        device=device.type,
         force_recompute=args.force_reembed,
     )
 
@@ -136,6 +163,7 @@ def run_single_style(
             processed_data=processed_data,
             style=style,
             args=args,
+            device=device,
         )
         print(
             f"  PCA explained variance ({style}): "
@@ -175,11 +203,14 @@ def run_single_style(
         weight_decay=args.weight_decay,
         patience=args.patience,
         save_dir=exp_dir,
+        show_batch_progress=not args.quiet,
+        show_eval_progress=not args.quiet,
     )
 
     history = trainer.train(
         num_epochs=args.epochs,
         eval_every=args.eval_every,
+        verbose=not args.quiet,
     )
 
     history_json = {
@@ -330,7 +361,7 @@ def parse_args():
         "--embedding_model",
         type=str,
         default="BAAI/bge-m3",
-        help="Embedding model name for FlagEmbedding",
+        help="Embedding model name for Transformers encoder",
     )
     parser.add_argument(
         "--embedding_cache_dir",
@@ -375,12 +406,17 @@ def parse_args():
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--weight_decay", type=float, default=0.0)
     parser.add_argument("--patience", type=int, default=20)
-    parser.add_argument("--eval_every", type=int, default=1)
+    parser.add_argument("--eval_every", type=int, default=5)
 
     # System
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num_workers", type=int, default=4)
     parser.add_argument("--cpu", action="store_true")
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Reduce console output (no batch progress bars, concise errors)",
+    )
     parser.add_argument("--save_dir", type=str, default="results")
 
     return parser.parse_args()
@@ -388,9 +424,8 @@ def parse_args():
 
 def main():
     args = parse_args()
-    set_seed(args.seed)
-
-    device = torch.device("cuda" if torch.cuda.is_available() and not args.cpu else "cpu")
+    device = resolve_device(args)
+    set_seed(args.seed, use_cuda=device.type == "cuda")
     print("=" * 78)
     print("PROMPTCRAFT ML-100K EXPERIMENTS")
     print("=" * 78)
@@ -442,7 +477,9 @@ def main():
             all_outputs.append(out)
         except Exception as exc:
             print(f"Error while running style={style}: {exc}")
-            traceback.print_exc()
+            if not args.quiet:
+                import traceback
+                traceback.print_exc()
             continue
 
     if not all_outputs:

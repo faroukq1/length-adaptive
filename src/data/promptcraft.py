@@ -1,4 +1,5 @@
 import os
+from contextlib import nullcontext
 from typing import Dict, List, Tuple
 
 import numpy as np
@@ -115,24 +116,52 @@ def encode_with_bge_m3(
     batch_size: int = 256,
     max_length: int = 128,
     use_fp16: bool = True,
+    device: str = "cpu",
 ) -> np.ndarray:
-    """Encode text list into dense vectors using BGE-M3."""
+    """Encode text list into dense vectors using BGE-M3 via Transformers."""
     try:
-        from FlagEmbedding import BGEM3FlagModel
+        import torch
+        from transformers import AutoModel, AutoTokenizer
     except ImportError as exc:
         raise ImportError(
-            "FlagEmbedding is required for PromptCraft embeddings. "
-            "Install it with: pip install FlagEmbedding"
+            "Transformers-based encoding requires torch and transformers. "
+            "Install with: pip install torch transformers"
         ) from exc
 
-    model = BGEM3FlagModel(model_name, use_fp16=use_fp16)
-    vectors = model.encode(
-        texts,
-        batch_size=batch_size,
-        max_length=max_length,
-    )["dense_vecs"]
+    if device == "cuda" and not torch.cuda.is_available():
+        device = "cpu"
 
-    return np.asarray(vectors, dtype=np.float32)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    model = AutoModel.from_pretrained(model_name, trust_remote_code=True)
+    model.to(device)
+    model.eval()
+
+    vectors: List[np.ndarray] = []
+    for start in range(0, len(texts), batch_size):
+        batch_texts = texts[start:start + batch_size]
+        tokenized = tokenizer(
+            batch_texts,
+            padding=True,
+            truncation=True,
+            max_length=max_length,
+            return_tensors="pt",
+        )
+        tokenized = {k: v.to(device) for k, v in tokenized.items()}
+
+        use_amp = device == "cuda" and use_fp16
+        autocast_ctx = torch.autocast(device_type="cuda", dtype=torch.float16) if use_amp else nullcontext()
+
+        with torch.no_grad():
+            with autocast_ctx:
+                outputs = model(**tokenized)
+
+        last_hidden = outputs.last_hidden_state if hasattr(outputs, "last_hidden_state") else outputs[0]
+        mask = tokenized["attention_mask"].unsqueeze(-1).float()
+        pooled = (last_hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1e-9)
+        pooled = torch.nn.functional.normalize(pooled, p=2, dim=1)
+        vectors.append(pooled.detach().cpu().numpy().astype(np.float32))
+
+    return np.vstack(vectors).astype(np.float32)
 
 
 def load_or_generate_raw_embeddings(
@@ -144,6 +173,7 @@ def load_or_generate_raw_embeddings(
     batch_size: int = 256,
     max_length: int = 128,
     use_fp16: bool = True,
+    device: str = "cpu",
     force_recompute: bool = False,
 ) -> Tuple[np.ndarray, str]:
     """
@@ -155,7 +185,7 @@ def load_or_generate_raw_embeddings(
     cache_path = os.path.join(cache_dir, f"{style}_raw.npy")
     if os.path.exists(cache_path) and not force_recompute:
         print(f"Loading cached raw embeddings: {cache_path}")
-        return np.load(cache_path), cache_path
+        return np.load(cache_path, allow_pickle=False), cache_path
 
     print(f"Generating raw embeddings for style: {style}")
     item_meta = load_item_metadata(raw_data_dir=raw_data_dir)
@@ -174,6 +204,7 @@ def load_or_generate_raw_embeddings(
         batch_size=batch_size,
         max_length=max_length,
         use_fp16=use_fp16,
+        device=device,
     )
 
     np.save(cache_path, raw_embeddings)
