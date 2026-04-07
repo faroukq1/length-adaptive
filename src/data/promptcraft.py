@@ -29,32 +29,73 @@ def validate_style(style: str) -> str:
     return style
 
 
-def load_item_metadata(raw_data_dir: str = "data/ml-100k/raw") -> Dict[int, Dict[str, List[str]]]:
-    """Load ML-100K item metadata from u.item into {movie_id: {title, genres}}."""
-    item_file = os.path.join(raw_data_dir, "ml-100k", "u.item")
-    if not os.path.exists(item_file):
-        raise FileNotFoundError(
-            f"Item metadata file not found: {item_file}. "
-            "Run ML-100K preprocessing first to download/extract raw data."
+def load_item_metadata(
+    raw_data_dir: str = "data/ml-1m/raw",
+    dataset: str = "ml-1m",
+) -> Dict[int, Dict[str, List[str]]]:
+    """Load item metadata into {movie_id: {title, genres}} for ML-1M or ML-100K."""
+    if dataset == "ml-100k":
+        candidates = [
+            os.path.join(raw_data_dir, "ml-100k", "u.item"),
+            os.path.join(raw_data_dir, "u.item"),
+        ]
+        item_file = next((p for p in candidates if os.path.exists(p)), None)
+        if item_file is None:
+            raise FileNotFoundError(
+                "ML-100K metadata file not found. Checked: "
+                + ", ".join(candidates)
+            )
+
+        items_df = pd.read_csv(
+            item_file,
+            sep="|",
+            encoding="latin-1",
+            header=None,
+            names=["movie_id", "title", "release_date", "video_release", "imdb_url"] + GENRE_COLUMNS,
         )
 
-    items_df = pd.read_csv(
-        item_file,
-        sep="|",
-        encoding="latin-1",
-        header=None,
-        names=["movie_id", "title", "release_date", "video_release", "imdb_url"] + GENRE_COLUMNS,
-    )
+        item_meta: Dict[int, Dict[str, List[str]]] = {}
+        for _, row in items_df.iterrows():
+            genres = [genre for genre in GENRE_COLUMNS if row[genre] == 1]
+            item_meta[int(row["movie_id"])] = {
+                "title": str(row["title"]).strip(),
+                "genres": genres,
+            }
+        return item_meta
 
-    item_meta: Dict[int, Dict[str, List[str]]] = {}
-    for _, row in items_df.iterrows():
-        genres = [genre for genre in GENRE_COLUMNS if row[genre] == 1]
-        item_meta[int(row["movie_id"])] = {
-            "title": str(row["title"]).strip(),
-            "genres": genres,
-        }
+    if dataset == "ml-1m":
+        candidates = [
+            os.path.join(raw_data_dir, "ml-1m", "movies.dat"),
+            os.path.join(raw_data_dir, "movies.dat"),
+            os.path.join("archive", "1m", "raw", "ml-1m", "movies.dat"),
+        ]
+        movies_file = next((p for p in candidates if os.path.exists(p)), None)
+        if movies_file is None:
+            raise FileNotFoundError(
+                "ML-1M metadata file not found. Checked: "
+                + ", ".join(candidates)
+            )
 
-    return item_meta
+        movies_df = pd.read_csv(
+            movies_file,
+            sep="::",
+            engine="python",
+            encoding="latin-1",
+            header=None,
+            names=["movie_id", "title", "genres"],
+        )
+
+        item_meta: Dict[int, Dict[str, List[str]]] = {}
+        for _, row in movies_df.iterrows():
+            genre_text = str(row["genres"]) if pd.notna(row["genres"]) else ""
+            genres = [g.strip() for g in genre_text.split("|") if g.strip()]
+            item_meta[int(row["movie_id"])] = {
+                "title": str(row["title"]).strip(),
+                "genres": genres,
+            }
+        return item_meta
+
+    raise ValueError(f"Unsupported dataset: {dataset}")
 
 
 def format_item_prompt(title: str, genres: List[str], style: str) -> str:
@@ -167,6 +208,7 @@ def encode_with_bge_m3(
 def load_or_generate_raw_embeddings(
     processed_data: dict,
     raw_data_dir: str,
+    dataset: str,
     style: str,
     cache_dir: str,
     model_name: str = "BAAI/bge-m3",
@@ -182,13 +224,13 @@ def load_or_generate_raw_embeddings(
     style = validate_style(style)
     os.makedirs(cache_dir, exist_ok=True)
 
-    cache_path = os.path.join(cache_dir, f"{style}_raw.npy")
+    cache_path = os.path.join(cache_dir, f"{dataset}_{style}_raw.npy")
     if os.path.exists(cache_path) and not force_recompute:
         print(f"Loading cached raw embeddings: {cache_path}")
         return np.load(cache_path, allow_pickle=False), cache_path
 
-    print(f"Generating raw embeddings for style: {style}")
-    item_meta = load_item_metadata(raw_data_dir=raw_data_dir)
+    print(f"Generating raw embeddings for dataset={dataset}, style={style}")
+    item_meta = load_item_metadata(raw_data_dir=raw_data_dir, dataset=dataset)
     item_texts, missing = build_item_texts_for_style(
         processed_data=processed_data,
         item_meta=item_meta,

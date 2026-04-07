@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Run PromptCraft experiments on MovieLens-100K with project-consistent defaults.
+# Run PromptCraft experiments on MovieLens-1M with project-consistent defaults.
 # Default run trains BERT4Rec + PromptCraft P1/P2/P3/P4 and includes baseline.
 # Behavior can be changed via environment variables below.
 
@@ -12,7 +12,7 @@ PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
 cd "$PROJECT_ROOT"
 
 echo "========================================"
-echo "PROMPTCRAFT EXPERIMENTS - MOVIELENS-100K"
+echo "PROMPTCRAFT EXPERIMENTS - MOVIELENS-1M"
 echo "========================================"
 echo ""
 echo "Working directory: $PROJECT_ROOT"
@@ -23,6 +23,10 @@ MODEL=${MODEL:-bert4rec}
 LOSS=${LOSS:-bpr}
 STYLES=${STYLES:-P1_title_only P2_title_genre P3_user_centric P4_hybrid}
 RUN_BASELINE=${RUN_BASELINE:-1}
+DATASET=${DATASET:-ml-1m}
+DATA_PATH=${DATA_PATH:-data/ml-1m/processed/sequences.pkl}
+RAW_DATA_DIR=${RAW_DATA_DIR:-data/ml-1m/raw}
+EMB_CACHE_DIR=${EMB_CACHE_DIR:-data/ml-1m/embeddings}
 
 EPOCHS=${EPOCHS:-200}
 PATIENCE=${PATIENCE:-20}
@@ -44,6 +48,10 @@ GRAD_CLIP_NORM=${GRAD_CLIP_NORM:-0.0}
 
 echo "Training config:"
 echo "  model=$MODEL, loss=$LOSS"
+echo "  dataset=$DATASET"
+echo "  data_path=$DATA_PATH"
+echo "  raw_data_dir=$RAW_DATA_DIR"
+echo "  embedding_cache_dir=$EMB_CACHE_DIR"
 echo "  styles=$STYLES"
 echo "  epochs=$EPOCHS, patience=$PATIENCE, batch_size=$BATCH_SIZE"
 echo "  lr=$LR, d_model=$D_MODEL, n_heads=$N_HEADS, n_blocks=$N_BLOCKS"
@@ -67,9 +75,13 @@ echo "Running styles: ${STYLE_ARGS[*]}"
 echo ""
 
 python3 -m experiments.run_promptcraft \
-        --model "$MODEL" \
-        --loss "$LOSS" \
-        --styles "${STYLE_ARGS[@]}" \
+    --dataset "$DATASET" \
+    --data_path "$DATA_PATH" \
+    --raw_data_dir "$RAW_DATA_DIR" \
+    --embedding_cache_dir "$EMB_CACHE_DIR" \
+    --model "$MODEL" \
+    --loss "$LOSS" \
+    --styles "${STYLE_ARGS[@]}" \
     --epochs "$EPOCHS" \
     --patience "$PATIENCE" \
     --batch_size "$BATCH_SIZE" \

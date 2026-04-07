@@ -1,5 +1,5 @@
 """
-PromptCraft experiments on MovieLens-100K using the project's native training stack.
+PromptCraft experiments on MovieLens using the project's native training stack.
 
 This runner keeps preprocessing, dataloading, training, and evaluation consistent
 with existing baselines/hybrid experiments and only changes item embedding
@@ -23,6 +23,7 @@ import torch
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.data.dataloader import get_dataloaders
+from src.data.preprocess import ML1MPreprocessor
 from src.data.preprocess_ml100k import ML100KPreprocessor
 from src.data.promptcraft import (
     PROMPT_STYLES,
@@ -67,26 +68,78 @@ def set_seed(seed: int, use_cuda: bool = False) -> None:
         torch.cuda.manual_seed_all(seed)
 
 
-def ensure_ml100k_processed(args) -> None:
-    """Run the same ML-100K preprocessing used by the project if missing."""
-    preprocessor = ML100KPreprocessor(
-        raw_data_dir=args.raw_data_dir,
-        min_rating=args.min_rating,
-        min_seq_len=args.min_seq_len,
-    )
+def ensure_dataset_processed(args) -> None:
+    """Run the project preprocessor for the selected dataset if data is missing."""
+    if args.dataset == "ml-100k":
+        preprocessor = ML100KPreprocessor(
+            raw_data_dir=args.raw_data_dir,
+            min_rating=args.min_rating,
+            min_seq_len=args.min_seq_len,
+        )
 
-    # PromptCraft needs raw metadata (u.item) even if processed data already exists.
-    item_meta_path = os.path.join(args.raw_data_dir, "ml-100k", "u.item")
-    if not os.path.exists(item_meta_path):
-        print("Raw ML-100K metadata not found. Downloading/extracting raw files...")
-        preprocessor.download()
+        # PromptCraft needs raw metadata (u.item) even if processed data already exists.
+        item_meta_path = os.path.join(args.raw_data_dir, "ml-100k", "u.item")
+        if not os.path.exists(item_meta_path):
+            print("Raw ML-100K metadata not found. Downloading/extracting raw files...")
+            preprocessor.download()
 
-    if os.path.exists(args.data_path):
-        print(f"Using existing processed data: {args.data_path}")
+        if os.path.exists(args.data_path):
+            print(f"Using existing processed data: {args.data_path}")
+            return
+
+        print("Processed ML-100K data not found. Running project preprocessor...")
+        preprocessor.preprocess(args.data_path)
         return
 
-    print("Processed ML-100K data not found. Running project preprocessor...")
-    preprocessor.preprocess(args.data_path)
+    if args.dataset == "ml-1m":
+        ratings_candidates = [
+            os.path.join(args.raw_data_dir, "ml-1m", "ratings.dat"),
+            os.path.join(args.raw_data_dir, "ratings.dat"),
+            os.path.join("archive", "1m", "raw", "ml-1m", "ratings.dat"),
+        ]
+        movies_candidates = [
+            os.path.join(args.raw_data_dir, "ml-1m", "movies.dat"),
+            os.path.join(args.raw_data_dir, "movies.dat"),
+            os.path.join("archive", "1m", "raw", "ml-1m", "movies.dat"),
+        ]
+
+        ratings_path = next((p for p in ratings_candidates if os.path.exists(p)), None)
+        movies_path = next((p for p in movies_candidates if os.path.exists(p)), None)
+
+        if os.path.exists(args.data_path):
+            print(f"Using existing processed data: {args.data_path}")
+        else:
+            if ratings_path is None:
+                raise FileNotFoundError(
+                    "MovieLens-1M ratings file not found. Checked: "
+                    + ", ".join(ratings_candidates)
+                    + ". "
+                    "Download/extract ml-1m.zip into data/ml-1m/raw/ml-1m "
+                    "or run scripts/setup_kaggle.sh first."
+                )
+
+            output_dir = os.path.dirname(args.data_path)
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+
+            print("Processed ML-1M data not found. Running project preprocessor...")
+            preprocessor = ML1MPreprocessor(
+                raw_data_path=ratings_path,
+                min_rating=args.min_rating,
+                min_seq_len=args.min_seq_len,
+            )
+            preprocessor.preprocess(args.data_path)
+
+        if movies_path is None:
+            raise FileNotFoundError(
+                "MovieLens-1M metadata file not found. Checked: "
+                + ", ".join(movies_candidates)
+                + ". "
+                "PromptCraft requires movies.dat for item-text prompts."
+            )
+        return
+
+    raise ValueError(f"Unsupported dataset: {args.dataset}")
 
 
 def create_sequence_model(num_items: int, args):
@@ -176,6 +229,7 @@ def initialize_promptcraft_weights(
     raw_embeddings, raw_path = load_or_generate_raw_embeddings(
         processed_data=processed_data,
         raw_data_dir=args.raw_data_dir,
+        dataset=args.dataset,
         style=style,
         cache_dir=args.embedding_cache_dir,
         model_name=args.embedding_model,
@@ -256,7 +310,7 @@ def run_single_style(
             "promptcraft_style": style,
             "num_users": processed_data["config"]["num_users"],
             "num_items": num_items,
-            "dataset": processed_data["config"].get("dataset", "ml-100k"),
+            "dataset": args.dataset,
             "initialization": init_info,
         }
     )
@@ -390,21 +444,28 @@ def summarize_and_save(all_outputs: List[Dict[str, object]], args) -> None:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Run PromptCraft experiments on MovieLens-100K"
+        description="Run PromptCraft experiments on MovieLens-1M (or 100K)"
     )
 
     # Data and preprocessing
     parser.add_argument(
+        "--dataset",
+        type=str,
+        default="ml-1m",
+        choices=["ml-1m", "ml-100k"],
+        help="Dataset variant used for PromptCraft training",
+    )
+    parser.add_argument(
         "--data_path",
         type=str,
-        default="data/ml-100k/processed/sequences.pkl",
-        help="Path to processed ML-100K data (project format)",
+        default="data/ml-1m/processed/sequences.pkl",
+        help="Path to processed MovieLens data (project format)",
     )
     parser.add_argument(
         "--raw_data_dir",
         type=str,
-        default="data/ml-100k/raw",
-        help="Directory for raw ML-100K files",
+        default="data/ml-1m/raw",
+        help="Directory for raw MovieLens files",
     )
     parser.add_argument(
         "--min_rating",
@@ -455,7 +516,7 @@ def parse_args():
     parser.add_argument(
         "--embedding_cache_dir",
         type=str,
-        default="data/ml-100k/embeddings",
+        default="data/ml-1m/embeddings",
         help="Where raw per-style embeddings are cached",
     )
     parser.add_argument(
@@ -531,8 +592,9 @@ def main():
     device = resolve_device(args)
     set_seed(args.seed, use_cuda=device.type == "cuda")
     print("=" * 78)
-    print("PROMPTCRAFT ML-100K EXPERIMENTS")
+    print("PROMPTCRAFT MOVIELENS EXPERIMENTS")
     print("=" * 78)
+    print(f"Dataset: {args.dataset}")
     print(f"Device: {device}")
     print(f"Model: {args.model} | Loss: {args.loss}")
     print(f"Styles: {', '.join(args.styles)}")
@@ -543,7 +605,7 @@ def main():
     )
     print("=" * 78)
 
-    ensure_ml100k_processed(args)
+    ensure_dataset_processed(args)
 
     with open(args.data_path, "rb") as f:
         processed_data = pickle.load(f)
