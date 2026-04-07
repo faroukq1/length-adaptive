@@ -437,7 +437,7 @@ def parse_args():
     parser.add_argument(
         "--styles",
         nargs="+",
-        default=["P4_hybrid"],
+        default=PROMPT_STYLES,
         choices=PROMPT_STYLES,
         help="PromptCraft styles to run",
     )
@@ -483,7 +483,7 @@ def parse_args():
     parser.add_argument(
         "--init_mix_alpha",
         type=float,
-        default=0.8,
+        default=1.0,
         help="Blend ratio for PromptCraft init vs random init (1.0 = prompt only)",
     )
     parser.add_argument(
@@ -494,23 +494,23 @@ def parse_args():
     )
 
     # Model hyperparameters
-    parser.add_argument("--d_model", type=int, default=128)
-    parser.add_argument("--n_heads", type=int, default=4)
-    parser.add_argument("--n_blocks", type=int, default=3)
-    parser.add_argument("--d_ff", type=int, default=512)
-    parser.add_argument("--dropout", type=float, default=0.15)
-    parser.add_argument("--max_len", type=int, default=200)
+    parser.add_argument("--d_model", type=int, default=64)
+    parser.add_argument("--n_heads", type=int, default=2)
+    parser.add_argument("--n_blocks", type=int, default=2)
+    parser.add_argument("--d_ff", type=int, default=256)
+    parser.add_argument("--dropout", type=float, default=0.2)
+    parser.add_argument("--max_len", type=int, default=50)
 
     # Training
-    parser.add_argument("--epochs", type=int, default=300)
+    parser.add_argument("--epochs", type=int, default=200)
     parser.add_argument("--batch_size", type=int, default=256)
-    parser.add_argument("--lr", type=float, default=5e-4)
-    parser.add_argument("--weight_decay", type=float, default=1e-5)
-    parser.add_argument("--patience", type=int, default=35)
+    parser.add_argument("--lr", type=float, default=0.001)
+    parser.add_argument("--weight_decay", type=float, default=0.0)
+    parser.add_argument("--patience", type=int, default=20)
     parser.add_argument("--eval_every", type=int, default=5)
-    parser.add_argument("--num_neg_samples", type=int, default=5)
-    parser.add_argument("--hard_neg_ratio", type=float, default=0.4)
-    parser.add_argument("--grad_clip_norm", type=float, default=1.0)
+    parser.add_argument("--num_neg_samples", type=int, default=1)
+    parser.add_argument("--hard_neg_ratio", type=float, default=0.0)
+    parser.add_argument("--grad_clip_norm", type=float, default=0.0)
 
     # System
     parser.add_argument("--seed", type=int, default=42)

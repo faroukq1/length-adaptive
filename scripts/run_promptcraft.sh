@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Run PromptCraft experiments on MovieLens-100K with stronger defaults.
-# Default run trains BERT4Rec + PromptCraft P4_hybrid and includes baseline.
+# Run PromptCraft experiments on MovieLens-100K with project-consistent defaults.
+# Default run trains BERT4Rec + PromptCraft P1/P2/P3/P4 and includes baseline.
 # Behavior can be changed via environment variables below.
 
 set -e
@@ -21,26 +21,26 @@ echo ""
 # Configurable defaults via environment variables
 MODEL=${MODEL:-bert4rec}
 LOSS=${LOSS:-bpr}
-STYLES=${STYLES:-P4_hybrid}
+STYLES=${STYLES:-P1_title_only P2_title_genre P3_user_centric P4_hybrid}
 RUN_BASELINE=${RUN_BASELINE:-1}
 
-EPOCHS=${EPOCHS:-300}
-PATIENCE=${PATIENCE:-35}
+EPOCHS=${EPOCHS:-200}
+PATIENCE=${PATIENCE:-20}
 BATCH_SIZE=${BATCH_SIZE:-256}
-LR=${LR:-0.0005}
-MAX_LEN=${MAX_LEN:-200}
-D_MODEL=${D_MODEL:-128}
-N_HEADS=${N_HEADS:-4}
-N_BLOCKS=${N_BLOCKS:-3}
-D_FF=${D_FF:-512}
-DROPOUT=${DROPOUT:-0.15}
+LR=${LR:-0.001}
+MAX_LEN=${MAX_LEN:-50}
+D_MODEL=${D_MODEL:-64}
+N_HEADS=${N_HEADS:-2}
+N_BLOCKS=${N_BLOCKS:-2}
+D_FF=${D_FF:-256}
+DROPOUT=${DROPOUT:-0.2}
 EMB_BATCH_SIZE=${EMB_BATCH_SIZE:-256}
 EVAL_EVERY=${EVAL_EVERY:-5}
-NUM_NEG_SAMPLES=${NUM_NEG_SAMPLES:-5}
-HARD_NEG_RATIO=${HARD_NEG_RATIO:-0.4}
-INIT_MIX_ALPHA=${INIT_MIX_ALPHA:-0.8}
+NUM_NEG_SAMPLES=${NUM_NEG_SAMPLES:-1}
+HARD_NEG_RATIO=${HARD_NEG_RATIO:-0.0}
+INIT_MIX_ALPHA=${INIT_MIX_ALPHA:-1.0}
 INIT_SCALE=${INIT_SCALE:-1.0}
-GRAD_CLIP_NORM=${GRAD_CLIP_NORM:-1.0}
+GRAD_CLIP_NORM=${GRAD_CLIP_NORM:-0.0}
 
 echo "Training config:"
 echo "  model=$MODEL, loss=$LOSS"
