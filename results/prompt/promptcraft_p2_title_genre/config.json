@@ -1,0 +1,68 @@
+{
+  "dataset": "ml-1m",
+  "data_path": "data/ml-1m/processed/sequences.pkl",
+  "raw_data_dir": "data/ml-1m/raw",
+  "min_rating": 4,
+  "min_seq_len": 5,
+  "model": "bert4rec",
+  "loss": "bpr",
+  "styles": [
+    "P1_title_only",
+    "P2_title_genre",
+    "P3_user_centric",
+    "P4_hybrid"
+  ],
+  "skip_baseline": false,
+  "embedding_model": "BAAI/bge-m3",
+  "embedding_cache_dir": "data/ml-1m/embeddings",
+  "embedding_batch_size": 256,
+  "embedding_max_length": 128,
+  "embedding_fp32": false,
+  "force_reembed": false,
+  "init_mix_alpha": 1.0,
+  "init_scale": 1.0,
+  "d_model": 64,
+  "n_heads": 2,
+  "n_blocks": 2,
+  "d_ff": 256,
+  "dropout": 0.2,
+  "max_len": 50,
+  "epochs": 200,
+  "batch_size": 256,
+  "lr": 0.001,
+  "weight_decay": 0.0,
+  "patience": 20,
+  "eval_every": 5,
+  "num_neg_samples": 1,
+  "hard_neg_ratio": 0.0,
+  "grad_clip_norm": 0.0,
+  "seed": 42,
+  "num_workers": 4,
+  "cpu": false,
+  "quiet": true,
+  "save_dir": "results",
+  "promptcraft_style": "P2_title_genre",
+  "num_users": 938,
+  "num_items": 1447,
+  "initialization": {
+    "embedding_mode": "promptcraft",
+    "style": "P2_title_genre",
+    "raw_embeddings_path": "data/ml-1m/embeddings/ml-1m_P2_title_genre_raw.npy",
+    "raw_shape": [
+      1448,
+      1024
+    ],
+    "compressed_shape": [
+      1448,
+      64
+    ],
+    "pca_explained_variance": 0.7236838340759277,
+    "blend": {
+      "mix_alpha": 1.0,
+      "init_scale": 1.0,
+      "random_std": 0.0363142304122448,
+      "prompt_std": 0.0045392755419015884,
+      "blended_std": 0.0045392755419015884
+    }
+  }
+}
