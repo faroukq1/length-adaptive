@@ -100,6 +100,7 @@ class Trainer:
         # Training history
         self.history = {
             'train_loss': [],
+            'val_loss': [],
             'val_metrics': [],
             'best_epoch': 0,
             'best_val_metric': 0.0
@@ -162,7 +163,7 @@ class Trainer:
         avg_loss = total_loss / num_batches
         return avg_loss
 
-    def evaluate_epoch(self, data_loader, desc="Validating"):
+    def evaluate_epoch(self, data_loader, desc="Validating", compute_val_loss=False):
         """Evaluate on validation or test set"""
         if self.is_lightgcn:
             metrics = self.evaluator.evaluate(
@@ -172,7 +173,10 @@ class Trainer:
                 k_list=[5, 10, 20],
                 compute_by_group=False,
                 verbose=self.show_eval_progress,
-                graph_emb=self.graph_emb
+                graph_emb=self.graph_emb,
+                compute_val_loss=compute_val_loss,
+                criterion=self.criterion,
+                num_items=self.model.num_items if hasattr(self.model, 'num_items') else None
             )
         elif self.use_graph:
             metrics = self.evaluator.evaluate(
@@ -181,7 +185,10 @@ class Trainer:
                 self.edge_weight,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=self.show_eval_progress
+                verbose=self.show_eval_progress,
+                compute_val_loss=compute_val_loss,
+                criterion=self.criterion,
+                num_items=self.model.num_items if hasattr(self.model, 'num_items') else None
             )
         else:
             metrics = self.evaluator.evaluate(
@@ -190,7 +197,10 @@ class Trainer:
                 None,
                 k_list=[5, 10, 20],
                 compute_by_group=False,
-                verbose=self.show_eval_progress
+                verbose=self.show_eval_progress,
+                compute_val_loss=compute_val_loss,
+                criterion=self.criterion,
+                num_items=self.model.num_items if hasattr(self.model, 'num_items') else None
             )
         return metrics
 
@@ -262,13 +272,17 @@ class Trainer:
             # Evaluate
             if epoch % eval_every == 0:
                 print(f"\n[Epoch {epoch}] Evaluating...")
-                val_metrics = self.evaluate_epoch(self.val_loader, desc="Validating")
+                val_metrics = self.evaluate_epoch(self.val_loader, desc="Validating", compute_val_loss=True)
                 self.history['val_metrics'].append(val_metrics)
+                if 'val_loss' in val_metrics:
+                    self.history['val_loss'].append(val_metrics['val_loss'])
 
                 # Print results
                 epoch_time = time.time() - epoch_start
                 print(f"\n[Epoch {epoch}/{num_epochs}] Time: {epoch_time:.1f}s")
                 print(f"  Train Loss: {train_loss:.4f}")
+                if 'val_loss' in val_metrics:
+                    print(f"  Val Loss: {val_metrics['val_loss']:.4f}")
                 print(f"  Val HR@10: {val_metrics['HR@10']:.4f}")
                 print(f"  Val NDCG@10: {val_metrics['NDCG@10']:.4f}")
                 print(f"  Val MRR@10: {val_metrics['MRR@10']:.4f}")

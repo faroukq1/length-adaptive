@@ -18,7 +18,8 @@ class Evaluator:
 
     @torch.no_grad()
     def evaluate(self, eval_loader, edge_index, edge_weight=None, k_list=[5, 10, 20], 
-                 compute_by_group=False, verbose=True, track_alpha=False, graph_emb=None):
+                 compute_by_group=False, verbose=True, track_alpha=False, graph_emb=None,
+                 compute_val_loss=False, criterion=None, num_items=None):
         """
         Evaluate model on validation or test set
 
@@ -31,6 +32,9 @@ class Evaluator:
             verbose: Whether to show progress bar
             track_alpha: Whether to track alpha values (for hybrid models)
             graph_emb: Precomputed graph embeddings (for LightGCN)
+            compute_val_loss: Whether to compute BPR loss on validation set
+            criterion: Loss function (required if compute_val_loss=True)
+            num_items: Number of items (required if compute_val_loss=True)
 
         Returns:
             metrics: Dictionary of evaluation metrics
@@ -41,6 +45,8 @@ class Evaluator:
         all_ranks = []
         all_lengths = []
         all_alphas = [] if track_alpha else None
+        val_loss_sum = 0.0
+        val_loss_count = 0
 
         iterator = tqdm(eval_loader, desc="Evaluating") if verbose else eval_loader
 
@@ -72,6 +78,16 @@ class Evaluator:
             # Compute ranks
             ranks = self.compute_ranks(scores, targets)
 
+            # Compute validation loss if requested
+            if compute_val_loss and criterion is not None and num_items is not None:
+                batch_size = scores.size(0)
+                pos_scores = scores[torch.arange(batch_size), targets - 1]
+                neg_indices = torch.randint(1, num_items + 1, (batch_size,), device=self.device)
+                neg_scores = scores[torch.arange(batch_size), neg_indices - 1]
+                loss = criterion(pos_scores, neg_scores.unsqueeze(1))
+                val_loss_sum += loss.item() * batch_size
+                val_loss_count += batch_size
+
             all_ranks.append(ranks)
             all_lengths.append(lengths)
 
@@ -84,6 +100,10 @@ class Evaluator:
             metrics = compute_metrics_by_group(all_ranks, all_lengths, k_list)
         else:
             metrics = compute_all_metrics(all_ranks, k_list)
+
+        # Add validation loss to metrics if computed
+        if compute_val_loss and val_loss_count > 0:
+            metrics['val_loss'] = val_loss_sum / val_loss_count
 
         # Compute alpha statistics if tracked
         if track_alpha and all_alphas:

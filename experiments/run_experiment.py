@@ -214,6 +214,7 @@ def main(args):
         # Convert to JSON-serializable format
         history_json = {
             'train_loss': history['train_loss'],
+            'val_loss': history.get('val_loss', []),
             'val_metrics': history['val_metrics'],
             'best_epoch': history['best_epoch'],
             'best_val_metric': history['best_val_metric']
