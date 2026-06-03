@@ -102,6 +102,9 @@ class Trainer:
             'train_loss': [],
             'val_loss': [],
             'val_metrics': [],
+            'val_ndcg10': [],
+            'test_ndcg10': [],
+            'delta_ndcg10': [],
             'best_epoch': 0,
             'best_val_metric': 0.0
         }
@@ -261,6 +264,15 @@ class Trainer:
                 if 'val_loss' in val_metrics:
                     self.history['val_loss'].append(val_metrics['val_loss'])
 
+                # Evaluate on test set for delta computation
+                test_metrics = self.evaluate_epoch(self.test_loader, desc="Testing")
+                val_ndcg10 = val_metrics['NDCG@10']
+                test_ndcg10 = test_metrics['NDCG@10']
+                delta_ndcg10 = val_ndcg10 - test_ndcg10
+                self.history['val_ndcg10'].append(val_ndcg10)
+                self.history['test_ndcg10'].append(test_ndcg10)
+                self.history['delta_ndcg10'].append(delta_ndcg10)
+
                 # Print results
                 epoch_time = time.time() - epoch_start
                 print(f"\n[Epoch {epoch}/{num_epochs}] Time: {epoch_time:.1f}s")
@@ -268,8 +280,10 @@ class Trainer:
                 if 'val_loss' in val_metrics:
                     print(f"  Val Loss: {val_metrics['val_loss']:.4f}")
                 print(f"  Val HR@10: {val_metrics['HR@10']:.4f}")
-                print(f"  Val NDCG@10: {val_metrics['NDCG@10']:.4f}")
+                print(f"  Val NDCG@10: {val_ndcg10:.4f}")
                 print(f"  Val MRR@10: {val_metrics['MRR@10']:.4f}")
+                print(f"  Test NDCG@10: {test_ndcg10:.4f}")
+                print(f"  ΔNDCG@10: {delta_ndcg10:+.4f}")
 
                 # Check for improvement (using NDCG@10 as primary metric)
                 current_metric = val_metrics['NDCG@10']
@@ -294,12 +308,18 @@ class Trainer:
 
         # Training complete
         total_time = time.time() - start_time
+        best_epoch_idx = self.history['best_epoch'] - 1
+        final_delta = self.history['delta_ndcg10'][best_epoch_idx] if best_epoch_idx < len(self.history['delta_ndcg10']) else 0.0
+        gen_status = "HEALTHY" if abs(final_delta) <= 0.01 else "OVERFITTING"
+
         print("\n" + "="*60)
         print("TRAINING COMPLETE")
         print("="*60)
         print(f"Total time: {total_time/60:.1f} minutes")
         print(f"Best epoch: {self.history['best_epoch']}")
         print(f"Best val NDCG@10: {self.history['best_val_metric']:.4f}")
+        print(f"Delta NDCG@10 at best epoch: {final_delta:+.4f}")
+        print(f"Generalization status: {gen_status}")
         print("="*60 + "\n")
 
         return self.history

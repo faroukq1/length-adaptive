@@ -226,6 +226,9 @@ def main(args):
             'train_loss': history['train_loss'],
             'val_loss': history.get('val_loss', []),
             'val_metrics': history['val_metrics'],
+            'val_ndcg10': history.get('val_ndcg10', []),
+            'test_ndcg10': history.get('test_ndcg10', []),
+            'delta_ndcg10': history.get('delta_ndcg10', []),
             'best_epoch': history['best_epoch'],
             'best_val_metric': history['best_val_metric']
         }
