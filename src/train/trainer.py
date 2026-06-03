@@ -220,18 +220,7 @@ class Trainer:
             best_path = os.path.join(self.save_dir, 'best_model.pt')
             torch.save(checkpoint, best_path)
 
-    def load_checkpoint(self, filename='checkpoint.pt'):
-        """Load model checkpoint"""
-        filepath = os.path.join(self.save_dir, filename)
-        checkpoint = torch.load(filepath, map_location=self.device)
-
-        self.model.load_state_dict(checkpoint['model_state_dict'])
-        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        self.history = checkpoint['history']
-
-        return checkpoint['epoch']
-
-    def train(self, num_epochs, eval_every=1, verbose=True, start_epoch=0):
+    def train(self, num_epochs, eval_every=1, verbose=True):
         """
         Full training loop with early stopping
 
@@ -239,7 +228,6 @@ class Trainer:
             num_epochs: Maximum number of epochs
             eval_every: Evaluate every N epochs
             verbose: Whether to print progress
-            start_epoch: Starting epoch when resuming (0-indexed)
 
         Returns:
             history: Training history dictionary
@@ -253,16 +241,12 @@ class Trainer:
         print(f"Validation batches: {len(self.val_loader)}")
         print("="*60 + "\n")
 
-        # When resuming, use the loaded best_val_metric from history
-        if start_epoch > 0:
-            best_val_metric = self.history.get('best_val_metric', 0.0)
-            patience_counter = 0
-        else:
-            best_val_metric = 0.0
-            patience_counter = 0
+        # Initialize best tracking
+        best_val_metric = 0.0
+        patience_counter = 0
         start_time = time.time()
 
-        for epoch in range(start_epoch + 1, num_epochs + 1):
+        for epoch in range(1, num_epochs + 1):
             epoch_start = time.time()
 
             # Train
@@ -308,10 +292,6 @@ class Trainer:
                     print(f"\n⚠ Early stopping triggered after {epoch} epochs")
                     break
 
-            # Save regular checkpoint
-            if epoch % 10 == 0:
-                self.save_checkpoint(f'checkpoint_epoch_{epoch}.pt')
-
         # Training complete
         total_time = time.time() - start_time
         print("\n" + "="*60)
@@ -336,7 +316,9 @@ class Trainer:
         """
         if use_best_model:
             print("Loading best model...")
-            self.load_checkpoint('best_model.pt')
+            best_path = os.path.join(self.save_dir, 'best_model.pt')
+            checkpoint = torch.load(best_path, map_location=self.device)
+            self.model.load_state_dict(checkpoint['model_state_dict'])
 
         print("\n" + "="*60)
         print("TESTING ON TEST SET")
