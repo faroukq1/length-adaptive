@@ -233,10 +233,10 @@ def main():
     
     # Data
     parser.add_argument('--data_path', type=str, 
-                       default='data/ml-1m/processed/sequences.pkl',
+                       default='data/1m/ml-1m/processed/sequences.pkl',
                        help='Path to processed data')
     parser.add_argument('--graph_path', type=str,
-                       default='data/graphs/cooccurrence_graph.pkl',
+                       default='data/1m/graphs/cooccurrence_graph.pkl',
                        help='Path to graph data')
     parser.add_argument('--results_dir', type=str, 
                        default='results',

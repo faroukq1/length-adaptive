@@ -218,7 +218,7 @@ def get_dataloaders(
 # Testing
 if __name__ == '__main__':
     train_loader, val_loader, test_loader, config = get_dataloaders(
-        'data/ml-1m/processed/sequences.pkl',
+        'data/1m/ml-1m/processed/sequences.pkl',
         batch_size=64
     )
 

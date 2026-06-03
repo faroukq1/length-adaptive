@@ -172,14 +172,22 @@ class CooccurrenceGraphBuilder:
 
 # Usage script
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Build co-occurrence graph')
+    parser.add_argument('--data_path', type=str, default='data/1m/ml-1m/processed/sequences.pkl')
+    parser.add_argument('--output_path', type=str, default='data/1m/graphs/cooccurrence_graph.pkl')
+    parser.add_argument('--window_size', type=int, default=3)
+    parser.add_argument('--min_count', type=int, default=5)
+    args = parser.parse_args()
+
     # Load preprocessed sequences
-    with open('../../data/ml-1m/processed/sequences.pkl', 'rb') as f:
+    with open(args.data_path, 'rb') as f:
         data = pickle.load(f)
 
     # Build graph
-    builder = CooccurrenceGraphBuilder(window_size=3, min_count=5)
+    builder = CooccurrenceGraphBuilder(window_size=args.window_size, min_count=args.min_count)
     graph_data = builder.build_and_save(
         sequences=data['train_sequences'],
         num_items=data['config']['num_items'],
-        output_path='../../data/graphs/cooccurrence_graph.pkl'
+        output_path=args.output_path
     )

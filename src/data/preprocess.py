@@ -190,10 +190,18 @@ class ML1MPreprocessor:
 
 # Usage script
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Preprocess MovieLens-1M data')
+    parser.add_argument('--raw_path', type=str, default='data/1m/raw/ml-1m/ratings.dat')
+    parser.add_argument('--output_path', type=str, default='data/1m/ml-1m/processed/sequences.pkl')
+    parser.add_argument('--min_rating', type=int, default=4)
+    parser.add_argument('--min_seq_len', type=int, default=5)
+    args = parser.parse_args()
+
     preprocessor = ML1MPreprocessor(
-        raw_data_path='data/ml-1m/raw/ml-1m/ratings.dat',
-        min_rating=4,  # Only ratings >= 4 are positive
-        min_seq_len=5  # Keep users with >= 5 interactions
+        raw_data_path=args.raw_path,
+        min_rating=args.min_rating,
+        min_seq_len=args.min_seq_len
     )
 
-    data = preprocessor.preprocess('data/ml-1m/processed/sequences.pkl')
+    data = preprocessor.preprocess(args.output_path)
