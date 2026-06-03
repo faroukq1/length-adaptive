@@ -97,8 +97,17 @@ def run_experiment(model_type, args):
     # Set random seed
     torch.manual_seed(args.seed)
     
-    # Device
-    device = torch.device('cuda' if torch.cuda.is_available() and not args.cpu else 'cpu')
+    # Device with P100 fallback
+    if torch.cuda.is_available() and not args.cpu:
+        major, minor = torch.cuda.get_device_capability(0)
+        if major < 7:
+            print(f"⚠️  GPU sm_{major}{minor} (too old for this PyTorch build, needs sm_70+). Falling back to CPU.")
+            print(f"   Fix: Use a T4 GPU or install an older PyTorch with: pip install torch==2.0.1+cu118 --index-url https://download.pytorch.org/whl/cu118")
+            device = torch.device('cpu')
+        else:
+            device = torch.device('cuda')
+    else:
+        device = torch.device('cpu')
     print(f"Device: {device}")
     
     # Load data
@@ -313,7 +322,7 @@ def main():
                        help='Number of GNN layers (for hybrid models)')
     parser.add_argument('--dropout', type=float, default=0.2,
                        help='Dropout rate (fine-tuned optimal)')
-    parser.add_argument('--max_len', type=int, default=200,
+    parser.add_argument('--max_len', type=int, default=50,
                        help='Maximum sequence length')
     
     # BERT Hybrid Fixed parameters
@@ -353,8 +362,8 @@ def main():
                        help='Weight decay')
     parser.add_argument('--patience', type=int, default=20,
                        help='Early stopping patience')
-    parser.add_argument('--eval_every', type=int, default=5,
-                       help='Evaluate every N epochs')    
+    parser.add_argument('--eval_every', type=int, default=1,
+                       help='Evaluate every N epochs')
     parser.add_argument('--resume', action='store_true',
                        help='Resume training from existing checkpoint')    
     # System
