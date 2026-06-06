@@ -8,7 +8,6 @@ Usage:
 
 import json
 import os
-import glob
 from pathlib import Path
 import sys
 
@@ -20,11 +19,14 @@ def load_results(results_dir='results'):
     """Load all experiment results"""
     experiments = {}
     
-    result_folders = glob.glob(os.path.join(results_dir, '*_*'))
+    result_folders = []
+    for p in sorted(Path(results_dir).rglob('results.json')):
+        folder = str(p.parent)
+        if 'comparison_output' not in folder:
+            result_folders.append(folder)
     
     for folder in result_folders:
-        folder_name = os.path.basename(folder)
-        model_name = '_'.join(folder_name.split('_')[:-2])
+        model_name = os.path.relpath(folder, results_dir)
         
         results_path = os.path.join(folder, 'results.json')
         

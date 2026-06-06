@@ -9,7 +9,7 @@ Usage:
 import argparse
 import json
 import os
-import glob
+from pathlib import Path
 from collections import defaultdict
 import pandas as pd
 
@@ -18,13 +18,17 @@ def load_experiment_results(results_dir):
     
     experiments = []
     
-    # Find all result folders
-    result_folders = glob.glob(os.path.join(results_dir, '*_*'))
+    # Find all result folders recursively (any dir containing results.json)
+    result_folders = []
+    results_dir_path = Path(results_dir)
+    for p in sorted(results_dir_path.rglob('results.json')):
+        folder = str(p.parent)
+        if 'comparison_output' not in folder:
+            result_folders.append(folder)
     
     for folder in result_folders:
-        # Extract model name from folder name
-        folder_name = os.path.basename(folder)
-        model_name = '_'.join(folder_name.split('_')[:-2])  # Remove timestamp
+        # Extract model name from folder path relative to results_dir
+        model_name = os.path.relpath(folder, results_dir)
         
         # Load config
         config_path = os.path.join(folder, 'config.json')
@@ -40,7 +44,7 @@ def load_experiment_results(results_dir):
             results = json.load(f)
         
         experiments.append({
-            'folder': folder_name,
+            'folder': os.path.basename(folder),
             'model': model_name,
             'config': config,
             'results': results
