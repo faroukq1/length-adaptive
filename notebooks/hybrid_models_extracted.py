@@ -197,9 +197,11 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime
 
-# Find all result directories
+# Find all result directories (recursively, any folder containing results.json)
 results_dir = Path('results')
-result_dirs = sorted(results_dir.glob('*_202*'))
+result_dirs = sorted(p.parent for p in results_dir.rglob('results.json'))
+# Keep only directories directly under results/ (not in comparison_output subfolders etc.)
+result_dirs = [d for d in result_dirs if 'comparison_output' not in str(d)]
 
 print("="*70)
 print("📊 Collecting Results")
@@ -216,14 +218,22 @@ for exp_dir in result_dirs:
         with open(results_file, 'r') as f:
             data = json.load(f)
         
-        model_name = exp_dir.name.rsplit('_', 2)[0]  # Extract model name
+        # Use relative path from results_dir as model name (for uniqueness)
+        model_name = str(exp_dir.relative_to(results_dir))
         
         results_data.append({
             'Model': model_name,
-            'HR@10': data['test_metrics']['HR@10'],
-            'NDCG@10': data['test_metrics']['NDCG@10'],
-            'MRR@10': data['test_metrics']['MRR@10'],
+            'HR@5': data['test_metrics'].get('HR@5', 0),
+            'HR@10': data['test_metrics'].get('HR@10', 0),
+            'HR@20': data['test_metrics'].get('HR@20', 0),
+            'NDCG@5': data['test_metrics'].get('NDCG@5', 0),
+            'NDCG@10': data['test_metrics'].get('NDCG@10', 0),
+            'NDCG@20': data['test_metrics'].get('NDCG@20', 0),
+            'MRR@5': data['test_metrics'].get('MRR@5', 0),
+            'MRR@10': data['test_metrics'].get('MRR@10', 0),
+            'MRR@20': data['test_metrics'].get('MRR@20', 0),
             'Best Epoch': data['best_epoch'],
+            'Best Val NDCG@10': data.get('best_val_metric', 0),
             'Directory': str(exp_dir)
         })
 
@@ -261,7 +271,7 @@ for exp_dir in result_dirs:
         with open(history_file, 'r') as f:
             history = json.load(f)
         
-        model_name = exp_dir.name.rsplit('_', 2)[0]
+        model_name = str(exp_dir.relative_to(results_dir))
         histories[model_name] = history
 
 # Plot
