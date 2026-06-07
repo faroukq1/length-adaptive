@@ -11,9 +11,10 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Preprocessing pipeline applied to both datasets.}}{23}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Test metrics heatmap on ML-1M. Darker cells indicate higher values. Hybrid models are prefixed with BERT-Hybrid.}}{29}{figure.3.2}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Test metrics heatmap on ML-100K. Darker cells indicate higher values.}}{29}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces NDCG@10 broken down by user history length group on ML-1M. Short: $n_u \leq 10$; Medium: $10 < n_u \leq 30$; Overall: all users.}}{30}{figure.3.4}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces NDCG@10 broken down by user history length group on ML-1M. Short: \(n_u \leq 10\); Medium: \(10 < n_u \leq 30\); Overall: all users.}}{30}{figure.3.4}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces NDCG@10 broken down by user history length group on ML-100K.}}{31}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces $\Delta $NDCG@10 (Val $-$ Test) per epoch on ML-1M for all four hybrid models. The green band marks the healthy range ($\pm 0.01$). Red dots indicate epochs where the gap exceeds the threshold.}}{32}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces $\Delta $NDCG@10 (Val $-$ Test) per epoch on ML-100K for all four hybrid models.}}{34}{figure.3.7}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces \(\Delta \)NDCG@10 (Val \(-\) Test) per epoch on ML-1M for all four hybrid models. The green band marks the healthy range (\(\pm 0.01\)). Red dots indicate epochs where the gap exceeds the threshold.}}{32}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces \(\Delta \)NDCG@10 (Val \(-\) Test) per epoch on ML-100K for all four hybrid models. The green band marks the healthy range (\(\pm 0.01\)). Red dots indicate epochs where the gap exceeds the threshold.}}{35}{figure.3.7}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Certificate of participation for the paper "Dynamic Sequence Modeling via Hybrid GNN-Transformer Architecture for Robust Sequential Recommendation" presented at the 2nd National Conference on Artificial Intelligence and Digital Transition (CAIDT'26), University of Kasdi Merbah, Ouargla, Algeria, April 29–30, 2026.}}{56}{figure.5.1}%

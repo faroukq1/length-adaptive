@@ -20,37 +20,83 @@
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
     \entry{boz2025}{article}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=659a7cc1db0c7d70a3d6d7ea161ebd8e}{%
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=bb3d7140a223effb1e21f1b3cc085a17}{%
            family={Boz},
            familyi={B\bibinitperiod},
-           given={Ulas},
-           giveni={U\bibinitperiod},
+           given={Artun},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e51f59ce3bcb2032097229c848b7a406}{%
+           family={Zorgdrager},
+           familyi={Z\bibinitperiod},
+           given={Wouter},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f140c4c3f1f7bed705fee3362183884e}{%
+           family={Kotti},
+           familyi={K\bibinitperiod},
+           given={Zoe},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=df05ac0d9488d1ca518e08cbce80f0da}{%
+           family={Harte},
+           familyi={H\bibinitperiod},
+           given={Jesse},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5d8ae6a6440ee29cfadcdcb40a5c675a}{%
+           family={Louridas},
+           familyi={L\bibinitperiod},
+           given={Panos},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=13a00bfaa1f2bd5019fd8946e66d1585}{%
+           family={Karakoidas},
+           familyi={K\bibinitperiod},
+           given={Vassilios},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8044b9528a8ea937291cf64035350877}{%
+           family={Jannach},
+           familyi={J\bibinitperiod},
+           given={Dietmar},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=772ba7d79a8bfbec2cd70de88ec6fd98}{%
+           family={Fragkoulis},
+           familyi={F\bibinitperiod},
+           given={Marios},
+           giveni={M\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{ab58f5c1717e264ffb3ae035ba93777e}
-      \strng{fullhash}{ab58f5c1717e264ffb3ae035ba93777e}
-      \strng{bibnamehash}{ab58f5c1717e264ffb3ae035ba93777e}
-      \strng{authorbibnamehash}{ab58f5c1717e264ffb3ae035ba93777e}
-      \strng{authornamehash}{ab58f5c1717e264ffb3ae035ba93777e}
-      \strng{authorfullhash}{ab58f5c1717e264ffb3ae035ba93777e}
+      \strng{namehash}{f149415759bd8986bf98c833fe72bf95}
+      \strng{fullhash}{9e3ac4c20c773601b919c25bc7e9d09d}
+      \strng{bibnamehash}{f149415759bd8986bf98c833fe72bf95}
+      \strng{authorbibnamehash}{f149415759bd8986bf98c833fe72bf95}
+      \strng{authornamehash}{f149415759bd8986bf98c833fe72bf95}
+      \strng{authorfullhash}{9e3ac4c20c773601b919c25bc7e9d09d}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Pending full citation verification}
-      \field{title}{LLM2Sequential: Leveraging large language model embeddings for sequential recommendation}
+      \field{journaltitle}{ACM Transactions on Recommender Systems}
+      \field{number}{2}
+      \field{title}{Improving Sequential Recommendations with {LLMs}}
+      \field{volume}{4}
       \field{year}{2025}
+      \field{pages}{Article 19}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/3711667
+      \endverb
       \verb{urlraw}
-      \verb https://arxiv.org/abs/XXXXX
+      \verb https://dl.acm.org/doi/10.1145/3711667
       \endverb
       \verb{url}
-      \verb https://arxiv.org/abs/XXXXX
+      \verb https://dl.acm.org/doi/10.1145/3711667
       \endverb
     \endentry
     \entry{castells2023primer}{article}{}
@@ -80,8 +126,9 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2302.02579}
+      \field{journaltitle}{arXiv preprint}
       \field{title}{Recommender Systems: A Primer}
+      \field{volume}{arXiv:2302.02579}
       \field{year}{2023}
       \verb{urlraw}
       \verb https://arxiv.org/abs/2302.02579
@@ -89,6 +136,61 @@
       \verb{url}
       \verb https://arxiv.org/abs/2302.02579
       \endverb
+    \endentry
+    \entry{chen2024bge}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=e24c13695b0b0d62c63b9422b5c4fa5d}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Jianlv},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d71b1119f50662a9107099735aa4912f}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Shitao},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6d65862b32d88d540bffb1875cb56520}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Peitian},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=384c2cf85f0e11e983ea193103b000e8}{%
+           family={Luo},
+           familyi={L\bibinitperiod},
+           given={Kun},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=627b0ecff46f0730d7b063b53fecf933}{%
+           family={Lian},
+           familyi={L\bibinitperiod},
+           given={Defu},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7e48bdec050a7bea1bb0d4acff3023eb}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zheng},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{bacb2af35bde68e3692dbc3a479bda48}
+      \strng{fullhash}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \strng{bibnamehash}{bacb2af35bde68e3692dbc3a479bda48}
+      \strng{authorbibnamehash}{bacb2af35bde68e3692dbc3a479bda48}
+      \strng{authornamehash}{bacb2af35bde68e3692dbc3a479bda48}
+      \strng{authorfullhash}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2402.03216}
+      \field{title}{BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation}
+      \field{year}{2024}
     \endentry
     \entry{harper2015movielens}{article}{}
       \name{author}{2}{}{%
@@ -124,6 +226,9 @@
       \field{year}{2015}
       \field{pages}{1\bibrangedash 19}
       \range{pages}{19}
+      \verb{doi}
+      \verb 10.1145/2827872
+      \endverb
       \verb{urlraw}
       \verb https://dl.acm.org/doi/10.1145/2827872
       \endverb
@@ -182,8 +287,9 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2309.09261}
+      \field{journaltitle}{arXiv preprint}
       \field{title}{Leveraging Large Language Models for Sequential Recommendation}
+      \field{volume}{arXiv:2309.09261}
       \field{year}{2023}
       \verb{urlraw}
       \verb https://arxiv.org/abs/2309.09261
@@ -243,8 +349,9 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2002.02126}
-      \field{title}{LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation}
+      \field{journaltitle}{arXiv preprint}
+      \field{title}{{LightGCN}: Simplifying and Powering Graph Convolution Network for Recommendation}
+      \field{volume}{arXiv:2002.02126}
       \field{year}{2020}
       \verb{urlraw}
       \verb https://arxiv.org/abs/2002.02126
@@ -255,10 +362,10 @@
     \endentry
     \entry{hidasi2016gru4rec}{inproceedings}{}
       \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=912331d6569638fa27c253200f21dec4}{%
+        {{un=0,uniquepart=base,hash=d4112ec4c80058ecfac126d297274575}{%
            family={Hidasi},
            familyi={H\bibinitperiod},
-           given={Bal{'a}zs},
+           given={Balázs},
            giveni={B\bibinitperiod},
            givenun=0}}%
         {{un=0,uniquepart=base,hash=34b0daf756776ac58e5af9a2b2cdb9ee}{%
@@ -280,12 +387,12 @@
            giveni={D\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{89daa1e698d8815b47d38bcc96a6540f}
-      \strng{fullhash}{9f2c6a9f95751bba73ba9ab4b3c79be5}
-      \strng{bibnamehash}{89daa1e698d8815b47d38bcc96a6540f}
-      \strng{authorbibnamehash}{89daa1e698d8815b47d38bcc96a6540f}
-      \strng{authornamehash}{89daa1e698d8815b47d38bcc96a6540f}
-      \strng{authorfullhash}{9f2c6a9f95751bba73ba9ab4b3c79be5}
+      \strng{namehash}{0c81c42a7c75d29ce161fcdb87b58c17}
+      \strng{fullhash}{d28f6e671010d7448170f1ba9a71dc03}
+      \strng{bibnamehash}{0c81c42a7c75d29ce161fcdb87b58c17}
+      \strng{authorbibnamehash}{0c81c42a7c75d29ce161fcdb87b58c17}
+      \strng{authornamehash}{0c81c42a7c75d29ce161fcdb87b58c17}
+      \strng{authorfullhash}{d28f6e671010d7448170f1ba9a71dc03}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{extradatescope}{labelyear}
@@ -339,6 +446,143 @@
       \verb https://arxiv.org/abs/1808.09781
       \endverb
     \endentry
+    \entry{llmrec2024}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=724719db8129eb6d42f48ade88737d36}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Qidong},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{fullhash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{bibnamehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{authorbibnamehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{authornamehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{authorfullhash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \field{extraname}{1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradate}{1}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint}
+      \field{note}{Same as liu2024llmers}
+      \field{title}{Large Language Model Enhanced Recommender Systems: A Survey}
+      \field{volume}{arXiv:2412.13432}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2412.13432
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2412.13432
+      \endverb
+    \endentry
+    \entry{liu2024llmers}{article}{}
+      \name{author}{12}{}{%
+        {{un=0,uniquepart=base,hash=724719db8129eb6d42f48ade88737d36}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Qidong},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4adef721ffd1ca98ba6c8bc5e7a96578}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Xiangyu},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=90540d6d0095349d1c272e948e7a76ef}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yuhao},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2f737439b02cee21115d6317c010a569}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yejing},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=53f90aa659ae14734c307d61aeefc1ef}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Zijian},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2b5201e3593e16b46f6f73b3ffedbd28}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Yuqi},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=09e1a64c667557dd7866bc4e66d193ce}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiang},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=196c794a5fff9bb9feb2cf4977249934}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Maolin},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6a5e3e28265088e81604763066043c64}{%
+           family={Jia},
+           familyi={J\bibinitperiod},
+           given={Pengyue},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ea1fab8979cc9aaa8f8ac5e6b5fb3e05}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Chong},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5c689f5303ffb71b39f1ed4cdaae6270}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1487e60477fb6a315fa69b2f8ee53c9f}{%
+           family={Tian},
+           familyi={T\bibinitperiod},
+           given={Feng},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{fullhash}{c47cc79ffd8837a58f2dfa5b812d35ce}
+      \strng{bibnamehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{authorbibnamehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{authornamehash}{cb984b84cd5ae4fb120ea3486aca63e0}
+      \strng{authorfullhash}{c47cc79ffd8837a58f2dfa5b812d35ce}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradate}{2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint}
+      \field{title}{Large Language Model Enhanced Recommender Systems: A Survey}
+      \field{volume}{arXiv:2412.13432}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2412.13432
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2412.13432
+      \endverb
+    \endentry
     \entry{mcauley2015image}{inproceedings}{}
       \name{author}{4}{}{%
         {{un=0,uniquepart=base,hash=24f98302ee924662159ce29687c18e4e}{%
@@ -386,6 +630,65 @@
       \field{year}{2015}
       \field{pages}{43\bibrangedash 52}
       \range{pages}{10}
+      \verb{doi}
+      \verb 10.1145/2766462.2767755
+      \endverb
+    \endentry
+    \entry{pan2024survey}{article}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=43839e287dfe26d293c3eefd227acae9}{%
+           family={Pan},
+           familyi={P\bibinitperiod},
+           given={Shuxian},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b85adaa705910c2f287bbe65f5d384e9}{%
+           family={Pan},
+           familyi={P\bibinitperiod},
+           given={Weike},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e80017183bd74a4bbfe57fb837c2da83}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Meiyan},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=684a7485a58d733155967691eae9a57f}{%
+           family={Yin},
+           familyi={Y\bibinitperiod},
+           given={Hongzhi},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=721a8031cda48207a4899e5452948808}{%
+           family={Ming},
+           familyi={M\bibinitperiod},
+           given={Zhong},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{023be5165dab6d4ba2227765ad5dbc3f}
+      \strng{fullhash}{26d5ff8c6e8123c6b1f73ca4a1d96b33}
+      \strng{bibnamehash}{023be5165dab6d4ba2227765ad5dbc3f}
+      \strng{authorbibnamehash}{023be5165dab6d4ba2227765ad5dbc3f}
+      \strng{authornamehash}{023be5165dab6d4ba2227765ad5dbc3f}
+      \strng{authorfullhash}{26d5ff8c6e8123c6b1f73ca4a1d96b33}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint}
+      \field{title}{A Survey on Sequential Recommendation}
+      \field{volume}{arXiv:2412.12770}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2412.12770
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2412.12770
+      \endverb
     \endentry
     \entry{raza2024comprehensive}{article}{}
       \true{moreauthor}
@@ -410,8 +713,9 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2407.13699}
+      \field{journaltitle}{arXiv preprint}
       \field{title}{A Comprehensive Review of Recommender Systems: Transitioning from Theory to Practice}
+      \field{volume}{arXiv:2407.13699}
       \field{year}{2024}
       \verb{urlraw}
       \verb https://arxiv.org/abs/2407.13699
@@ -478,7 +782,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the ACM International Conference on Information and Knowledge Management (CIKM)}
-      \field{title}{BERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformer}
+      \field{title}{{BERT4Rec}: Sequential Recommendation with Bidirectional Encoder Representations from Transformer}
       \field{year}{2019}
       \verb{urlraw}
       \verb https://arxiv.org/abs/1904.06690
@@ -524,14 +828,112 @@
       \verb https://arxiv.org/abs/1809.07426
       \endverb
     \endentry
+    \entry{wu2023survey}{article}{}
+      \name{author}{12}{}{%
+        {{un=1,uniquepart=given,hash=ac00c8d6309bfcb2574266c3d10c5dec}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Likang},
+           giveni={L\bibinitperiod},
+           givenun=1}}%
+        {{un=0,uniquepart=base,hash=1f4b598686ce610694ba950fa8293d22}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Zhi},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fd9f6ed19ecd97783681b13ac6d3f149}{%
+           family={Qiu},
+           familyi={Q\bibinitperiod},
+           given={Zhaopeng},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c8cf19241225247d6d07dbf8a516b8ed}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Hao},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=badb9546a3737b76eec7875cc809eecc}{%
+           family={Gu},
+           familyi={G\bibinitperiod},
+           given={Hongchao},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=57c79ea435492e2693bb6a7c741710ba}{%
+           family={Shen},
+           familyi={S\bibinitperiod},
+           given={Tingjia},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=efa14006b4be39c2fca0f7dc33c26238}{%
+           family={Qin},
+           familyi={Q\bibinitperiod},
+           given={Chuan},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=78c6e8f414f28c863790e381ab51a773}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Chen},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9b711e1aff9a8c67d1eb39bca853aa41}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Hengshu},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0b07af422f6616fac129405a8b4b1de4}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Qi},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=aa0c7ab0b9dad5902ab8fc501f57cd77}{%
+           family={Xiong},
+           familyi={X\bibinitperiod},
+           given={Hui},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=439e8d5e114670edea6f746db3c18b5b}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Enhong},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{0613d9632247f3b6d3963f14f19e8c19}
+      \strng{fullhash}{dcca1c3d87aaefbf7190b7ff850cf1f4}
+      \strng{bibnamehash}{0613d9632247f3b6d3963f14f19e8c19}
+      \strng{authorbibnamehash}{0613d9632247f3b6d3963f14f19e8c19}
+      \strng{authornamehash}{0613d9632247f3b6d3963f14f19e8c19}
+      \strng{authorfullhash}{dcca1c3d87aaefbf7190b7ff850cf1f4}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint}
+      \field{title}{A Survey on Large Language Models for Recommendation}
+      \field{volume}{arXiv:2305.19860}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2305.19860
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2305.19860
+      \endverb
+    \endentry
     \entry{wu2020gnnsurvey}{article}{}
       \name{author}{5}{}{%
-        {{un=0,uniquepart=base,hash=4375d75710702c65a026c6682889ce76}{%
+        {{un=1,uniquepart=given,hash=4375d75710702c65a026c6682889ce76}{%
            family={Wu},
            familyi={W\bibinitperiod},
            given={Shiwen},
            giveni={S\bibinitperiod},
-           givenun=0}}%
+           givenun=1}}%
         {{un=0,uniquepart=base,hash=0fff2d014f575fc5d680e70e02e8ce38}{%
            family={Sun},
            familyi={S\bibinitperiod},
@@ -569,8 +971,9 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2011.02260}
+      \field{journaltitle}{arXiv preprint}
       \field{title}{Graph Neural Networks in Recommender Systems: A Survey}
+      \field{volume}{arXiv:2011.02260}
       \field{year}{2020}
       \verb{urlraw}
       \verb https://arxiv.org/abs/2011.02260
@@ -580,11 +983,6 @@
       \endverb
     \endentry
   \enddatalist
-  \missing{chen2024bge}
-  \missing{liu2024llmers}
-  \missing{llmrec2024}
-  \missing{pan2024survey}
-  \missing{wu2023survey}
 \endrefsection
 \endinput
 

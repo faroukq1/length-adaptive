@@ -34,7 +34,7 @@
 \contentsline {section}{\numberline {2.5}Conclusion}{20}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Experiments and Results: Length-Adaptive Hybrid GNN-Transformer}{21}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Introduction}{21}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Datasets}{21}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Datasets}{22}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Preprocessing}{22}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Hyperparameters}{24}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Baselines}{25}{section.3.5}%
@@ -43,23 +43,23 @@
 \contentsline {subsection}{\numberline {3.7.1}Overall Test Metrics}{29}{subsection.3.7.1}%
 \contentsline {subsection}{\numberline {3.7.2}Performance by History Length}{30}{subsection.3.7.2}%
 \contentsline {subsection}{\numberline {3.7.3}Generalization Analysis}{31}{subsection.3.7.3}%
-\contentsline {subsection}{\numberline {3.7.4}Summary}{33}{subsection.3.7.4}%
-\contentsline {section}{\numberline {3.8}Ablation Study}{35}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Conclusion}{37}{section.3.9}%
-\contentsline {chapter}{\numberline {4}Item Description Strategies for LLM-Based Sequential Recommendation}{38}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction}{38}{section.4.1}%
-\contentsline {section}{\numberline {4.2}The \texttt {LLM2Sequential} Pipeline}{38}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Item Description Strategies}{39}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Conclusion}{41}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experiments and Results: PromptCraft-SeqRec}{43}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Introduction}{43}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Dataset and Experimental Setup}{43}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Recommendation Results}{45}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Embedding Quality Analysis}{47}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Comparison with the Published \texttt {LLM2Sequential} Baseline}{49}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Discussion}{50}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Conclusion}{51}{section.5.7}%
-\contentsline {chapter}{Conclusion G\'{e}n\'{e}rale et Perspectives}{52}{chapter*.7}%
-\contentsline {chapter}{Productions Scientifiques}{54}{chapter*.8}%
-\contentsline {chapter}{General Conclusion}{55}{chapter*.9}%
-\contentsline {chapter}{References}{57}{chapter*.10}%
+\contentsline {subsection}{\numberline {3.7.4}Summary}{36}{subsection.3.7.4}%
+\contentsline {section}{\numberline {3.8}Ablation Study}{36}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Conclusion}{39}{section.3.9}%
+\contentsline {chapter}{\numberline {4}Item Description Strategies for LLM-Based Sequential Recommendation}{40}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{40}{section.4.1}%
+\contentsline {section}{\numberline {4.2}The \texttt {LLM2Sequential} Pipeline}{40}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Item Description Strategies}{41}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Conclusion}{43}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experiments and Results: PromptCraft-SeqRec}{45}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Introduction}{45}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Dataset and Experimental Setup}{45}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Recommendation Results}{47}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Embedding Quality Analysis}{49}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Comparison with the Published \texttt {LLM2Sequential} Baseline}{51}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Discussion}{52}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Conclusion}{53}{section.5.7}%
+\contentsline {chapter}{Conclusion G\'{e}n\'{e}rale et Perspectives}{54}{chapter*.7}%
+\contentsline {chapter}{Productions Scientifiques}{56}{chapter*.8}%
+\contentsline {chapter}{General Conclusion and Future Work}{57}{chapter*.9}%
+\contentsline {chapter}{References}{59}{chapter*.10}%
