@@ -1,19 +1,21 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[59] biber:340> INFO - === Sat Jun  6, 2026, 19:38:21
-[70] Biber.pm:419> INFO - Reading 'main.bcf'
-[125] Biber.pm:979> INFO - Found 18 citekeys in bib section 0
-[135] Biber.pm:4419> INFO - Processing section 0
-[142] Biber.pm:4610> INFO - Looking for bibtex file 'references.bib' for section 0
-[143] bibtex.pm:1713> INFO - LaTeX decoding ...
-[151] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
-[291] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[291] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[291] Biber.pm:4239> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[291] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
-[306] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[314] bbl.pm:763> INFO - Output to main.bbl
-[314] Biber.pm:131> WARN - I didn't find a database entry for 'chen2024bge' (section 0)
-[314] Biber.pm:131> WARN - I didn't find a database entry for 'mcauley2015image' (section 0)
-[314] Biber.pm:131> WARN - I didn't find a database entry for 'robertson2009smooth' (section 0)
-[314] Biber.pm:133> INFO - WARNINGS: 3
+[58] biber:340> INFO - === Sun Jun  7, 2026, 15:07:31
+[68] Biber.pm:419> INFO - Reading 'main.bcf'
+[128] Biber.pm:979> INFO - Found 17 citekeys in bib section 0
+[139] Biber.pm:4419> INFO - Processing section 0
+[147] Biber.pm:4610> INFO - Looking for bibtex file 'references.bib' for section 0
+[147] bibtex.pm:1713> INFO - LaTeX decoding ...
+[157] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
+[259] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[259] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[259] Biber.pm:4239> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[259] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[273] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[278] bbl.pm:763> INFO - Output to main.bbl
+[278] Biber.pm:131> WARN - I didn't find a database entry for 'wu2023survey' (section 0)
+[278] Biber.pm:131> WARN - I didn't find a database entry for 'liu2024llmers' (section 0)
+[278] Biber.pm:131> WARN - I didn't find a database entry for 'llmrec2024' (section 0)
+[279] Biber.pm:131> WARN - I didn't find a database entry for 'pan2024survey' (section 0)
+[279] Biber.pm:131> WARN - I didn't find a database entry for 'chen2024bge' (section 0)
+[279] Biber.pm:133> INFO - WARNINGS: 5

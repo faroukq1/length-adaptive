@@ -12,11 +12,12 @@
 \contentsline {table}{\numberline {3.3}{\ignorespaces Summary of baseline models used in this chapter.}}{27}{table.3.3}%
 \contentsline {table}{\numberline {3.4}{\ignorespaces Test performance on MovieLens-1M. Best results bold, second-best underlined. \(\dagger \) = proposed hybrid.}}{28}{table.3.4}%
 \contentsline {table}{\numberline {3.5}{\ignorespaces Test performance on MovieLens-100K. Best results bold, second-best underlined. \(\dagger \) = proposed hybrid.}}{28}{table.3.5}%
-\contentsline {table}{\numberline {3.6}{\ignorespaces Per-bucket HR@10 / NDCG@10 / MRR@10 on ML-1M and ML-100K. \(\dagger \) = proposed hybrid.}}{33}{table.3.6}%
-\contentsline {table}{\numberline {3.7}{\ignorespaces Ablation study on ML-1M (HR@10 / NDCG@10 / MRR@10).}}{39}{table.3.7}%
-\contentsline {table}{\numberline {3.8}{\ignorespaces Model efficiency and statistical significance on ML-1M. \(\dagger \) = proposed hybrid. * \(p < 0.05\).}}{40}{table.3.8}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Ablation study on ML-1M (HR@10 / NDCG@10 / MRR@10).}}{35}{table.3.6}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces Model efficiency and statistical significance on ML-1M. \(\dagger \) = proposed hybrid. * \(p < 0.05\).}}{36}{table.3.7}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces The seven item description strategies with illustrative examples. The example item is a moisturizing cream from the Amazon Beauty dataset.}}{46}{table.4.1}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces The seven item description strategies with illustrative examples. The example item is a moisturizing cream from the Amazon Beauty dataset.}}{42}{table.4.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Recommendation results on Amazon Beauty for all description strategies. SASRec hyperparameters are held constant across all runs. $\Delta $\texttt {NDCG@10} is relative to the T1 baseline.}}{48}{table.5.1}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Intrinsic embedding quality metrics for each description strategy.}}{50}{table.5.2}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Statistics of the Amazon Beauty dataset after 5-core filtering. Sparsity is computed as $1 - \frac {\text {\#Interactions}}{\text {\#Users} \times \text {\#Items}}$.}}{44}{table.5.1}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Recommendation results on Amazon Beauty for all description strategies. SASRec hyperparameters are held constant across all runs. $\Delta $\texttt {NDCG@10} is relative to the T1 baseline.}}{45}{table.5.2}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Intrinsic embedding quality metrics for each description strategy.}}{48}{table.5.3}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Comparison of our best strategies against the published \texttt {LLM2Sequential} baseline \blx@tocontentsinit {0}\citep {boz2025} on Amazon Beauty. $\Delta $ values are relative to the \blx@tocontentsinit {0}\citet {boz2025} title-only result (T1).}}{49}{table.5.4}%
