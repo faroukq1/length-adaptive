@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[63] biber:340> INFO - === Tue Jun  9, 2026, 00:39:18
-[74] Biber.pm:419> INFO - Reading 'main.bcf'
-[130] Biber.pm:979> INFO - Found 21 citekeys in bib section 0
-[141] Biber.pm:4419> INFO - Processing section 0
-[148] Biber.pm:4610> INFO - Looking for bibtex file 'references.bib' for section 0
-[149] bibtex.pm:1713> INFO - LaTeX decoding ...
-[163] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
-[344] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[345] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[345] Biber.pm:4239> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[345] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
-[366] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[377] bbl.pm:763> INFO - Output to main.bbl
+[57] biber:340> INFO - === Tue Jun  9, 2026, 00:43:40
+[67] Biber.pm:419> INFO - Reading 'main.bcf'
+[121] Biber.pm:979> INFO - Found 21 citekeys in bib section 0
+[131] Biber.pm:4419> INFO - Processing section 0
+[138] Biber.pm:4610> INFO - Looking for bibtex file 'references.bib' for section 0
+[139] bibtex.pm:1713> INFO - LaTeX decoding ...
+[152] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
+[321] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[321] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[321] Biber.pm:4239> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[321] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[339] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[348] bbl.pm:763> INFO - Output to main.bbl
