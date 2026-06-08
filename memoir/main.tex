@@ -425,7 +425,7 @@ listening. By capturing the ordered sequence of past behaviors, these models
 better track dynamic user interests and provide more timely recommendations.
 
 Deep learning has been a major driving force in sequential recommendation.
-Among early contributions, \citet{hidasi2016gru4rec} showed that gated
+Among early contributions, \citep{hidasi2016gru4rec} showed that gated
 recurrent networks are effective at capturing session-level dynamics for
 next-item prediction. Attention mechanisms and Transformer-based architectures
 later provided a substantial leap forward: models such as SASRec
@@ -1901,7 +1901,7 @@ or relationships to other items.
 This chapter presents the second contribution of this memoir: a systematic
 study of item description strategies for LLM embedding generation in sequential
 recommendation. Building on the \texttt{LLM2Sequential} pipeline introduced by
-\citet{boz2025}, we design and evaluate seven distinct prompt strategies that
+\citep{boz2025}, we design and evaluate seven distinct prompt strategies that
 encode item metadata into textual descriptions before passing them to a
 sentence embedding model. The strategies range from minimal (title-only) to
 rich hybrid descriptions combining structured attributes, user-centric framing,
@@ -1923,10 +1923,10 @@ protocol is detailed in Chapter~5 alongside the results.
 The LLM2Sequential pipeline refers to the process of converting item metadata
 into textual descriptions, encoding them with a large language model, and using
 the resulting embeddings to initialize a sequential recommender -- first
-introduced by \citet{boz2025}.
+introduced by \citep{boz2025}.
 The approach adopted in this memoir bridges the gap between textual item
 semantics and sequential recommendation models through a three-stage pipeline,
-building on the framework of \citet{boz2025}. Figure~\ref{fig:llm_seq_pipeline}
+building on the framework of \citep{boz2025}. Figure~\ref{fig:llm_seq_pipeline}
 provides an overview of the complete pipeline.
 
 \begin{figure}[htbp]
@@ -2155,7 +2155,7 @@ It also presents per-metric analysis and a discussion of the winning
 strategies. Section~\ref{sec:embedding_quality} analyzes the intrinsic
 geometric properties of the generated embeddings.
 Section~\ref{sec:pc_vs_baseline} compares the best strategy against the
-published \texttt{LLM2Sequential} baseline of \citet{boz2025}.
+published \texttt{LLM2Sequential} baseline of \citep{boz2025}.
 Section~\ref{sec:pc_discussion} synthesizes the findings and discusses their
 implications for practitioners. Section~\ref{sec:ch5conclusion} concludes the
 chapter.
@@ -2280,7 +2280,7 @@ metric, confirming that initializing the item embedding table with semantic
 representations from a language model provides a consistent advantage over
 random initialization. The T1 baseline improves over vanilla SASRec by
 approximately \(+25.3\%\) in NDCG@10 and \(+32.4\%\) in HR@10, consistent with
-the findings reported in \citet{boz2025} and validating that the
+the findings reported in \citep{boz2025} and validating that the
 \texttt{LLM2Sequential} pipeline is correctly implemented in our experiments.
 
 \subsection*{Strategy Comparison}
@@ -2402,8 +2402,8 @@ of leading components. This is expected behavior for PCA-reduced embeddings.
 \justifying
 To situate our results within the existing literature, we directly compare the
 best-performing strategies from our study against the results reported by
-\citet{boz2025} on the same Amazon Beauty dataset using the same SASRec
-backbone. The \citet{boz2025} pipeline uses the item title as the sole textual
+\citep{boz2025} on the same Amazon Beauty dataset using the same SASRec
+backbone. The \citep{boz2025} pipeline uses the item title as the sole textual
 description -- corresponding exactly to our T1 baseline -- and encodes it with a
 pre-trained sentence embedding model before reducing embeddings to 256
 dimensions via PCA.
@@ -2490,14 +2490,14 @@ LLM-enhanced sequential recommendation pipeline on the Amazon Beauty dataset.
 The results confirm that the choice of description strategy has a measurable
 impact on downstream recommendation accuracy, with the best strategy (T2 --
 Structured Attributes) improving NDCG@10 by \(+4.76\%\) over the title-only
-baseline of \citet{boz2025}. The Rich Prose strategy (T3) performs at parity
+baseline of \citep{boz2025}. The Rich Prose strategy (T3) performs at parity
 with the baseline (\(-0.61\%\)), demonstrating that simply adding more text
 does not guarantee improvement and that description \emph{format} matters more
 than description \emph{length}.
 
 The intrinsic embedding quality analysis revealed that average pairwise
 cosine distance does not directly predict recommendation performance.
-The direct comparison with \citet{boz2025} confirms that description strategy
+The direct comparison with \citep{boz2025} confirms that description strategy
 selection is a practical, low-cost improvement lever that requires no
 architectural changes. Together, these findings establish a first
 evidence-based guideline for selecting item description strategies in
