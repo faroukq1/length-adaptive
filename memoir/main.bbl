@@ -19,6 +19,49 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{bai2018tcn}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=46866596e404b7745d45fdb1cbff0a01}{%
+           family={Bai},
+           familyi={B\bibinitperiod},
+           given={Shaojie},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0288715a83a3349e44f9292c5c2149f7}{%
+           family={Kolter},
+           familyi={K\bibinitperiod},
+           given={J.\bibnamedelimi Zico},
+           giveni={J\bibinitperiod\bibinitdelim Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9025300f43a193cfed8e10e924f2a117}{%
+           family={Koltun},
+           familyi={K\bibinitperiod},
+           given={Vladlen},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{82228a87843cfea785b02bf1ab25c061}
+      \strng{fullhash}{3a3778cabb3cde60fd94e137dc83c5a8}
+      \strng{bibnamehash}{3a3778cabb3cde60fd94e137dc83c5a8}
+      \strng{authorbibnamehash}{3a3778cabb3cde60fd94e137dc83c5a8}
+      \strng{authornamehash}{82228a87843cfea785b02bf1ab25c061}
+      \strng{authorfullhash}{3a3778cabb3cde60fd94e137dc83c5a8}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1803.01271}
+      \field{title}{An Empirical Evaluation of Generic Convolutional and Recurrent Networks for Sequence Modeling}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1803.01271
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1803.01271
+      \endverb
+    \endentry
     \entry{boz2025}{article}{}
       \name{author}{8}{}{%
         {{un=0,uniquepart=base,hash=bb3d7140a223effb1e21f1b3cc085a17}{%
@@ -189,7 +232,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2402.03216}
-      \field{title}{BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation}
+      \field{title}{{BGE} {M3}-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation}
       \field{year}{2024}
     \endentry
     \entry{harper2015movielens}{article}{}
@@ -724,6 +767,67 @@
       \verb https://arxiv.org/abs/2407.13699
       \endverb
     \endentry
+    \entry{rossi2020tgn}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=c2ffcb8cc9a401b091ecc5cd94433edf}{%
+           family={Rossi},
+           familyi={R\bibinitperiod},
+           given={Emanuele},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8eaf721996034ffff7715a46c337d35d}{%
+           family={Chamberlain},
+           familyi={C\bibinitperiod},
+           given={Ben},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7769b0a2def8a3963a661fa44ace465f}{%
+           family={Frasca},
+           familyi={F\bibinitperiod},
+           given={Fabrizio},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a8c9711fb41b0bd3bd500b57b9c3a808}{%
+           family={Eynard},
+           familyi={E\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8f0d23e8869cd90a91c7a2d49ae85c0e}{%
+           family={Monti},
+           familyi={M\bibinitperiod},
+           given={Federico},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8e2cf15e0e3f2b957c8a1532cd04184f}{%
+           family={Bronstein},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4e4c2c62beb46bf8037343c0f0d3d18d}
+      \strng{fullhash}{22c45b72170417fcf04589f83ce91866}
+      \strng{bibnamehash}{4e4c2c62beb46bf8037343c0f0d3d18d}
+      \strng{authorbibnamehash}{4e4c2c62beb46bf8037343c0f0d3d18d}
+      \strng{authornamehash}{4e4c2c62beb46bf8037343c0f0d3d18d}
+      \strng{authorfullhash}{22c45b72170417fcf04589f83ce91866}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ICLR 2020 Workshop on Representation Learning on Graphs and Manifolds (GRL+)}
+      \field{title}{Temporal Graph Networks for Deep Learning on Dynamic Graphs}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2006.10637
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2006.10637
+      \endverb
+    \endentry
     \entry{sun2019bert4rec}{inproceedings}{}
       \name{author}{7}{}{%
         {{un=0,uniquepart=base,hash=0fff2d014f575fc5d680e70e02e8ce38}{%
@@ -827,6 +931,28 @@
       \verb{url}
       \verb https://arxiv.org/abs/1809.07426
       \endverb
+    \endentry
+    \entry{tct2021placeholder}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9aacff82f7ccf867982970723c7ea854}{%
+           family={{TCT Authors}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{9aacff82f7ccf867982970723c7ea854}
+      \strng{fullhash}{9aacff82f7ccf867982970723c7ea854}
+      \strng{bibnamehash}{9aacff82f7ccf867982970723c7ea854}
+      \strng{authorbibnamehash}{9aacff82f7ccf867982970723c7ea854}
+      \strng{authornamehash}{9aacff82f7ccf867982970723c7ea854}
+      \strng{authorfullhash}{9aacff82f7ccf867982970723c7ea854}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Placeholder — replace with the exact TCT paper you intend to cite}
+      \field{title}{Temporal Convolutional Transformer (TCT)}
+      \field{year}{2021}
     \endentry
     \entry{wu2023survey}{article}{}
       \name{author}{12}{}{%
@@ -980,6 +1106,61 @@
       \endverb
       \verb{url}
       \verb https://arxiv.org/abs/2011.02260
+      \endverb
+    \endentry
+    \entry{xu2020tgat}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=5ab93999b4789be2349e6dfe88b37fc3}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Da},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a0ffedc664ef5e1f0fe45803b15f7b83}{%
+           family={Ruan},
+           familyi={R\bibinitperiod},
+           given={Chuanwei},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2b3f5d9c23395d00c0a6b135ec70ea25}{%
+           family={Korpeoglu},
+           familyi={K\bibinitperiod},
+           given={Evren},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b725fe9e7e6c59effa0b8e0b58647046}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Sushant},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=79ba2bd6ba1876984c6393007ffaf596}{%
+           family={Achan},
+           familyi={A\bibinitperiod},
+           given={Kannan},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{00bec66902d1e6595097c475e208b5ea}
+      \strng{fullhash}{3b9246228b64be3fbac04904b8ae9ffb}
+      \strng{bibnamehash}{00bec66902d1e6595097c475e208b5ea}
+      \strng{authorbibnamehash}{00bec66902d1e6595097c475e208b5ea}
+      \strng{authornamehash}{00bec66902d1e6595097c475e208b5ea}
+      \strng{authorfullhash}{3b9246228b64be3fbac04904b8ae9ffb}
+      \field{sortinit}{X}
+      \field{sortinithash}{1965c258adceecf23ce3d67b05113442}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the International Conference on Learning Representations (ICLR)}
+      \field{title}{Inductive Representation Learning on Temporal Graphs}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2002.07962
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2002.07962
       \endverb
     \endentry
   \enddatalist

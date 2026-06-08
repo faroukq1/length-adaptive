@@ -1,20 +1,52 @@
-\babel@toc {english}{}\relax 
+\xpginauxfiletrue 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Taxonomy of Recommendation System Types.}}{5}{figure.1.1}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Illustration of a user interaction timeline for next-item prediction.}}{6}{figure.1.2}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Architecture illustration of a sequence-based model such as SASRec or BERT4Rec.}}{8}{figure.1.3}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Illustration of a user-item bipartite graph and embedding propagation in LightGCN.}}{9}{figure.1.4}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Pipeline for using item descriptions to generate embeddings with an LLM and feed them into a recommender.}}{10}{figure.1.5}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Taxonomy of recommendation system types.}}{5}{figure.1.1}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces User interaction timeline for sequential next-item prediction.}}{6}{figure.1.2}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Architecture of a Transformer-based sequential model (SASRec/BERT4Rec).}}{8}{figure.1.3}%
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Bipartite user-item graph and embedding propagation in LightGCN.}}{9}{figure.1.4}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces LLM pipeline for generating item embeddings used in a recommender.}}{10}{figure.1.5}%
+\setforeignlanguage {english}
+\setforeignlanguage {english}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Comparison of sparse and dense user history profiles and their ideal information sources.}}{16}{figure.2.1}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Proposed Architecture of the Length-Adaptive Hybrid GNN-Transformer.}}{17}{figure.2.1}%
+\setforeignlanguage {english}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Preprocessing pipeline applied to both datasets.}}{23}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Test metrics heatmap on ML-1M. Darker cells indicate higher values. Hybrid models are prefixed with BERT-Hybrid.}}{29}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Test metrics heatmap on ML-100K. Darker cells indicate higher values.}}{29}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces NDCG@10 broken down by user history length group on ML-1M. Short: \(n_u \leq 10\); Medium: \(10 < n_u \leq 30\); Overall: all users.}}{30}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces NDCG@10 broken down by user history length group on ML-100K.}}{31}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces \(\Delta \)NDCG@10 (Val \(-\) Test) per epoch on ML-1M for all four hybrid models. The green band marks the healthy range (\(\pm 0.01\)). Red dots indicate epochs where the gap exceeds the threshold.}}{32}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces \(\Delta \)NDCG@10 (Val \(-\) Test) per epoch on ML-100K for all four hybrid models. The green band marks the healthy range (\(\pm 0.01\)). Red dots indicate epochs where the gap exceeds the threshold.}}{35}{figure.3.7}%
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Standard preprocessing pipeline applied to both datasets.}}{23}{figure.3.1}%
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Test metrics heatmap on ML-1M (darker cells indicate higher values).}}{29}{figure.3.2}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Test metrics heatmap on ML-100K (darker cells indicate higher values).}}{29}{figure.3.3}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces NDCG@10 by user history length group on ML-1M.}}{30}{figure.3.4}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces NDCG@10 by user history length group on ML-100K.}}{31}{figure.3.5}%
+\setforeignlanguage {english}
+\setforeignlanguage {english}
 \addvspace {10\p@ }
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Three-stage LLM-based pipeline: description $\rightarrow $ embedding $\rightarrow $ recommendation.}}{36}{figure.4.1}%
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces The LLM2Sequential pipeline incorporating seven item description strategies (T1 to T7) for sequential recommendation.}}{37}{figure.4.2}%
+\setforeignlanguage {english}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Certificate of participation for the paper "Dynamic Sequence Modeling via Hybrid GNN-Transformer Architecture for Robust Sequential Recommendation" presented at the 2nd National Conference on Artificial Intelligence and Digital Transition (CAIDT'26), University of Kasdi Merbah, Ouargla, Algeria, April 29–30, 2026.}}{56}{figure.5.1}%
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\setforeignlanguage {english}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Certificate of participation at CAIDT'26, Ouargla, Algeria, April 2026.}}{53}{figure.5.1}%
+\xpginauxfilefalse 

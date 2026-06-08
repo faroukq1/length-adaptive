@@ -4,6 +4,7 @@
 
 # latex
 - In the thesis memoir, the hybrid model "DCH-BERT4Rec" should be renamed to "TCN-BERT4Rec" — they are the same model; replace the name everywhere rather than deleting the data. Confidence: 0.85
+- When drawing TikZ flow diagrams with multiple inputs converging into one node, use direct `--` (diagonal) arrows, not `-|` (orthogonal/square) paths — diagonal arrows look cleaner. Confidence: 0.70
 
 # notebooks
 - Notebooks in this project run on Kaggle — avoid machine-specific absolute paths and use paths relative to the notebook file (e.g., `Path(__file__).parent / "..."`). Confidence: 0.70
