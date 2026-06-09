@@ -207,9 +207,9 @@
 
 \vspace{0.1cm}
 
-% ── Memoir label ────────────────────────────────────────
+% ── thesis label ────────────────────────────────────────
 \begin{center}
-  {\large\bfseries Memoir}\\[1pt]
+  {\large\bfseries Thesis}\\[1pt]
   {\normalsize Presented for the award of the \textbf{Master's Degree}}
 \end{center}
 
@@ -295,12 +295,11 @@ This thesis addresses two open challenges in sequential recommendation systems: 
 \newpage
 \section*{Résumé}
 \vspace{0.5cm}
-
 Ce mémoire aborde deux défis ouverts dans les systèmes de recommandation séquentielle : (1) la fusion adaptative des représentations basées sur les graphes et les séquences pour des utilisateurs aux historiques d'interaction hétérogènes, et (2) l'évaluation systématique des stratégies de description textuelle des items pour la génération d'embeddings par grands modèles de langage (LLM).
 
-\textbf{Première contribution -- Hybrid GNN-Transformer adaptatif à la longueur de l'historique.} Nous proposons une architecture hybride combinant un réseau de neurones graphiques (LightGCN) avec un Transformer (BERT4Rec) via un poids de fusion spécifique à l'utilisateur $\lambda(u)$, dérivé directement de la longueur de l'historique de chaque utilisateur. Ce mécanisme accorde plus de poids aux signaux collaboratifs globaux lorsque l'historique est court, et favorise les motifs séquentiels locaux lorsqu'il est long. Les expériences sur MovieLens-1M et ML-100K montrent que le modèle proposé (\mbox{HybridFixed}) dépasse la ligne de base BERT4Rec de +8,1\% en HR@10, +11,5\% en NDCG@10 et +14,2\% en MRR. Sur ML-100K, TCN-BERT4Rec donne les meilleurs résultats, la performance dépendant du jeu de données. Une étude d'ablation confirme la contribution indépendante des deux branches et l'importance de la fusion adaptative.
+\textbf{Première contribution -- Hybrid GNN-Transformer adaptatif à la longueur de l'historique.} Nous proposons une architecture hybride combinant un réseau de neurones graphiques (LightGCN) avec un Transformer (BERT4Rec) via un poids de fusion spécifique à l'utilisateur $\lambda(u)$, dérivé directement de la longueur de l'historique de chaque utilisateur. Ce mécanisme accorde plus de poids aux signaux collaboratifs globaux lorsque l'historique est court, et favorise les motifs séquentiels locaux lorsqu'il est long. Les expériences sur MovieLens-1M et ML-100K montrent que le modèle proposé (\mbox{HybridFixed}) dépasse la ligne de base BERT4Rec de +8.1\% en HR@10, +11.5\% en NDCG@10 et +14.2\% en MRR. Sur ML-100K, \mbox{TCN-BERT4Rec} donne les meilleurs résultats, la performance dépendant du jeu de données. Une étude d'ablation confirme la contribution indépendante des deux branches et l'importance de la fusion adaptative.
 
-\textbf{Deuxième contribution -- PromptCraft-SeqRec.} Nous concevons et évaluons sept stratégies distinctes de description d'items (allant du simple titre à des descriptions structurées et centrées sur l'utilisateur) pour la recommandation séquentielle enrichie par LLM. En utilisant la pipeline LLM2Sequential avec les embeddings BGE-M3 et SASRec comme système de recommandation, les expériences sur le jeu de données Amazon Beauty révèlent que la stratégie des attributs structurés (T2) améliore le NDCG@10 de +4,76\% par rapport à la baseline du titre seul, tandis que les descriptions en langage naturel (T3) n'apportent aucun gain ($-0,61\%$), démontrant que le format de la description est plus important que sa longueur. L'analyse intrinsèque des embeddings ne montre aucune corrélation directe entre la distance cosinus moyenne et la performance de recommandation.
+\textbf{Deuxième contribution -- PromptCraft-SeqRec.} Nous concevons et évaluons sept stratégies distinctes de description d'items (allant du simple titre à des descriptions structurées et centrées sur l'utilisateur) pour la recommandation séquentielle enrichie par LLM. En utilisant le pipeline LLM2Sequential avec les embeddings BGE-M3 et SASRec comme système de recommandation, les expériences sur le jeu de données Amazon Beauty révèlent que la stratégie des attributs structurés (T2) améliore le NDCG@10 de +4.76\% par rapport à la baseline du titre seul, tandis que les descriptions en langage naturel (T3) n'apportent aucun gain ($-0.61\%$), démontrant que le format de la description est plus important que sa longueur. L'analyse intrinsèque des embeddings ne montre aucune corrélation directe entre la distance cosinus moyenne et la performance de recommandation.
 
 \textbf{Mots-clés :} Recommandation séquentielle, GNN-Transformer, fusion adaptative, modélisation dépendante de la longueur, grands modèles de langage, stratégies de description d'items, ingénierie des prompts, BGE-M3, LLM2Sequential, SASRec, BERT4Rec, LightGCN.
 
@@ -343,8 +342,8 @@ have given me, and for all that you are.
 
 \noindent\textbf{\large To my siblings}
 
-\textbf{Abdel El Kader}, \textbf{Seif El Islam Deneche}, and
-\textbf{Nour El Houda} -- your simple but powerful words, your sincere smiles,
+\textbf{Oussama Safwan Souici}, \textbf{Aymen Kennouche}, \textbf{Mezouari Abdelkader}, \textbf{Deneche Seif El Islam} and
+\textbf{Nezzar Nour El Houda} -- your simple but powerful words, your sincere smiles,
 and your calming presence have meant the world to me. Thank you for being there
 without needing to speak, and for always supporting me.
 
@@ -533,7 +532,7 @@ quality.
 % ── Addressed Research Problems ──────────────────────────────
 \section*{Addressed Research Problems}
 
-This memoir addresses two complementary research problems:
+This thesis addresses two complementary research problems:
 
 \medskip
 \noindent\textbf{Research Problem 1} - \textit{How to dynamically adapt the
@@ -558,10 +557,10 @@ This work presents two main contributions:
   recommendation.
 \end{itemize}
 
-% ── Memoir Organization ──────────────────────────────────────
-\section*{Memoir Organization}
+% ── thesis Organization ──────────────────────────────────────
+\section*{Thesis Organization}
 
-The rest of this memoir is structured as follows:
+The rest of this thesis is structured as follows:
 
 \medskip
 \textbf{Chapter 1} describes the basic concepts and the state-of-the-art
@@ -853,7 +852,7 @@ therefore different recommendation behaviors. For this reason, item text
 design is not a trivial preprocessing step, but an important modeling choice
 that can influence semantic richness, distinctiveness, and downstream
 performance. This observation motivates the empirical study carried out in this
-memoir, where different item description strategies are analyzed in the context
+thesis, where different item description strategies are analyzed in the context
 of sequential recommendation.
 
 \begin{table}[h]
@@ -876,7 +875,7 @@ Hybrid enhancement & LLM + sequential model & Combine textual embeddings with be
 \section{Evaluation Metrics}
 
 \justifying
-To evaluate the performance of sequential recommendation models, this memoir
+To evaluate the performance of sequential recommendation models, this thesis
 uses three standard ranking-based metrics: Hit Ratio at \(K\) (HR@K),
 Normalized Discounted Cumulative Gain at \(K\) (NDCG@K), and Mean Reciprocal
 Rank (MRR). These metrics measure how well the model places the true next item
@@ -974,7 +973,7 @@ properties and downstream effects on recommendation performance. This gap
 motivates our second contribution, which conducts a systematic study of how item
 description design affects LLM embeddings in sequential recommendation.
 
-Together, these two gaps define the positioning of this memoir: the first
+Together, these two gaps define the positioning of this thesis: the first
 contribution addresses the adaptive fusion of structural and sequential signals,
 while the second investigates the semantic role of item text in LLM-based
 sequential recommendation.
@@ -1112,9 +1111,10 @@ user. Figure~\ref{fig:architecture} illustrates the overall architecture.
 
 % CORRECTION: Figure moved from sec:limitations to here (Proposed Solution)
 %             and caption updated to reflect it is the proposed architecture.
+
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1.15\textwidth]{picture/figures/schemas/sparse_dense_comparison.png}
+    \includegraphics[width=\textwidth]{picture/figures/schemas/sparse_dense_comparison.png}
     \caption{Proposed Architecture of the Length-Adaptive Hybrid GNN-Transformer.}
     \label{fig:architecture}
 \end{figure}
@@ -1614,7 +1614,8 @@ Caser     & Sequential & Convolutional filters over sequence-as-image \\
 SASRec    & Sequential & Unidirectional causal self-attention \\
 BERT4Rec  & Sequential & Bidirectional masked item prediction \\
 LightGCN  & Graph      & Pure neighborhood aggregation on bipartite graph \\
-\mbox{HybridFixed}    & Hybrid ablation & Fixed global fusion weight for all users \\
+\mbox{HybridFixed} (Fixed Fusion)    & Hybrid ablation & Fixed global fusion weight for all users \\
+HybridDiscrete (Discrete Fusion) & Hybrid ablation & Length-dependent fusion bins for user groups \\
 TCN-BERT4Rec   & Hybrid ablation & Temporal convolution + BERT4Rec \\
 TGT-BERT4Rec   & Hybrid ablation & Temporal graph encoder + BERT4Rec \\
 \bottomrule
@@ -1643,7 +1644,7 @@ hybrid variants are marked with \(\bullet\). Results are reported at cut-off
   \multicolumn{3}{c}{\textbf{MRR@K}} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
 \textbf{Model} &
-@5 & @10 & @20 & @5 & @10 & @20 & @5 & @10 & @20 \\
+HR@5 & HR@10 & HR@20 & NDCG@5 & NDCG@10 & NDCG@20 & MRR@5 & MRR@10 & MRR@20 \\
 \midrule
 GRU4Rec   & 0.0365 & 0.0708 & 0.1173 & 0.0214 & 0.0324 & 0.0440 & 0.0165 & 0.0210 & 0.0241 \\
 LightGCN  & 0.0121 & 0.0247 & 0.0467 & 0.0065 & 0.0106 & 0.0161 & 0.0047 & 0.0064 & 0.0079 \\
@@ -1672,7 +1673,7 @@ HybridDiscrete\(^\bullet\) & 0.0832 & 0.1427 & 0.2317 & 0.0492 & 0.0682 & 0.0905
   \multicolumn{3}{c}{\textbf{MRR@K}} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
 \textbf{Model} &
-@5 & @10 & @20 & @5 & @10 & @20 & @5 & @10 & @20 \\
+HR@5 & HR@10 & HR@20 & NDCG@5 & NDCG@10 & NDCG@20 & MRR@5 & MRR@10 & MRR@20 \\
 \midrule
 GRU4Rec   & 0.0341 & 0.0650 & 0.1077 & 0.0201 & 0.0302 & 0.0411 & 0.0156 & 0.0198 & 0.0229 \\
 LightGCN  & 0.0320 & 0.0682 & 0.1194 & 0.0196 & 0.0312 & 0.0441 & 0.0155 & 0.0202 & 0.0237 \\
@@ -1751,100 +1752,96 @@ decisive when interaction histories are longer and richer.
 confirming its consistent limitation as a standalone model in sequential
 recommendation regardless of dataset scale.
 
-\subsection{Performance by History Length}
+% Force all previous figures to appear before Summary
+
+\FloatBarrier
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{picture/figures/1m/group_NDCG10_1m.png}
-    % CORRECTION: shortened caption to one explicit line
-    \caption{NDCG@10 by user history length group on ML-1M.}
-    \label{fig:group_ndcg_1m}
+    \includegraphics[width=1\textwidth,height=0.7\textheight,keepaspectratio]
+    {picture/figures/1m/delta_ndcg_overfitting_check_1m.png}
+    \caption{Delta NDCG@10 (Validation−Test) on ML-1M green band healthy range ±0.01 outside potential overfitting.}
+    \label{fig:delta_ndcg_1m}
 \end{figure}
 
 \justifying
-Figure~\ref{fig:group_ndcg_1m} breaks down NDCG@10 on ML-1M by user
-history length. \textbf{TGT-BERT4Rec} achieves the highest NDCG@10 for
-short-history users at \(0.1213\), followed by HybridDiscrete at
-\(0.1132\) and \mbox{HybridFixed} at \(0.1102\), both outperforming the
-BERT4Rec baseline of \(0.1085\) for the same group. This confirms that
-temporal graph signals and length-adaptive fusion are most beneficial
-precisely when sequential evidence is scarce. For medium-history users,
-\textbf{\mbox{HybridFixed}} leads at \(0.0963\), a substantial gain over
-BERT4Rec at \(0.0640\), showing that the adaptive mechanism continues to
-deliver improvements for users with richer histories. Overall NDCG@10
-follows the same ranking: \mbox{HybridFixed} (\(0.0727\)) \(>\) TGT-BERT4Rec
-(\(0.0689\)) \(>\) HybridDiscrete (\(0.0682\)) \(>\) BERT4Rec (\(0.0652\)).
-\textbf{LightGCN} records the lowest values across all groups
-(\(\approx 0.0106\)), while \textbf{GRU4Rec} also remains weak at
-\(0.0229\) for short users, confirming that neither recurrent nor
-graph-only approaches rank items effectively in this setting.
+Figure~\ref{fig:delta_ndcg_1m} illustrates the progression of
+$\Delta$NDCG@10 (Validation NDCG@10 minus Test NDCG@10) throughout
+training for the four hybrid recommendation models on the ML-1M dataset.
+The green shaded area corresponds to the acceptable generalization
+interval ($\pm 0.01$), where validation and test scores remain closely
+matched. Values outside this interval would indicate potential
+overfitting or under-generalization.
+
+All four models exhibit notably smooth and stable curves.
+HybridDiscrete fluctuates mildly around zero and remains entirely within
+the healthy range. HybridFixed also stays within the threshold, showing
+small positive and negative variations without any significant divergence
+between validation and test performance. TCN-BERT4Rec maintains a stable
+pattern centered near zero, with only minor oscillations and no overfitting
+indicators. TGT-BERT4Rec displays a gradual upward trend in later epochs,
+reflecting slightly higher validation scores than test scores, yet all
+values remain comfortably within the $\pm 0.01$ boundary.
+
+Overall, the ML-1M results provide strong evidence of good
+generalization for all models. The absence of threshold violations and
+the consistently small validation--test gaps indicate that the larger
+dataset helps reduce variance and improves training stability, resulting
+in more reliable performance on unseen data.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{picture/figures/100k/group_NDCG10_100k.png}
-    % CORRECTION: shortened caption to one explicit line
-    \caption{NDCG@10 by user history length group on ML-100K.}
-    \label{fig:group_ndcg_100k}
+    \includegraphics[width=1\textwidth,height=0.7\textheight,keepaspectratio]
+    {picture/figures/100k/delta_ndcg_overfitting_check_100k.png}
+    \caption{Delta NDCG@10 (Validation−Test) on ML-100K green band healthy range ±0.01 outside potential overfitting.}
+    \label{fig:delta_ndcg_100k}
 \end{figure}
 
 \justifying
-On ML-100K (Figure~\ref{fig:group_ndcg_100k}), the per-length breakdown
-tells a different story. \textbf{TGT-BERT4Rec} again leads for
-short-history users, while \textbf{TCN-BERT4Rec} is the strongest model
-for medium-history users, consistent with its top overall ranking on
-this dataset. The BERT-Hybrid variants show a more modest advantage over
-BERT4Rec compared to ML-1M, reinforcing the finding that the
-length-adaptive graph fusion is most effective when sequences are long
-enough to make the GNN signal complementary rather than redundant.
-GRU4Rec and LightGCN remain at the bottom across all groups, consistent
-with ML-1M results.
+Figure~\ref{fig:delta_ndcg_100k} presents the evolution of
+$\Delta$NDCG@10 (Validation NDCG@10 minus Test NDCG@10) for the four
+recommendation models trained on the ML-100K dataset. The shaded green
+region ($\pm 0.01$) represents the healthy generalization range, where
+validation and test performance remain closely aligned. Values above
+$+0.01$ indicate potential overfitting; values below $-0.01$ do not
+indicate overfitting (validation simply underperforms test).
+
+Overall, the models exhibit relatively stable behavior, with
+$\Delta$NDCG@10 values oscillating around zero for most epochs.
+HybridDiscrete remains largely within the healthy range, with only a few
+isolated positive spikes slightly above $+0.01$, suggesting mild
+overfitting episodes. TCN-BERT4Rec presents multiple positive peaks above
+$+0.01$, indicating clearer periods where validation performance exceeds
+test performance – a sign of potential overfitting, though these
+deviations are short-lived. HybridFixed shows several negative excursions
+below $-0.01$ near the end of training; this is not overfitting but rather
+occasional instability where validation lags behind test performance.
+TGT-BERT4Rec demonstrates the most stable behavior among the four models,
+with only one significant negative deviation and otherwise remaining close
+to zero.
+
+The analysis suggests that TCN-BERT4Rec and, to a lesser extent,
+HybridDiscrete show isolated signs of overfitting on ML-100K, while
+HybridFixed's negative excursions are not a generalization concern.
+Overall, the relatively small validation--test gaps indicate that
+performance estimates obtained on the validation set remain reasonably
+representative of unseen test data.
 
 \subsection{Summary}
 
 \justifying
 Across both datasets and all evaluation dimensions, the results
-consistently support three conclusions. First, every hybrid variant
-outperforms or matches the BERT4Rec baseline, validating the core
-idea that combining graph and sequential encoders improves
-recommendation quality. Second, the advantage is largest for
-short-history users, directly confirming the length-adaptive
-motivation: when sequential evidence is sparse, the GNN collaborative
-signal provides a meaningful complementary source of information.
-Third, \mbox{HybridFixed} achieves the strongest overall results on ML-1M,
-while TCN-BERT4Rec leads on ML-100K, suggesting that the most
-effective architecture may depend on dataset scale and sequence
-length distribution.
-
-
-\section{Ablation Study}
-\label{sec:ablation}
-
-\justifying
-To isolate the contribution of each architectural component of the proposed
-framework, we conduct an ablation study on ML-1M by systematically removing
-or replacing key components and measuring the resulting performance change.
-Three configurations are compared: (1) pure BERT4Rec with no auxiliary
-encoder, representing the Transformer-only baseline; (2) \mbox{HybridFixed}, which
-adds a GNN encoder with a shared learnable fusion weight \(\lambda(u)\) for all
-users; and (3) HybridDiscrete, which adds a GNN encoder with a user-specific
-length-adaptive fusion weight \(\lambda(u)\). The results are reported in
-Table~\ref{tab:ablation}.
-
-\begin{table}[h]
-\centering
-% CORRECTION: shortened table caption to one explicit line
-\caption{Ablation study on ML-1M (HR@10 / NDCG@10 / MRR@10).}
-\label{tab:ablation}
-\begin{tabular}{p{6.5cm} ccc}
-\toprule
-\textbf{Configuration} & \textbf{HR@10} & \textbf{NDCG@10} & \textbf{MRR@10} \\
-\midrule
-BERT4Rec (no auxiliary encoder)      & 0.1374 & 0.0652 & 0.0437 \\
-+ GNN, fixed \(\lambda(u)\) (\mbox{HybridFixed})           & \textbf{0.1485} & \textbf{0.0727} & \textbf{0.0499} \\
-+ GNN, adaptive \(\lambda(u)\) (HybridDiscrete)  & 0.1427 & 0.0682 & 0.0459 \\
-\bottomrule
-\end{tabular}
-\end{table}
+consistently support three conclusions. First, on ML-1M, all hybrid
+variants outperform BERT4Rec. On ML-100K, TCN-BERT4Rec and
+TGT-BERT4Rec achieve the best performance, confirming that the
+optimal architecture depends on dataset characteristics. Second, the
+advantage is largest for short-history users, directly confirming the
+length-adaptive motivation: when sequential evidence is sparse, the
+GNN collaborative signal provides a meaningful complementary source
+of information. Third, \mbox{HybridFixed} achieves the strongest
+overall results on ML-1M, while TCN-BERT4Rec leads on ML-100K,
+suggesting that the most effective architecture may depend on dataset
+scale and sequence length distribution.
 
 \subsection*{Effect of the GNN Encoder}
 
@@ -1937,7 +1934,7 @@ experiments also showed that the current hand-crafted definition of
 \(\lambda(u)\) leaves room for improvement, especially because a fixed formula
 may not capture every user's optimal balance between structural and sequential
 signals. The next chapter shifts attention to the second contribution of this
-memoir by investigating how item textual description strategies influence the
+thesis by investigating how item textual description strategies influence the
 quality of LLM embeddings in sequential recommendation.
 
 
@@ -1962,7 +1959,7 @@ item is described, and different description strategies may emphasize different
 aspects of the item's identity, such as its category, brand, user preferences,
 or relationships to other items.
 
-This chapter presents the second contribution of this memoir: a systematic
+This chapter presents the second contribution of this thesis: a systematic
 study of item description strategies for LLM embedding generation in sequential
 recommendation. Building on the \texttt{LLM2Sequential} pipeline introduced by
 \citep{boz2025}, we design and evaluate seven distinct prompt strategies that
@@ -1988,7 +1985,7 @@ The LLM2Sequential pipeline refers to the process of converting item metadata
 into textual descriptions, encoding them with a large language model, and using
 the resulting embeddings to initialize a sequential recommender -- first
 introduced by \citep{boz2025}.
-The approach adopted in this memoir bridges the gap between textual item
+The approach adopted in this thesis bridges the gap between textual item
 semantics and sequential recommendation models through a three-stage pipeline,
 building on the framework of \citep{boz2025}. Figure~\ref{fig:llm_seq_pipeline}
 provides an overview of the complete pipeline.
@@ -2284,7 +2281,7 @@ compensate for limited collaborative signal.
 
 \justifying
 We follow the \textbf{leave-one-out} protocol, identical to the one used in
-Contribution~1 of this memoir and consistent with standard practice in
+Contribution~1 of this thesis and consistent with standard practice in
 sequential recommendation research \citep{kang2018sasrec,sun2019bert4rec}. The
 last item in each user's interaction sequence is held out for testing, and the
 second-to-last item is used for validation. All remaining items form the
@@ -2578,7 +2575,7 @@ dataset-adaptive prompt strategies.
 \addcontentsline{toc}{chapter}{General Conclusion and Perspectives}
 
 \justifying
-This memoir addressed two open problems in sequential recommendation systems:
+This thesis addressed two open problems in sequential recommendation systems:
 the adaptive fusion of graph-based and sequence-based representations for users
 with heterogeneous interaction histories, and the systematic evaluation of item
 textual description strategies for LLM embedding generation. The work was
@@ -2658,19 +2655,16 @@ LLM-augmented recommendation systems.
 
 \section*{Conference Papers}
 
-\begin{enumerate}
-  \item \textbf{Farouk Ouled Meriem}, Samira Lagrini, Sarra Benzaid, and Nada Zeraoui.
-    ``Dynamic Sequence Modeling via Hybrid GNN-Transformer Architecture
-    for Robust Sequential Recommendation.''
-    \textit{Proceedings of The 2nd National Conference on Artificial
-    Intelligence and Digital Transition (CAIDT'26)},
-    Kasdi Merbah University, Ouargla, Algeria, April 29--30, 2026.
-\end{enumerate}
+Ouled Meriem, Farouk, Samira Lagrini, Sarra Benzaid, and Nada Zeraoui.
+“Dynamic Sequence Modeling via Hybrid GNN-Transformer Architecture
+for Robust Sequential Recommendation.”
+\textit{Proceedings of The 2nd National Conference on Artificial
+Intelligence and Digital Transition (CAIDT'26)},
+Kasdi Merbah University, Ouargla, Algeria, April 29–30, 2026.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{picture/certificate of participation.png}
-    % CORRECTION: shortened caption to one explicit line
     \caption{Certificate of participation at CAIDT'26, Ouargla, Algeria, April 2026.}
     \label{fig:certificate}
 \end{figure}

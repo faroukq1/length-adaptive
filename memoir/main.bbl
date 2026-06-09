@@ -52,9 +52,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1803.01271}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{arXiv preprint}
       \field{title}{An Empirical Evaluation of Generic Convolutional and Recurrent Networks for Sequence Modeling}
       \field{year}{2018}
+      \verb{eprint}
+      \verb 1803.01271
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/1803.01271
       \endverb
@@ -169,10 +173,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
       \field{journaltitle}{arXiv preprint}
       \field{title}{Recommender Systems: A Primer}
-      \field{volume}{arXiv:2302.02579}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2302.02579
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2302.02579
       \endverb
@@ -231,9 +238,19 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2402.03216}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{arXiv preprint}
       \field{title}{{BGE} {M3}-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2402.03216
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2402.03216
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2402.03216
+      \endverb
     \endentry
     \entry{harper2015movielens}{article}{}
       \name{author}{2}{}{%
@@ -279,7 +296,7 @@
       \verb https://dl.acm.org/doi/10.1145/2827872
       \endverb
     \endentry
-    \entry{harte2023leveraging}{article}{}
+    \entry{harte2023leveraging}{inproceedings}{}
       \name{author}{6}{}{%
         {{un=0,uniquepart=base,hash=df05ac0d9488d1ca518e08cbce80f0da}{%
            family={Harte},
@@ -330,10 +347,18 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
+      \field{booktitle}{Proceedings of the 17th ACM Conference on Recommender Systems (RecSys)}
+      \field{eprinttype}{arXiv}
       \field{title}{Leveraging Large Language Models for Sequential Recommendation}
-      \field{volume}{arXiv:2309.09261}
       \field{year}{2023}
+      \field{pages}{786\bibrangedash 791}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1145/3604915.3610639
+      \endverb
+      \verb{eprint}
+      \verb 2309.09261
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2309.09261
       \endverb
@@ -341,7 +366,7 @@
       \verb https://arxiv.org/abs/2309.09261
       \endverb
     \endentry
-    \entry{he2020lightgcn}{article}{}
+    \entry{he2020lightgcn}{inproceedings}{}
       \name{author}{6}{}{%
         {{un=0,uniquepart=base,hash=cf3f1b6bfe8e9131a8c719c1af0dce5d}{%
            family={He},
@@ -392,10 +417,18 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
+      \field{booktitle}{Proceedings of the 43rd International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR)}
+      \field{eprinttype}{arXiv}
       \field{title}{{LightGCN}: Simplifying and Powering Graph Convolution Network for Recommendation}
-      \field{volume}{arXiv:2002.02126}
       \field{year}{2020}
+      \field{pages}{43\bibrangedash 52}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1145/3397271.3401063
+      \endverb
+      \verb{eprint}
+      \verb 2002.02126
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2002.02126
       \endverb
@@ -442,9 +475,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the International Conference on Learning Representations (ICLR)}
+      \field{booktitle}{International Conference on Learning Representations (ICLR)}
+      \field{eprinttype}{arXiv}
       \field{title}{Session-Based Recommendations with Recurrent Neural Networks}
       \field{year}{2016}
+      \verb{eprint}
+      \verb 1511.06939
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/1511.06939
       \endverb
@@ -479,9 +516,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the IEEE International Conference on Data Mining (ICDM)}
+      \field{booktitle}{IEEE International Conference on Data Mining (ICDM)}
+      \field{eprinttype}{arXiv}
       \field{title}{Self-Attentive Sequential Recommendation}
       \field{year}{2018}
+      \verb{eprint}
+      \verb 1808.09781
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/1808.09781
       \endverb
@@ -576,10 +617,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
       \field{journaltitle}{arXiv preprint}
       \field{title}{Large Language Model Enhanced Recommender Systems: A Survey}
-      \field{volume}{arXiv:2412.13432}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2412.13432
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2412.13432
       \endverb
@@ -637,6 +681,12 @@
       \verb{doi}
       \verb 10.1145/2766462.2767755
       \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/2766462.2767755
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/2766462.2767755
+      \endverb
     \endentry
     \entry{pan2024survey}{article}{}
       \name{author}{5}{}{%
@@ -683,10 +733,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
       \field{journaltitle}{arXiv preprint}
       \field{title}{A Survey on Sequential Recommendation}
-      \field{volume}{arXiv:2412.12770}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2412.12770
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2412.12770
       \endverb
@@ -717,10 +770,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
       \field{journaltitle}{arXiv preprint}
       \field{title}{A Comprehensive Review of Recommender Systems: Transitioning from Theory to Practice}
-      \field{volume}{arXiv:2407.13699}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2407.13699
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2407.13699
       \endverb
@@ -786,8 +842,12 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the ACM International Conference on Information and Knowledge Management (CIKM)}
+      \field{eprinttype}{arXiv}
       \field{title}{{BERT4Rec}: Sequential Recommendation with Bidirectional Encoder Representations from Transformer}
       \field{year}{2019}
+      \verb{eprint}
+      \verb 1904.06690
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/1904.06690
       \endverb
@@ -823,8 +883,12 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the ACM International Conference on Web Search and Data Mining (WSDM)}
+      \field{eprinttype}{arXiv}
       \field{title}{Personalized Top-N Sequential Recommendation via Convolutional Sequence Embedding}
       \field{year}{2018}
+      \verb{eprint}
+      \verb 1809.07426
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/1809.07426
       \endverb
@@ -919,10 +983,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
       \field{journaltitle}{arXiv preprint}
       \field{title}{A Survey on Large Language Models for Recommendation}
-      \field{volume}{arXiv:2305.19860}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2305.19860
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2305.19860
       \endverb
@@ -975,10 +1042,13 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
       \field{journaltitle}{arXiv preprint}
       \field{title}{Graph Neural Networks in Recommender Systems: A Survey}
-      \field{volume}{arXiv:2011.02260}
       \field{year}{2020}
+      \verb{eprint}
+      \verb 2011.02260
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/2011.02260
       \endverb

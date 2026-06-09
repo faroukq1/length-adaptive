@@ -43,24 +43,22 @@
 \contentsline {section}{\numberline {3.6}Main Results Tables}{27}{section.3.6}%
 \contentsline {section}{\numberline {3.7}Experimental Results}{28}{section.3.7}%
 \contentsline {subsection}{\numberline {3.7.1}Overall Test Metrics}{29}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Performance by History Length}{30}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}Summary}{31}{subsection.3.7.3}%
-\contentsline {section}{\numberline {3.8}Ablation Study}{31}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Conclusion}{34}{section.3.9}%
-\contentsline {chapter}{\numberline {4}Item Description Strategies for LLM-Based Sequential Recommendation}{35}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction}{35}{section.4.1}%
-\contentsline {section}{\numberline {4.2}The Three-Stage LLM2Sequential Pipeline: From Item Description to Recommendation Embedding}{36}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Item Description Strategies}{37}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Conclusion}{39}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experiments and Results: PromptCraft-SeqRec}{40}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Introduction}{40}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Dataset and Experimental Setup}{41}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Recommendation Results}{42}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Embedding Quality Analysis}{44}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Comparison with the Published Baseline}{45}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Discussion}{46}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Conclusion}{46}{section.5.7}%
-\contentsline {chapter}{General Conclusion and Perspectives}{48}{chapter*.7}%
-\contentsline {chapter}{Productions Scientifiques}{50}{chapter*.8}%
-\contentsline {chapter}{References}{51}{chapter*.9}%
+\contentsline {subsection}{\numberline {3.7.2}Summary}{34}{subsection.3.7.2}%
+\contentsline {section}{\numberline {3.8}Conclusion}{36}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Item Description Strategies for LLM-Based Sequential Recommendation}{37}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{37}{section.4.1}%
+\contentsline {section}{\numberline {4.2}The Three-Stage LLM2Sequential Pipeline: From Item Description to Recommendation Embedding}{38}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Item Description Strategies}{39}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Conclusion}{41}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experiments and Results: PromptCraft-SeqRec}{42}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Introduction}{42}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Dataset and Experimental Setup}{43}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Recommendation Results}{44}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Embedding Quality Analysis}{46}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Comparison with the Published Baseline}{47}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Discussion}{48}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Conclusion}{48}{section.5.7}%
+\contentsline {chapter}{General Conclusion and Perspectives}{50}{chapter*.7}%
+\contentsline {chapter}{Productions Scientifiques}{52}{chapter*.8}%
+\contentsline {chapter}{References}{53}{chapter*.9}%
 \xpginauxfilefalse 
