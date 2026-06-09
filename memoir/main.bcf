@@ -2368,7 +2368,7 @@
     <bcf:citekey order="4" intorder="1">wu2023survey</bcf:citekey>
     <bcf:citekey order="4" intorder="2">liu2024llmers</bcf:citekey>
     <bcf:citekey order="5" intorder="1">harte2023leveraging</bcf:citekey>
-    <bcf:citekey order="5" intorder="2">llmrec2024</bcf:citekey>
+    <bcf:citekey order="5" intorder="2">liu2024llmers</bcf:citekey>
     <bcf:citekey order="6" intorder="1">boz2025</bcf:citekey>
     <bcf:citekey order="7" intorder="1">castells2023primer</bcf:citekey>
     <bcf:citekey order="8" intorder="1">raza2024comprehensive</bcf:citekey>
@@ -2392,11 +2392,10 @@
     <bcf:citekey order="23" intorder="2">he2020lightgcn</bcf:citekey>
     <bcf:citekey order="24" intorder="1">he2020lightgcn</bcf:citekey>
     <bcf:citekey order="25" intorder="1">harte2023leveraging</bcf:citekey>
-    <bcf:citekey order="25" intorder="2">llmrec2024</bcf:citekey>
+    <bcf:citekey order="25" intorder="2">liu2024llmers</bcf:citekey>
     <bcf:citekey order="25" intorder="3">wu2023survey</bcf:citekey>
-    <bcf:citekey order="25" intorder="4">liu2024llmers</bcf:citekey>
     <bcf:citekey order="26" intorder="1">harte2023leveraging</bcf:citekey>
-    <bcf:citekey order="26" intorder="2">llmrec2024</bcf:citekey>
+    <bcf:citekey order="26" intorder="2">liu2024llmers</bcf:citekey>
     <bcf:citekey order="26" intorder="3">wu2023survey</bcf:citekey>
     <bcf:citekey order="27" intorder="1">liu2024llmers</bcf:citekey>
     <bcf:citekey order="28" intorder="1">kang2018sasrec</bcf:citekey>
@@ -2415,51 +2414,45 @@
     <bcf:citekey order="39" intorder="1">he2020lightgcn</bcf:citekey>
     <bcf:citekey order="40" intorder="1">he2020lightgcn</bcf:citekey>
     <bcf:citekey order="41" intorder="1">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="42" intorder="1">xu2020tgat</bcf:citekey>
-    <bcf:citekey order="43" intorder="1">rossi2020tgn</bcf:citekey>
-    <bcf:citekey order="44" intorder="1">tct2021placeholder</bcf:citekey>
-    <bcf:citekey order="45" intorder="1">bai2018tcn</bcf:citekey>
-    <bcf:citekey order="46" intorder="1">wu2020gnnsurvey</bcf:citekey>
-    <bcf:citekey order="46" intorder="2">pan2024survey</bcf:citekey>
-    <bcf:citekey order="47" intorder="1">he2020lightgcn</bcf:citekey>
-    <bcf:citekey order="48" intorder="1">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="49" intorder="1">he2020lightgcn</bcf:citekey>
-    <bcf:citekey order="50" intorder="1">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="51" intorder="1">harper2015movielens</bcf:citekey>
-    <bcf:citekey order="52" intorder="1">pan2024survey</bcf:citekey>
-    <bcf:citekey order="52" intorder="2">kang2018sasrec</bcf:citekey>
-    <bcf:citekey order="52" intorder="3">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="53" intorder="1">kang2018sasrec</bcf:citekey>
-    <bcf:citekey order="53" intorder="2">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="53" intorder="3">pan2024survey</bcf:citekey>
-    <bcf:citekey order="54" intorder="1">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">bai2018tcn</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">wu2020gnnsurvey</bcf:citekey>
+    <bcf:citekey order="43" intorder="2">pan2024survey</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">he2020lightgcn</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">sun2019bert4rec</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">harper2015movielens</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">pan2024survey</bcf:citekey>
+    <bcf:citekey order="47" intorder="2">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="47" intorder="3">sun2019bert4rec</bcf:citekey>
+    <bcf:citekey order="48" intorder="1">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="48" intorder="2">sun2019bert4rec</bcf:citekey>
+    <bcf:citekey order="48" intorder="3">pan2024survey</bcf:citekey>
+    <bcf:citekey order="49" intorder="1">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="50" intorder="1">he2020lightgcn</bcf:citekey>
+    <bcf:citekey order="51" intorder="1">hidasi2016gru4rec</bcf:citekey>
+    <bcf:citekey order="52" intorder="1">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="53" intorder="1">sun2019bert4rec</bcf:citekey>
+    <bcf:citekey order="54" intorder="1">tang2018caser</bcf:citekey>
     <bcf:citekey order="55" intorder="1">he2020lightgcn</bcf:citekey>
-    <bcf:citekey order="56" intorder="1">hidasi2016gru4rec</bcf:citekey>
-    <bcf:citekey order="57" intorder="1">kang2018sasrec</bcf:citekey>
-    <bcf:citekey order="58" intorder="1">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="59" intorder="1">tang2018caser</bcf:citekey>
-    <bcf:citekey order="60" intorder="1">he2020lightgcn</bcf:citekey>
-    <bcf:citekey order="61" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="56" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="57" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="58" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="59" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="60" intorder="1">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="61" intorder="1">sun2019bert4rec</bcf:citekey>
     <bcf:citekey order="62" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="63" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="63" intorder="1">chen2024bge</bcf:citekey>
     <bcf:citekey order="64" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="65" intorder="1">kang2018sasrec</bcf:citekey>
-    <bcf:citekey order="66" intorder="1">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="67" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="68" intorder="1">chen2024bge</bcf:citekey>
+    <bcf:citekey order="65" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="66" intorder="1">mcauley2015image</bcf:citekey>
+    <bcf:citekey order="67" intorder="1">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="67" intorder="2">sun2019bert4rec</bcf:citekey>
+    <bcf:citekey order="68" intorder="1">kang2018sasrec</bcf:citekey>
+    <bcf:citekey order="68" intorder="2">sun2019bert4rec</bcf:citekey>
     <bcf:citekey order="69" intorder="1">boz2025</bcf:citekey>
     <bcf:citekey order="70" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="71" intorder="1">mcauley2015image</bcf:citekey>
-    <bcf:citekey order="72" intorder="1">kang2018sasrec</bcf:citekey>
-    <bcf:citekey order="72" intorder="2">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="73" intorder="1">kang2018sasrec</bcf:citekey>
-    <bcf:citekey order="73" intorder="2">sun2019bert4rec</bcf:citekey>
-    <bcf:citekey order="74" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="75" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="76" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="77" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="78" intorder="1">boz2025</bcf:citekey>
-    <bcf:citekey order="79" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="71" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="72" intorder="1">boz2025</bcf:citekey>
+    <bcf:citekey order="73" intorder="1">boz2025</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

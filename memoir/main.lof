@@ -5,7 +5,7 @@
 \setforeignlanguage {english}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces User interaction timeline for sequential next-item prediction.}}{6}{figure.1.2}%
 \setforeignlanguage {english}
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Architecture of a Transformer-based sequential model (SASRec/BERT4Rec).}}{8}{figure.1.3}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Architecture of BERT4Rec: a bidirectional Transformer-based sequential model.}}{8}{figure.1.3}%
 \setforeignlanguage {english}
 \setforeignlanguage {english}
 \setforeignlanguage {english}
@@ -48,5 +48,5 @@
 \setforeignlanguage {english}
 \setforeignlanguage {english}
 \setforeignlanguage {english}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Certificate of participation at CAIDT'26, Ouargla, Algeria, April 2026.}}{53}{figure.5.1}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Certificate of participation at CAIDT'26, Ouargla, Algeria, April 2026.}}{50}{figure.5.1}%
 \xpginauxfilefalse 
