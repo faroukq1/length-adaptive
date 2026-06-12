@@ -170,8 +170,13 @@
 
 % ── Arabic header ───────────────────────────────────────
 \begin{center}
-  {\small\bfseries People's Democratic Republic of Algeria}\\[0.5pt]
-  {\small\bfseries Ministry of Higher Education and Scientific Research}
+  {\small\bfseries
+    \begin{otherlanguage}{arabic}
+      \arabicfont
+      الجمهورية الجزائرية الديمقراطية الشعبية\\[0.5pt]
+      وزارة التعليم العالي والبحث العلمي
+    \end{otherlanguage}
+  }
 \end{center}
 
 \vspace{1pt}
@@ -180,15 +185,19 @@
 
 % ── University row ──────────────────────────────────────
 \begin{center}
-\begin{tabular}{p{0.34\linewidth} c p{0.34\linewidth}}
+\begin{tabular}[c]{p{0.34\linewidth} c p{0.34\linewidth}}
   \raggedright
-  {\footnotesize Universit\'e Badji Mokhtar -- Annaba\\
-           Badji Mokhtar -- Annaba University} &
-  \raisebox{-0.4cm}{%
-    \includegraphics[height=1.5cm]{picture/logo/logo.png}} &
+  {\footnotesize Badji Mokhtar -- Annaba University} &
+  \includegraphics[height=1.5cm]{picture/logo/logo.png} &
   \raggedleft
-  {\footnotesize\bfseries Universit\'e Badji Mokhtar\\
-                   -- Annaba --}
+  {\footnotesize\bfseries
+    \begin{otherlanguage}{arabic}
+      \arabicfont
+      جامعة باجي مختار -- عنابـــــــــــــــة
+    \end{otherlanguage}
+  }
+\end{tabular}
+\end{center}
 \end{tabular}
 \end{center}
 
@@ -201,20 +210,20 @@
   {\footnotesize \textbf{Faculty:} Technology}\\[0.5pt]
   {\footnotesize \textbf{Department:} Computer Science}\\[0.5pt]
   {\footnotesize \textbf{Domain:} Mathematics -- Computer Science}\\[0.5pt]
-  {\footnotesize \textbf{Field:} Computer Science}\\[0.5pt]
-  {\footnotesize \textbf{Specialty:} Information Systems and Decision}
+  {\footnotesize \textbf{Sector:} Computer Science}\\[0.5pt]
+  {\footnotesize \textbf{Specialty:} IT Systems and Decision}
 \end{flushleft}
 
 \vspace{0.1cm}
 
 % ── thesis label ────────────────────────────────────────
 \begin{center}
-  {\large\bfseries Thesis}\\[1pt]
-  {\normalsize Presented for the award of the \textbf{Master's Degree}}
+  {\large\bfseries Master’s Thesis}\\[1pt]
+  {\normalsize \textbf{Submitted in partial fulfillment of the requirements for the Master's Degree}}
 \end{center}
 
 \vspace{0.05cm}
-\begin{center}{\large\bfseries Theme}\end{center}
+\begin{center}{\large\bfseries Title}\end{center}
 \vspace{0.05cm}
 
 % ── Title box (more compact) ────────────────────────────
@@ -244,7 +253,7 @@
 % ── Supervisor ──────────────────────────────────────────
 \begin{center}
   \begin{tabular}{lll}
-    \textbf{Supervisor:} & Samira Lagrini \quad & MCA \quad Badji Mokhtar -- Annaba University
+    \textbf{Supervisor by:} & Samira Lagrini \quad & MCA \quad Badji Mokhtar -- Annaba University
   \end{tabular}
 \end{center}
 
@@ -264,44 +273,55 @@
   }
 \end{center}
 
-\vfill  % pushes year to bottom of same page
+\end{titlepage}
 
+% ============================================================
+%  ACADEMIC YEAR PAGE (top) + WATERMARK (center) - SEPARATE PAGE
+% ============================================================
+\newpage
+\thispagestyle{empty}
+
+% ── Watermark FIRST (so it renders behind text) ─────────────
+\begin{tikzpicture}[remember picture, overlay]
+  \node[opacity=0.07] at (current page.center)
+    {\includegraphics[width=0.68\paperwidth]{picture/logo/logo.png}};
+\end{tikzpicture}
+
+% ── University Year at top ───────────────────────────────────
 \begin{center}
+  \vspace{2cm}
   {\normalsize\bfseries University Year: 2025/2026}
 \end{center}
 
-\end{titlepage}
-
-
-
 % ============================================================
-%  ABSTRACT
+%  PAGE 3 - DEDICATIONS
 % ============================================================
 \newpage
-\section*{Abstract}
-\vspace{0.5cm}
+\chapter*{Dedications}
+\addcontentsline{toc}{chapter}{Dedications}
 
-This thesis addresses two open challenges in sequential recommendation systems: (1) the adaptive fusion of graph-based and sequence-based representations for users with heterogeneous interaction histories, and (2) the systematic evaluation of item textual description strategies for Large Language Model (LLM) embedding generation.
+\begin{center}
+  \itshape\large
+  First and foremost, all praise and thanks are due to \textbf{Allah}, the Most Gracious, the Most Merciful, for granting me the strength, patience, and guidance to complete this work. Alhamdulillah.\\[12pt]
 
+  To my beloved parents,\\[6pt]
+  for every sacrifice they made and for their unwavering support throughout my journey.\\[12pt]
 
+  To my supervisor, Madame Samira Lagrini,\\[6pt]
+  for your thoughtful guidance, your wise advice, and your trust in me. Thanks to you, I have grown both intellectually and personally. Your support has been invaluable.\\[12pt]
 
+  To my family and friends,\\[6pt]
+  for their constant encouragement and support.\\[12pt]
 
-\textbf{First contribution -- Length-Adaptive Hybrid GNN-Transformer.} We propose a hybrid architecture that combines a Graph Neural Network (LightGCN) with a Transformer (BERT4Rec) through a user-specific fusion weight $\lambda(u)$, derived directly from the length of each user's interaction history. This mechanism gives more weight to global collaborative signals when the user history is short, and favours local sequential patterns when the history is long. Experiments on MovieLens-1M and ML-100K show that the proposed model \mbox{\mbox{HybridFixed}} outperforms the BERT4Rec baseline by +8.1\% in HR@10, +11.5\% in NDCG@10, and +14.2\% in MRR. On ML-100K, the improvements are dataset-dependent, with TCN-BERT4Rec emerging as the strongest variant. An ablation study confirms the independent contribution of both branches and the importance of the adaptive fusion design.
+  To my dear friends outside the university,\\[6pt]
+  for your sincere friendship, your laughter, and your unwavering presence in my life. You are a true blessing.\\[12pt]
 
-\textbf{Second contribution -- PromptCraft-SeqRec.} We design and evaluate seven distinct item description strategies (ranging from title-only to rich structured and user-centric prompts) for LLM-enhanced sequential recommendation. Using the LLM2Sequential pipeline with BGE-M3 embeddings and SASRec as the recommender, experiments on the Amazon Beauty dataset reveal that the structured attributes strategy (T2) improves NDCG@10 by +4.76\% over the title-only baseline, while rich prose (T3) shows no gain ($-0.61\%$), demonstrating that description format matters more than length. Intrinsic embedding analysis shows no direct correlation between average pairwise distance and recommendation performance.
+  To the entire SID cohort (2024--2026),\\[6pt]
+  for the unforgettable journey, the shared efforts, and the wonderful memories. You made this experience truly unique.\\[18pt]
 
-\textbf{Keywords:} Sequential Recommendation, GNN-Transformer, Adaptive Fusion, Length-Aware Modeling, Large Language Models, Item Description Strategies, Prompt Engineering, BGE-M3, LLM2Sequential, SASRec, BERT4Rec, LightGCN.
+  \upshape\normalsize\textbf{Farouk Ouled Meriem}
+\end{center}
 
-\newpage
-\section*{Résumé}
-\vspace{0.5cm}
-Ce mémoire aborde deux défis ouverts dans les systèmes de recommandation séquentielle : (1) la fusion adaptative des représentations basées sur les graphes et les séquences pour des utilisateurs aux historiques d'interaction hétérogènes, et (2) l'évaluation systématique des stratégies de description textuelle des items pour la génération d'embeddings par grands modèles de langage (LLM).
-
-\textbf{Première contribution -- Hybrid GNN-Transformer adaptatif à la longueur de l'historique.} Nous proposons une architecture hybride combinant un réseau de neurones graphiques (LightGCN) avec un Transformer (BERT4Rec) via un poids de fusion spécifique à l'utilisateur $\lambda(u)$, dérivé directement de la longueur de l'historique de chaque utilisateur. Ce mécanisme accorde plus de poids aux signaux collaboratifs globaux lorsque l'historique est court, et favorise les motifs séquentiels locaux lorsqu'il est long. Les expériences sur MovieLens-1M et ML-100K montrent que le modèle proposé (\mbox{HybridFixed}) dépasse la ligne de base BERT4Rec de +8.1\% en HR@10, +11.5\% en NDCG@10 et +14.2\% en MRR. Sur ML-100K, \mbox{TCN-BERT4Rec} donne les meilleurs résultats, la performance dépendant du jeu de données. Une étude d'ablation confirme la contribution indépendante des deux branches et l'importance de la fusion adaptative.
-
-\textbf{Deuxième contribution -- PromptCraft-SeqRec.} Nous concevons et évaluons sept stratégies distinctes de description d'items (allant du simple titre à des descriptions structurées et centrées sur l'utilisateur) pour la recommandation séquentielle enrichie par LLM. En utilisant le pipeline LLM2Sequential avec les embeddings BGE-M3 et SASRec comme système de recommandation, les expériences sur le jeu de données Amazon Beauty révèlent que la stratégie des attributs structurés (T2) améliore le NDCG@10 de +4.76\% par rapport à la baseline du titre seul, tandis que les descriptions en langage naturel (T3) n'apportent aucun gain ($-0.61\%$), démontrant que le format de la description est plus important que sa longueur. L'analyse intrinsèque des embeddings ne montre aucune corrélation directe entre la distance cosinus moyenne et la performance de recommandation.
-
-\textbf{Mots-clés :} Recommandation séquentielle, GNN-Transformer, fusion adaptative, modélisation dépendante de la longueur, grands modèles de langage, stratégies de description d'items, ingénierie des prompts, BGE-M3, LLM2Sequential, SASRec, BERT4Rec, LightGCN.
 
 % ============================================================
 %  PAGE 2 - ACKNOWLEDGEMENTS
@@ -334,18 +354,29 @@ been my foundation. Through your proud gaze and your reassuring silence, you
 taught me perseverance, dignity, and respect. You are my pillar, my compass,
 my root.
 
+\textbf{My sisters Sara and Amina, and my brother Fateh} -- your kindness, your laughter, your strength, and your unwavering support have been a true gift. Thank you for always being there for me and for always having my back.
+
 This thesis is far more than an academic achievement: it is the fruit of your
 love, your sacrifices, and your constant presence. Thank you for all that you
 have given me, and for all that you are.
 
-\vspace{0.5cm}
+\vspace{0.3cm}
+
+\noindent\textbf{\large To my supervisor, Madame Samira Lagrini}
+
+Thank you for your thoughtful guidance, your wise advice, and your trust in me.
+You were incredibly patient with me throughout this journey, always taking the
+time to listen, explain, and guide me whenever I faced difficulties.
+Thanks to you, I have grown both intellectually and personally. Your support
+has been invaluable.
+
+\vspace{0.3cm}
 
 \noindent\textbf{\large To my siblings}
 
-\textbf{Oussama Safwan Souici}, \textbf{Aymen Kennouche}, \textbf{Mezouari Abdelkader}, \textbf{Deneche Seif El Islam} and
-\textbf{Nezzar Nour El Houda} -- your simple but powerful words, your sincere smiles,
-and your calming presence have meant the world to me. Thank you for being there
-without needing to speak, and for always supporting me.
+\textbf{Oussama Safwan Souici}, \textbf{Aymen Kennouche}, \textbf{Mezouari Abdelkader}, \textbf{Deneche Seif El Islam},
+\textbf{Nezzar Nour El Houda}, \textbf{Necib Chahd} and \textbf{Saadi Nada} --
+Thank you for every moment of support, for every helping hand, and for always being by my side when I needed you most. Your presence and encouragement have meant everything to me.
 
 \vspace{0.5cm}
 
@@ -353,14 +384,6 @@ without needing to speak, and for always supporting me.
 
 Thank you for your kind words, your caring silences, your spontaneous laughter,
 and your positive energy. Your friendship has been a precious gift.
-
-\vspace{0.5cm}
-
-\noindent\textbf{\large To my supervisor, Madame Samira Lagrini}
-
-Thank you for your thoughtful guidance, your wise advice, and your trust in me.
-Thanks to you, I have grown both intellectually and personally. Your support
-has been invaluable.
 
 \vspace{0.5cm}
 
@@ -388,38 +411,90 @@ also carries the imprint of each of you.
 
 
 % ============================================================
-%  PAGE 3 - DEDICATIONS
+%  ABSTRACT
 % ============================================================
 \newpage
-\chapter*{Dedications}
-\addcontentsline{toc}{chapter}{Dedications}
+\section*{Abstract}
+\vspace{0.5cm}
 
-\vspace{2cm}
+Recommendation systems have become an essential part of our digital experience, helping
+users discover relevant content across platforms ranging from streaming services to e-
+commerce. Yet despite significant progress, two important challenges remain: how to
+intelligently combine different sources of information about user behavior, and how to best
+describe items to modern AI language models so that they generate more meaningful
+representations. This thesis addresses both challenges through two original contributions.
 
-\begin{center}
-  \itshape\large
-  First and foremost, all praise and thanks are due to \textbf{Allah}, the Most Gracious, the Most Merciful, for granting me the strength, patience, and guidance to complete this work. Alhamdulillah.\\[24pt]
+The first contribution proposes a recommendation model that adapts itself to each user based
+on how much interaction history they have accumulated. The core idea is straightforward: a
+user who has rated only a handful of items should be treated differently from one who has
+been actively engaging with a platform for years. By automatically adjusting the balance
+between general popularity signals and personal behavioral patterns, the proposed model
+provides more relevant recommendations for all types of users. Experiments conducted on
+two well-known movie rating datasets confirm that this adaptive strategy consistently
+outperforms existing approaches, with notable improvements across all evaluation metrics.
 
-  To my beloved parents,\\[8pt]
-  for every sacrifice they made and for their unwavering support throughout my journey.\\[24pt]
+The second contribution investigates a question that is often overlooked in the
+recommendation literature: when we ask an AI language model to understand an item, does
+the way we phrase its description actually matter? To answer this, seven different ways of
+describing items were designed and tested, ranging from a simple title to richly detailed and
+user-oriented descriptions. The results are both clear and surprising: a well-structured and
+concise description consistently outperforms longer, more elaborate ones. This finding
+suggests that clarity and structure are more valuable than sheer descriptive richness when
+working with language models.
 
-  To my family and friends,\\[8pt]
-  for their constant encouragement and support.\\[24pt]
+Taken together, these two contributions offer a more flexible and informed approach to
+sequential recommendation, one that better accounts for user diversity and the untapped
+potential of how we communicate item information to AI systems.
 
-  To my dear friends outside the university,\\[8pt]
-  for your sincere friendship, your laughter, and your unwavering presence in my life. You are a true blessing.\\[24pt]
+\vspace{0.5cm}
+\textbf{Keywords:} Sequential Recommendation, GNN-Transformer, Adaptive Fusion, Length-Aware Modeling, Large Language Models, Item Description Strategies, Prompt Engineering, BGE-M3, LLM2Sequential, SASRec, BERT4Rec, LightGCN.
 
-  To the entire SID cohort (2024--2026),\\[8pt]
-  for the unforgettable journey, the shared efforts, and the wonderful memories. You made this experience truly unique.\\[24pt]
+\newpage
+\section*{Résumé}
+\vspace{0.5cm}
 
-  \upshape\normalsize\textbf{Farouk Ouled Meriem}
-\end{center}
+Les systèmes de recommandation sont devenus une composante essentielle de notre
+expérience numérique, aidant les utilisateurs à découvrir des contenus pertinents sur des
+plateformes allant des services de streaming au commerce en ligne. Pourtant, malgré des
+avancées significatives, deux défis importants demeurent : comment combiner intelligemment
+différentes sources d'information sur le comportement des utilisateurs, et comment décrire au
+mieux les éléments aux modèles de langage modernes afin qu'ils génèrent des représentations
+plus pertinentes. Cette thèse aborde ces deux défis à travers deux contributions originales.
 
+La première contribution propose un modèle de recommandation qui s'adapte à chaque
+utilisateur en fonction de la quantité d'historique d'interactions qu'il a accumulée. L'idée
+centrale est simple : un utilisateur qui n'a évalué qu'une poignée d'éléments doit être traité
+différemment de celui qui interagit activement avec une plateforme depuis des années. En
+ajustant automatiquement l'équilibre entre les signaux de popularité générale et les
+comportements personnels, le modèle proposé fournit des recommandations plus pertinentes
+pour tous les types d'utilisateurs. Des expériences menées sur deux jeux de données bien
+connus d'évaluation de films confirment que cette stratégie adaptative surpasse
+systématiquement les approches existantes, avec des améliorations notables sur l'ensemble
+des métriques d'évaluation.
+
+La deuxième contribution examine une question souvent négligée dans la littérature sur la
+recommandation : lorsque nous demandons à un modèle de langage de comprendre un
+élément, la façon dont nous formulons sa description a-t-elle vraiment de l'importance ? Pour
+répondre à cette question, sept manières différentes de décrire les éléments ont été conçues et
+testées, allant d'un simple titre à des descriptions riches et orientées utilisateur. Les résultats
+sont à la fois clairs et surprenants : une description bien structurée et concise surpasse
+systématiquement les descriptions plus longues et plus élaborées. Ce constat suggère que la
+clarté et la structure ont plus de valeur que la richesse descriptive lorsqu'on travaille avec
+des modèles de langage.
+
+Ces deux contributions offrent une approche plus flexible et mieux informée de la
+recommandation séquentielle, tenant mieux compte de la diversité des utilisateurs et du
+potentiel inexploité de la façon dont nous communiquons les informations sur les éléments
+aux systèmes d'intelligence artificielle.
+
+\vspace{0.5cm}
+\textbf{Mots-clés :} Recommandation séquentielle, GNN-Transformer, fusion adaptative, modélisation dépendante de la longueur, grands modèles de langage, stratégies de description d'items, ingénierie des prompts, BGE-M3, LLM2Sequential, SASRec, BERT4Rec, LightGCN.
 
 % ============================================================
 %  TABLE OF CONTENTS, LIST OF FIGURES, LIST OF TABLES
 % ============================================================
 \newpage
+\renewcommand{\contentsname}{Table of Contents}
 \tableofcontents
 \newpage
 \listoffigures
@@ -2597,9 +2672,11 @@ The experimental evaluation on MovieLens-100K and MovieLens-1M demonstrated
 that the proposed hybrid variants consistently outperform strong sequential and
 graph-based baselines. \mbox{HybridFixed} achieved improvements of \(+8.1\%\) in
 HR@10, \(+11.5\%\) in NDCG@10, and \(+14.2\%\) in MRR over the BERT4Rec
-baseline on ML-1M. On ML-100K, TCN-BERT4Rec achieved the best performance, confirming that the most effective architecture depends on dataset scale and sequence length distribution. The per-bucket analysis confirmed that the adaptive fusion
-mechanism provides targeted gains for short-history users, who are
-systematically underserved by Transformer-only models. The ablation study
+baseline on ML-1M. On ML-100K, TCN-BERT4Rec achieved the best performance,
+confirming that the most effective architecture depends on dataset scale and
+sequence length distribution. The per-bucket analysis confirmed that the
+adaptive fusion mechanism provides targeted gains for short-history users, who
+are systematically underserved by Transformer-only models. The ablation study
 further confirmed that both the GNN branch and the Transformer branch
 contribute independently to performance, and that the fusion strategy itself is
 a critical design choice.
@@ -2622,27 +2699,46 @@ of item descriptions is as important as their \emph{content}. These findings
 provide the first evidence-based guideline for selecting item description
 strategies in LLM-based recommendation systems.
 
-\textbf{Limitations.} For Contribution 1, the length-adaptive fusion mechanism
-relies on hand-crafted thresholds and discrete binning, which may not capture
-every user's optimal balance between graph and sequence signals. For
-Contribution 2, the experiments were conducted on a single dataset (Amazon
-Beauty) and a single recommendation model (SASRec). The generalizability of
-the findings to other domains with different metadata profiles remains an open
-question.
+\textbf{Bridging the Two Contributions.}
+Although presented separately, the two contributions are complementary.
+The adaptive fusion mechanism (Contribution 1) dynamically balances global
+graph signals and local sequential patterns based on user history length.
+Meanwhile, the PromptCraft strategies (Contribution 2) improve the semantic
+richness of item representations, which could further enhance the GNN
+collaborative signal for sparse users. Exploring how semantically enriched
+embeddings interact with user-adaptive fusion remains a promising direction
+for future research.
 
-\textbf{Future Directions.} First, extending the adaptive fusion mechanism to a
-fully learnable, continuous function could further improve performance across
-heterogeneous user populations. Second, evaluating the PromptCraft strategies
-on additional datasets (Steam, MovieLens, Delivery Hero) would establish the
-extent to which findings generalize across domains. Third, exploring
-dataset-adaptive prompt selection could make the PromptCraft framework practical
-for real-world deployment without manual strategy tuning. Fourth, investigating
-the interaction between prompt strategy and the choice of embedding model could
-reveal whether certain strategies benefit more from larger or differently-trained
-embedding models. Finally, extending the PromptCraft methodology to other
-recommendation paradigms beyond sequential recommendation would broaden the
-impact of the finding that item description design is a first-class choice in
-LLM-augmented recommendation systems.
+\textbf{Limitations.}
+For Contribution 1, the length-adaptive fusion mechanism relies on hand-crafted
+thresholds and discrete binning, which may not capture every user's optimal
+balance between graph and sequence signals. For Contribution 2, the experiments
+were conducted on a single dataset (Amazon Beauty) and a single recommendation
+model (SASRec). The generalizability of the findings to other domains with
+different metadata profiles remains an open question.
+
+\textbf{Future Directions.}
+First, extending the adaptive fusion mechanism to a fully learnable, continuous
+function could further improve performance across heterogeneous user populations.
+Second, evaluating the PromptCraft strategies on additional datasets (Steam,
+MovieLens, Delivery Hero) would establish the extent to which findings generalize
+across domains. Third, exploring dataset-adaptive prompt selection could make the
+PromptCraft framework practical for real-world deployment without manual
+strategy tuning. Fourth, investigating the interaction between prompt strategy
+and the choice of embedding model could reveal whether certain strategies benefit
+more from larger or differently-trained embedding models. Fifth, extending the
+PromptCraft methodology to other recommendation paradigms beyond sequential
+recommendation would broaden the impact of the finding that item description
+design is a first-class choice in LLM-augmented recommendation systems.
+
+\textbf{Final Take-Home Message.}
+This thesis demonstrates that personalizing hybrid architectures based on user
+history length and carefully designing item textual descriptions both yield
+significant, practical improvements in sequential recommendation. The proposed
+models are not only empirically effective but also conceptually simple, making
+them suitable for real-world deployment. We hope these contributions inspire
+further research toward more adaptive and semantically aware recommendation
+systems.
 
 
 

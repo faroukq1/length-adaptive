@@ -1,8 +1,14 @@
 \xpginauxfiletrue 
 \selectlanguage *{english}
-\contentsline {chapter}{Acknowledgements}{iii}{chapter*.1}%
-\contentsline {chapter}{Dedications}{v}{chapter*.2}%
-\contentsline {chapter}{List of Abbreviations}{xi}{chapter*.5}%
+\selectlanguage *{arabic}
+\selectlanguage *{english}
+\selectlanguage *[variant=us,ordinalmonthday=false]{english}
+\selectlanguage *{arabic}
+\selectlanguage *{english}
+\selectlanguage *[variant=us,ordinalmonthday=false]{english}
+\contentsline {chapter}{Dedications}{ii}{chapter*.1}%
+\contentsline {chapter}{Acknowledgements}{iii}{chapter*.2}%
+\contentsline {chapter}{List of Abbreviations}{xii}{chapter*.5}%
 \contentsline {chapter}{General Introduction}{1}{chapter*.6}%
 \contentsline {chapter}{\numberline {1}Foundations and State of the Art}{4}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Introduction to Recommendation Systems}{4}{section.1.1}%
@@ -59,6 +65,6 @@
 \contentsline {section}{\numberline {5.6}Discussion}{48}{section.5.6}%
 \contentsline {section}{\numberline {5.7}Conclusion}{48}{section.5.7}%
 \contentsline {chapter}{General Conclusion and Perspectives}{50}{chapter*.7}%
-\contentsline {chapter}{Productions Scientifiques}{52}{chapter*.8}%
-\contentsline {chapter}{References}{53}{chapter*.9}%
+\contentsline {chapter}{Productions Scientifiques}{53}{chapter*.8}%
+\contentsline {chapter}{References}{54}{chapter*.9}%
 \xpginauxfilefalse 
