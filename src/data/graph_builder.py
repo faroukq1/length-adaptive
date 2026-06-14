@@ -161,6 +161,8 @@ class CooccurrenceGraphBuilder:
             }
         }
 
+        import os
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(output_path, 'wb') as f:
             pickle.dump(graph_data, f)
 
