@@ -12,6 +12,19 @@ PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
 # Change to project root
 cd "$PROJECT_ROOT"
 
+# ── Dataset selection via env var ──
+DATASET="${DATASET:-1m}"  # default to 1m
+if [ "$DATASET" = "100k" ]; then
+    DATA_PATH="data/100k/ml-100k/processed/sequences.pkl"
+    GRAPH_PATH="data/100k/graphs/cooccurrence_graph.pkl"
+elif [ "$DATASET" = "1m" ]; then
+    DATA_PATH="data/1m/ml-1m/processed/sequences.pkl"
+    GRAPH_PATH="data/1m/graphs/cooccurrence_graph.pkl"
+else
+    echo "Unknown dataset: $DATASET"
+    exit 1
+fi
+
 echo "========================================"
 echo "PAPER-LEVEL EXPERIMENTS - BASELINES"
 echo "========================================"
@@ -61,6 +74,8 @@ python -m experiments.run_experiment \
     --d_model $D_MODEL \
     --n_heads $N_HEADS \
     --n_blocks $N_BLOCKS \
+    --data_path $DATA_PATH \
+    --graph_path $GRAPH_PATH \
     --max_len $MAX_LEN
 
 echo ""
@@ -78,6 +93,8 @@ python -m experiments.run_experiment \
     --d_model $D_MODEL \
     --n_heads $N_HEADS \
     --n_blocks $N_BLOCKS \
+    --data_path $DATA_PATH \
+    --graph_path $GRAPH_PATH \
     --max_len $MAX_LEN
 
 echo ""
@@ -94,6 +111,8 @@ python -m experiments.run_experiment \
     --lr $LR \
     --d_model $D_MODEL \
     --n_blocks $N_BLOCKS \
+    --data_path $DATA_PATH \
+    --graph_path $GRAPH_PATH \
     --max_len $MAX_LEN
 
 echo ""
@@ -110,6 +129,8 @@ python -m experiments.run_experiment \
     --lr $LR \
     --d_model $D_MODEL \
     --gnn_layers $GNN_LAYERS \
+    --data_path $DATA_PATH \
+    --graph_path $GRAPH_PATH \
     --max_len $MAX_LEN
 
 echo ""
@@ -125,6 +146,8 @@ python -m experiments.run_experiment \
     --batch_size $BATCH_SIZE \
     --lr $LR \
     --d_model $D_MODEL \
+    --data_path $DATA_PATH \
+    --graph_path $GRAPH_PATH \
     --max_len $MAX_LEN
 
 echo ""
