@@ -15,8 +15,8 @@ cd "$PROJECT_ROOT"
 # ── Dataset selection via env var ──
 DATASET="${DATASET:-1m}"  # default to 1m
 if [ "$DATASET" = "100k" ]; then
-    DATA_PATH="data/100k/ml-100k/processed/sequences.pkl"
-    GRAPH_PATH="data/100k/graphs/cooccurrence_graph.pkl"
+    DATA_PATH="data/ml-100k/processed/sequences.pkl"
+    GRAPH_PATH="data/ml-100k/graphs/cooccurrence_graph.pkl"
 elif [ "$DATASET" = "1m" ]; then
     DATA_PATH="data/1m/ml-1m/processed/sequences.pkl"
     GRAPH_PATH="data/1m/graphs/cooccurrence_graph.pkl"
