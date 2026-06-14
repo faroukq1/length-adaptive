@@ -24,7 +24,6 @@ from src.models.bert4rec import BERT4Rec
 from src.models.gru4rec import GRU4Rec
 from src.models.lightgcn_seq import LightGCNSeq
 from src.models.caser import Caser
-from src.models.hybrid import HybridSASRecGNN
 from src.models.bert4rec_hybrid import HybridBERT4RecGNN
 from src.data.dataloader import get_dataloaders
 from src.train.trainer import Trainer
@@ -82,24 +81,6 @@ def create_model(model_type, num_items, args):
             num_layers=args.gnn_layers,
             dropout=args.dropout,
             max_len=args.max_len
-        )
-    
-    elif model_type in ['hybrid_fixed', 'hybrid_discrete', 'hybrid_learnable', 'hybrid_continuous']:
-        fusion_type = model_type.replace('hybrid_', '')
-        
-        model = HybridSASRecGNN(
-            num_items=num_items,
-            d_model=args.d_model,
-            n_heads=args.n_heads,
-            n_blocks=args.n_blocks,
-            d_ff=args.d_ff,
-            max_len=args.max_len,
-            gnn_layers=args.gnn_layers,
-            dropout=args.dropout,
-            fusion_type=fusion_type,
-            fixed_alpha=args.fixed_alpha,
-            L_short=args.L_short,
-            L_long=args.L_long
         )
     
     elif model_type in ['bert_hybrid_fixed', 'bert_hybrid_discrete', 'bert_hybrid_learnable', 'bert_hybrid_continuous']:
@@ -261,10 +242,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run sequential recommendation experiment')
     
     # Model selection
-    parser.add_argument('--model', type=str, default='hybrid_discrete',
+    parser.add_argument('--model', type=str, default='bert4rec',
                        choices=['sasrec', 'bert4rec', 'gru4rec', 'lightgcn', 'caser',
-                               'hybrid_fixed', 'hybrid_discrete', 
-                               'hybrid_learnable', 'hybrid_continuous',
                                'bert_hybrid_fixed', 'bert_hybrid_discrete',
                                'bert_hybrid_learnable', 'bert_hybrid_continuous'],
                        help='Model type to train')
