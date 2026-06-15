@@ -48,7 +48,7 @@ echo ""
 mkdir -p results
 
 # Paper-level parameters
-EPOCHS=200
+EPOCHS=1
 PATIENCE=20
 BATCH_SIZE=256
 LR=0.001
